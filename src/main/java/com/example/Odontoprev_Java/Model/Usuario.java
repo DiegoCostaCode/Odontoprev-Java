@@ -1,7 +1,6 @@
 package com.example.Odontoprev_Java.Model;
 
 import jakarta.persistence.*;
-import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "CH_USUARIO")
@@ -9,14 +8,17 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "NOME")
+    @Column(name = "CH_NOME")
     private String nome;
-    @Column(name = "CPF")
+    @Column(name = "CH_CPF")
     private String cpf;
-    @Column(name = "EMAIL")
+    @Column(name = "CH_EMAIL")
     private String email;
-    @Column(name = "TELEFONE")
+    @Column(name = "CH_TELEFONE")
     private String telefone;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "Id")
+    private Carteirinha carteirinha;
 
     public Long getId() {
         return id;
@@ -56,5 +58,13 @@ public class Usuario {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public Carteirinha getCarteirinha() {
+        return carteirinha;
+    }
+
+    public void setCarteirinha(Carteirinha carteirinha) {
+        this.carteirinha = carteirinha;
     }
 }
