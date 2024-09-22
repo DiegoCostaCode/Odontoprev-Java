@@ -1,6 +1,7 @@
 package com.example.Odontoprev_Java.DTO;
 
 import com.example.Odontoprev_Java.Model.Carteirinha;
+import com.example.Odontoprev_Java.Model.Endereco;
 import com.example.Odontoprev_Java.Model.Servicos;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +23,8 @@ public record UsuarioResponseDto(
         String  cpf,
         String email,
         String telefone,
-        Carteirinha carteirinha
+        Carteirinha carteirinha,
+        Endereco endereco
 ) {
 
 

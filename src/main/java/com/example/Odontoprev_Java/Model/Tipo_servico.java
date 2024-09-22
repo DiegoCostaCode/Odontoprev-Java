@@ -1,5 +1,6 @@
 package com.example.Odontoprev_Java.Model;
 
+import com.example.Odontoprev_Java.Model.Enums.Enum_tipo_servico;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,7 +11,7 @@ public class Tipo_servico {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TIPO_SERVICO")
-    private Enum_Tipo_servico tipoServico;
+    private Enum_tipo_servico tipoServico;
 
     public Long getId() {
         return id;
@@ -20,11 +21,11 @@ public class Tipo_servico {
         this.id = id;
     }
 
-    public Enum_Tipo_servico getTipoServico() {
+    public Enum_tipo_servico getTipoServico() {
         return tipoServico;
     }
 
-    public void setTipoServico(Enum_Tipo_servico tipoServico) {
+    public void setTipoServico(Enum_tipo_servico tipoServico) {
         this.tipoServico = tipoServico;
     }
 }

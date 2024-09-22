@@ -19,6 +19,7 @@ public class UsuarioMapper {
         usuario.setCpf(usuarioRequestDto.cpf());
         usuario.setTelefone(usuarioRequestDto.telefone());
         usuario.setCarteirinha(usuarioRequestDto.carteirinha());
+        usuario.setEndereco(usuarioRequestDto.endereco());
         return usuario;
     }
 
@@ -30,7 +31,8 @@ public class UsuarioMapper {
                 usuario.getCpf(),
                 usuario.getEmail(),
                 usuario.getTelefone(),
-                usuario.getCarteirinha()
+                usuario.getCarteirinha(),
+                usuario.getEndereco()
         );
     }
 

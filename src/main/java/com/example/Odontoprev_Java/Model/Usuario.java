@@ -17,8 +17,19 @@ public class Usuario {
     @Column(name = "CH_TELEFONE")
     private String telefone;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "Id")
+    @JoinColumn(name = "Id_carteirinha")
     private Carteirinha carteirinha;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "endereco_id")
+    private Endereco endereco;
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 
     public Long getId() {
         return id;

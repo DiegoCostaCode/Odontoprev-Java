@@ -1,6 +1,6 @@
-package com.example.Odontoprev_Java.Model;
+package com.example.Odontoprev_Java.Model.Enums;
 
-public enum Enum_Tipo_servico {
+public enum Enum_tipo_servico {
     ROLANS("Rol ANS."),
     LIMPEZA("Limpeza."),
     EXTRACAODESISO("Extração de Siso."),
@@ -15,7 +15,7 @@ public enum Enum_Tipo_servico {
 
     private String descricao;
 
-    Enum_Tipo_servico(String descricao) {this.descricao = descricao;}
+    Enum_tipo_servico(String descricao) {this.descricao = descricao;}
 
     @Override
     public String toString() {return descricao;}
