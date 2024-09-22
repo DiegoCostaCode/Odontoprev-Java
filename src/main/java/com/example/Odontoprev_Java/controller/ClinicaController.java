@@ -1,13 +1,13 @@
 package com.example.Odontoprev_Java.controller;
 
+import com.example.Odontoprev_Java.DTO.ClinicaRequestDTO;
+import com.example.Odontoprev_Java.DTO.ClinicaResponseDTO;
 import com.example.Odontoprev_Java.DTO.PlanoRequestDTO;
 import com.example.Odontoprev_Java.DTO.PlanoResponseDTO;
-import com.example.Odontoprev_Java.DTO.UsuarioRequestDto;
-import com.example.Odontoprev_Java.DTO.UsuarioResponseDto;
+import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Plano;
-import com.example.Odontoprev_Java.Model.Usuario;
-import com.example.Odontoprev_Java.Repository.PlanoRepository;
-import com.example.Odontoprev_Java.service.PlanoMapper;
+import com.example.Odontoprev_Java.Repository.ClinicaRepository;
+import com.example.Odontoprev_Java.service.ClinicaMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,28 +27,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/plano", produces = {"aplication/json"})
-@Tag(name = "api-planos")
-public class PlanoController {
+@RequestMapping(value = "/clinica", produces = {"aplication/json"})
+@Tag(name = "api-clinicas")
+public class ClinicaController {
 
     @Autowired
-    private PlanoRepository planoRepository;
+    private ClinicaRepository clinicaRepository;
     @Autowired(required = true)
-    private PlanoMapper planoMapper;
+    private ClinicaMapper clinicaMapper;
 
-    Pageable paginacao = PageRequest.of(0, 2, Sort.by("nome").descending());
+    Pageable paginacao = PageRequest.of(0, 2, Sort.by("servico").descending());
 
-    @Operation(summary = "Registra um plano")
+    @Operation(summary = "Registra clínicas")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Plano registrado com sucesso!"),
+            @ApiResponse(responseCode = "201", description = "Clínica registrada com sucesso!"),
             @ApiResponse(responseCode = "400", description = "Atributos informados são inválidos", content =  @Content(schema = @Schema()))
     })
     @PostMapping
-    public ResponseEntity<PlanoResponseDTO> createUsuario(@Valid @RequestBody PlanoRequestDTO planoRequest)
+    public ResponseEntity<ClinicaResponseDTO> createClinica(@Valid @RequestBody ClinicaRequestDTO clinicaRequestDTO)
     {
-        Plano planoConvertida = planoMapper.requestRecordToPlano(planoRequest);
-        Plano planoCriada = planoRepository.save(planoConvertida);
-        PlanoResponseDTO planoResponseDTO = planoMapper.planoToResponseDto(planoCriada);
-        return new ResponseEntity<>(planoResponseDTO, HttpStatus.CREATED);
+        Clinica clinicaConvertida = clinicaMapper.requestRecordToClinica(clinicaRequestDTO);
+        Clinica clinicaCriada = clinicaRepository.save(clinicaConvertida);
+        ClinicaResponseDTO clinicaResponseDTO = clinicaMapper.clinicaToResponseDto(clinicaCriada);
+        return new ResponseEntity<>(clinicaResponseDTO, HttpStatus.CREATED);
     }
 }

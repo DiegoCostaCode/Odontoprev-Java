@@ -16,9 +16,7 @@ public class PlanoMapper {
     {
         Plano plano = new Plano();
 
-        plano.setNome(planoRequestDto.nome());
         plano.setServicos(planoRequestDto.servicos());
-        plano.setPreco(planoRequestDto.preco());
         return plano;
     }
 
@@ -26,9 +24,7 @@ public class PlanoMapper {
     {
         return new PlanoResponseDTO(
                 plano.getId(),
-                plano.getNome(),
-                plano.getServicos(),
-                plano.getPreco()
+                plano.getServicos()
         );
     }
 }

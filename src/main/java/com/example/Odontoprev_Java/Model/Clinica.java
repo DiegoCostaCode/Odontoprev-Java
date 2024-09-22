@@ -1,5 +1,7 @@
 package com.example.Odontoprev_Java.Model;
 
+import com.example.Odontoprev_Java.Model.Enums.Enum_tipo_plano;
+import com.example.Odontoprev_Java.Model.Enums.Enum_tipo_servico;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -14,31 +16,33 @@ public class Clinica {
     private long id;
     @Column(name = "RAZAO_SOCIAL")
     private String razaoSocial;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "SERVICOS_ID")
-    private List<Servicos> servicos = new ArrayList<>();
+    @ElementCollection(targetClass = Enum_tipo_servico.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "clinica_servicos", joinColumns = @JoinColumn(name = "clinica_id"))
+    @Column(name = "servicos")
+    private List<Enum_tipo_servico> servicos = new ArrayList<>();
     @Column(name = "EMAIL_REPRESENTANTE")
     private String emailRepresentante;
     @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JoinColumn(name = "ENDERECO_ID")
     private Endereco endereco;
-    @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "doutor_clinica",
-            joinColumns = @JoinColumn(name = "servico_id"),
-            inverseJoinColumns = @JoinColumn(name = "doutor_id")
+            name = "clinica_doutor", // Nome da tabela de junção
+            joinColumns = @JoinColumn(name = "clinica_id"), // Coluna da tabela 'Clinica'
+            inverseJoinColumns = @JoinColumn(name = "doutor_id") // Coluna da tabela 'Doutor'
     )
-    private Set<Doutor> doutores;
+    private List<Doutor> doutores;
 
     public long getId() {
         return id;
     }
 
-    public Set<Doutor> getDoutores() {
+    public List<Doutor> getDoutores() {
         return doutores;
     }
 
-    public void setDoutores(Set<Doutor> doutores) {
+    public void setDoutores(List<Doutor> doutores) {
         this.doutores = doutores;
     }
 
@@ -54,11 +58,11 @@ public class Clinica {
         this.razaoSocial = razaoSocial;
     }
 
-    public List<Servicos> getServicos() {
+    public List<Enum_tipo_servico> getServicos() {
         return servicos;
     }
 
-    public void setServicos(List<Servicos> servicos) {
+    public void setServicos(List<Enum_tipo_servico> servicos) {
         this.servicos = servicos;
     }
 

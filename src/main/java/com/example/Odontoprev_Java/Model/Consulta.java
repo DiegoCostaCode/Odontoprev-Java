@@ -1,10 +1,12 @@
 package com.example.Odontoprev_Java.Model;
 
+import com.example.Odontoprev_Java.Model.Enums.Enum_tipo_servico;
 import jakarta.persistence.*;
 import org.hibernate.mapping.Join;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "CH_CONSULTA")
@@ -16,9 +18,11 @@ public class Consulta {
     @Column(name = "AGENDAMENTO_CONSULTA")
     private LocalDate agendamento;
 
-    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "SERVICO_ID")
-    private Servicos servico;
+    @ElementCollection(targetClass = Enum_tipo_servico.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "clinica_servicos", joinColumns = @JoinColumn(name = "clinica_id"))
+    @Column(name = "SERVICOS_ID")
+    private List<Enum_tipo_servico> servico;
 
     @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "USUARIO_ID")
@@ -51,11 +55,11 @@ public class Consulta {
         this.agendamento = agendamento;
     }
 
-    public Servicos getServico() {
+    public List<Enum_tipo_servico> getServico() {
         return servico;
     }
 
-    public void setServico(Servicos servico) {
+    public void setServico(List<Enum_tipo_servico> servico) {
         this.servico = servico;
     }
 

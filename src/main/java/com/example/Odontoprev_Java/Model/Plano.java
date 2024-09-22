@@ -1,5 +1,7 @@
 package com.example.Odontoprev_Java.Model;
 
+import com.example.Odontoprev_Java.Model.Enums.Enum_tipo_plano;
+import com.example.Odontoprev_Java.Model.Enums.Enum_tipo_servico;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -12,13 +14,12 @@ public class Plano {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "CH_NOME")
-    private String nome;
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @JoinColumn(name = "servicos_id")
-    private List<Servicos> servicos = new ArrayList<>();
-    @Column(name = "PRECO")
-    private double preco;
+
+    @ElementCollection(targetClass = Enum_tipo_plano.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "CH_PLANO_SERVIÇOS", joinColumns = @JoinColumn(name = "plano_id"))
+    @Column(name = "servicos")
+    private List<Enum_tipo_plano> servicos = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -28,27 +29,11 @@ public class Plano {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public List<Servicos> getServicos() {
+    public List<Enum_tipo_plano> getServicos() {
         return servicos;
     }
 
-    public void setServicos(List<Servicos> servicos) {
+    public void setServicos(List<Enum_tipo_plano> servicos) {
         this.servicos = servicos;
-    }
-
-    public double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
     }
 }

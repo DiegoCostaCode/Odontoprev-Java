@@ -23,9 +23,6 @@ public class Doutor {
     private Date nascimento;
     @Column(name = "TELEFONE")
     private String telefone;
-    @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "doutor_clinica_id")
-    private List<Clinica> clinicas;
 
     public long getId() {
         return id;
@@ -83,11 +80,5 @@ public class Doutor {
         this.telefone = telefone;
     }
 
-    public List<Clinica> getClinicas() {
-        return clinicas;
-    }
 
-    public void setClinicas(List<Clinica> clinicas) {
-        this.clinicas = clinicas;
-    }
 }
