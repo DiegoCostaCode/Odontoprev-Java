@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ClinicaMapper {
-    //Record para Plano
+
     public Clinica requestRecordToClinica(ClinicaRequestDTO clinicaRequestDto)
     {
         Clinica clinica = new Clinica();
@@ -19,7 +19,6 @@ public class ClinicaMapper {
         clinica.setServicos(clinicaRequestDto.servicos());
         clinica.setEmailRepresentante(clinicaRequestDto.emailRepresentante());
         clinica.setEndereco(clinicaRequestDto.endereco());
-        clinica.setDoutores(clinicaRequestDto.doutores());
         return clinica;
     }
 

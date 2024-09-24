@@ -2,6 +2,8 @@ package com.example.Odontoprev_Java.Model;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "CH_USUARIO")
 public class Usuario {
@@ -10,21 +12,31 @@ public class Usuario {
     private Long id;
     @Column(name = "CH_NOME")
     private String nome;
+    @Column(name = "CH_DATA_NASCIMENTO")
+    private Date dataNascimento;
     @Column(name = "CH_CPF")
     private String cpf;
     @Column(name = "CH_EMAIL")
     private String email;
     @Column(name = "CH_TELEFONE")
     private String telefone;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Id_carteirinha")
     private Carteirinha carteirinha;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
     public Endereco getEndereco() {
         return endereco;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public void setEndereco(Endereco endereco) {

@@ -6,6 +6,8 @@ import jakarta.validation.constraints.*;
 import org.aspectj.weaver.ast.Not;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.util.Date;
+
 public record UsuarioRequestDto(
 
         @NotBlank
@@ -13,8 +15,9 @@ public record UsuarioRequestDto(
         String nome,
         @NotBlank
         @CPF(message="CPF inválido")
-         String cpf,
-        @NotBlank
+        String cpf,
+        @NotNull
+        Date dataNascimento,
         @Email(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}",message="E-mail inválido")
          String email,
         @NotBlank

@@ -23,10 +23,10 @@ public class Clinica {
     private List<Enum_tipo_servico> servicos = new ArrayList<>();
     @Column(name = "EMAIL_REPRESENTANTE")
     private String emailRepresentante;
-    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "ENDERECO_ID")
     private Endereco endereco;
-    @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "clinica_doutor", // Nome da tabela de junção
             joinColumns = @JoinColumn(name = "clinica_id"), // Coluna da tabela 'Clinica'

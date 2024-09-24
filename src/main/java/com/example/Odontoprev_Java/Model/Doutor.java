@@ -15,17 +15,36 @@ public class Doutor {
     private String nome;
     @Column(name = "CPF")
     private String cpf;
+    @Column(name = "CH_DATA_NASCIMENTO")
+    private Date dataNascimento;
     @Column(name = "CRO")
     private String cro;
     @Column(name = "E-MAIL")
     private String email;
-    @Column(name = "NASCIMENTO")
-    private Date nascimento;
     @Column(name = "TELEFONE")
     private String telefone;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ENDERECO_ID")
+    private Endereco endereco;
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 
     public long getId() {
         return id;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public void setId(long id) {
@@ -62,14 +81,6 @@ public class Doutor {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Date getNascimento() {
-        return nascimento;
-    }
-
-    public void setNascimento(Date nascimento) {
-        this.nascimento = nascimento;
     }
 
     public String getTelefone() {

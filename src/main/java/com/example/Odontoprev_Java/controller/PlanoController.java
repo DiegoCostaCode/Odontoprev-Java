@@ -36,7 +36,6 @@ public class PlanoController {
     @Autowired(required = true)
     private PlanoMapper planoMapper;
 
-    Pageable paginacao = PageRequest.of(0, 2, Sort.by("nome").descending());
 
     @Operation(summary = "Registra um plano")
     @ApiResponses(value = {
@@ -44,9 +43,9 @@ public class PlanoController {
             @ApiResponse(responseCode = "400", description = "Atributos informados são inválidos", content =  @Content(schema = @Schema()))
     })
     @PostMapping
-    public ResponseEntity<PlanoResponseDTO> createUsuario(@Valid @RequestBody PlanoRequestDTO planoRequest)
+    public ResponseEntity<PlanoResponseDTO> createUsuario(@Valid @RequestBody PlanoRequestDTO planoRequestDTO)
     {
-        Plano planoConvertida = planoMapper.requestRecordToPlano(planoRequest);
+        Plano planoConvertida = planoMapper.requestRecordToPlano(planoRequestDTO);
         Plano planoCriada = planoRepository.save(planoConvertida);
         PlanoResponseDTO planoResponseDTO = planoMapper.planoToResponseDto(planoCriada);
         return new ResponseEntity<>(planoResponseDTO, HttpStatus.CREATED);
