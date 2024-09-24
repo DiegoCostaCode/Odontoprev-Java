@@ -15,7 +15,7 @@ public class Consulta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "AGENDAMENTO_CONSULTA")
+    @Column(name = "DATA")
     private LocalDate agendamento;
 
     @ElementCollection(targetClass = Enum_tipo_servico.class)

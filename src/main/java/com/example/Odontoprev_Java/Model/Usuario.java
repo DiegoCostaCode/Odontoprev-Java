@@ -2,7 +2,9 @@ package com.example.Odontoprev_Java.Model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "CH_USUARIO")
@@ -26,9 +28,20 @@ public class Usuario {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "historico_consultas")
+    private List<Consulta> consultas = new ArrayList<>();
 
     public Endereco getEndereco() {
         return endereco;
+    }
+
+    public List<Consulta> getConsultas() {
+        return consultas;
+    }
+
+    public void setConsultas(List<Consulta> consultas) {
+        this.consultas = consultas;
     }
 
     public Date getDataNascimento() {

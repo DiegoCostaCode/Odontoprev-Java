@@ -32,7 +32,8 @@ public class UsuarioMapper {
                 usuario.getEmail(),
                 usuario.getTelefone(),
                 usuario.getCarteirinha(),
-                usuario.getEndereco()
+                usuario.getEndereco(),
+                usuario.getConsultas()
         );
     }
 
