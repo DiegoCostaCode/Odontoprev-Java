@@ -16,7 +16,6 @@ public class ClinicaMapper {
         Clinica clinica = new Clinica();
 
         clinica.setRazaoSocial(clinicaRequestDto.razaoSocial());
-        clinica.setServicos(clinicaRequestDto.servicos());
         clinica.setEmailRepresentante(clinicaRequestDto.emailRepresentante());
         clinica.setEndereco(clinicaRequestDto.endereco());
         return clinica;

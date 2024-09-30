@@ -34,8 +34,6 @@ public class UsuarioController {
     @Autowired(required = true)
     private UsuarioMapper usuarioMapper;
 
-    Pageable paginacao = PageRequest.of(0, 2, Sort.by("nome").descending());
-
     @Operation(summary = "Cria o usuário")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Usuário registrado com sucesso!"),

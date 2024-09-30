@@ -14,8 +14,6 @@ public record ClinicaRequestDTO
         (
                 @NotBlank
                 String razaoSocial,
-                @NotNull
-                List<Enum_tipo_servico> servicos,
                 @NotBlank
                 String emailRepresentante,
                 @NotBlank

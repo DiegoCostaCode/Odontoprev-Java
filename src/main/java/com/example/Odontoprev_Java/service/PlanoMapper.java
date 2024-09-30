@@ -16,7 +16,7 @@ public class PlanoMapper {
     {
         Plano plano = new Plano();
 
-        plano.setServicos(planoRequestDto.servicos());
+        plano.setServicos(planoRequestDto.Plano());
         return plano;
     }
 

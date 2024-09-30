@@ -8,14 +8,7 @@ import java.util.List;
 
 public record UsuarioResponseDto(
         Long id,
-        String nome,
-        String  cpf,
-        String email,
-        String telefone,
-        Carteirinha carteirinha,
-        Endereco endereco,
-        List<Consulta> consultas
+        String nome
 ) {
-
 
 }

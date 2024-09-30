@@ -9,7 +9,7 @@ import java.util.List;
 public record PlanoRequestDTO (
 
     @NotBlank
-     List<Enum_tipo_plano> servicos
+     List<Enum_tipo_plano> Plano
 
     ){
 }

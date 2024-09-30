@@ -32,8 +32,6 @@ public class Clinica {
             joinColumns = @JoinColumn(name = "clinica_id"), // Coluna da tabela 'Clinica'
             inverseJoinColumns = @JoinColumn(name = "doutor_id") // Coluna da tabela 'Doutor'
     )
-
-
     private List<Doutor> doutores;
 
     public long getId() {

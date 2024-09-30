@@ -15,11 +15,7 @@ public class UsuarioMapper {
         Usuario usuario = new Usuario();
 
         usuario.setNome(usuarioRequestDto.nome());
-        usuario.setEmail(usuarioRequestDto.email());
-        usuario.setCpf(usuarioRequestDto.cpf());
-        usuario.setTelefone(usuarioRequestDto.telefone());
-        usuario.setCarteirinha(usuarioRequestDto.carteirinha());
-        usuario.setEndereco(usuarioRequestDto.endereco());
+
         return usuario;
     }
 
@@ -27,13 +23,8 @@ public class UsuarioMapper {
     {
         return new UsuarioResponseDto(
                 usuario.getId(),
-                usuario.getNome(),
-                usuario.getCpf(),
-                usuario.getEmail(),
-                usuario.getTelefone(),
-                usuario.getCarteirinha(),
-                usuario.getEndereco(),
-                usuario.getConsultas()
+                usuario.getNome()
+
         );
     }
 

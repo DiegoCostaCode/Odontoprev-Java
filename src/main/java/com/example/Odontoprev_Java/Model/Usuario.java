@@ -15,7 +15,7 @@ public class Usuario {
     @Column(name = "CH_NOME")
     private String nome;
     @Column(name = "CH_DATA_NASCIMENTO")
-    private Date dataNascimento;
+    private String dataNascimento;
     @Column(name = "CH_CPF")
     private String cpf;
     @Column(name = "CH_EMAIL")
@@ -23,13 +23,13 @@ public class Usuario {
     @Column(name = "CH_TELEFONE")
     private String telefone;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "Id_carteirinha")
+    @JoinColumn(name = "CARTEIRINHA_ID")
     private Carteirinha carteirinha;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "endereco_id")
+    @JoinColumn(name = "ENDERECO_ID")
     private Endereco endereco;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @JoinColumn(name = "historico_consultas")
+    @JoinColumn(name = "HISTORICO_CONSULTAS")
     private List<Consulta> consultas = new ArrayList<>();
 
     public Endereco getEndereco() {
@@ -44,11 +44,11 @@ public class Usuario {
         this.consultas = consultas;
     }
 
-    public Date getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
