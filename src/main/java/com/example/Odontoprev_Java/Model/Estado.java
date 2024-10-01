@@ -11,7 +11,7 @@ public class Estado {
     private long id;
     @Column(name = "ESTADO")
     private Enum_estado estado;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "Estado_pais_id")
     private Pais pais;
 

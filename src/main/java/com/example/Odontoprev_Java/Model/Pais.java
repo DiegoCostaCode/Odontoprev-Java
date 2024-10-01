@@ -25,6 +25,6 @@ public class Pais {
     }
 
     public void setPais(Enum_paises pais) {
-        this.pais = pais;
+        this.pais = this.pais;
     }
 }

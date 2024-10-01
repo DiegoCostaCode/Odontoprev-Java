@@ -18,7 +18,7 @@ public class Endereco {
     @Column(name = "CEP")
     private String cep;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "ENDERECO_BAIRRO")
     private Bairro bairro;
 
@@ -55,7 +55,7 @@ public class Endereco {
     }
 
     public Bairro getBairro() {
-        return bairro;
+        return this.bairro;
     }
 
     public void setBairro(Bairro bairro) {

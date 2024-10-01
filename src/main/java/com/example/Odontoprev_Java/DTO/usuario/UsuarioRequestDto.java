@@ -1,11 +1,13 @@
-package com.example.Odontoprev_Java.DTO;
+package com.example.Odontoprev_Java.DTO.usuario;
 
 import com.example.Odontoprev_Java.Model.Carteirinha;
 import com.example.Odontoprev_Java.Model.Endereco;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
-import org.aspectj.weaver.ast.Not;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public record UsuarioRequestDto(
@@ -17,16 +19,14 @@ public record UsuarioRequestDto(
         @CPF(message="CPF inválido")
         String cpf,
         @NotNull
-        Date dataNascimento,
+        @Past(message = "A data de nascimento deve ser no passado.")
+        @DateTimeFormat(pattern = "dd/MM/yyyy")
+        LocalDate dataNascimento,
         @Email(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}",message="E-mail inválido")
          String email,
         @NotBlank
         @Pattern(
-        regexp = "\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{4})/",
+        regexp = "(?:^\\([0]?[1-9]{2}\\)|^[0]?[1-9]{2}[\\.'-'\\s]?)[9]?[1-9]\\d{3}[\\.'-'\\s]?\\d{4}$",
         message = "Insira um telefone válido!")
-        String telefone,
-        @NotBlank
-        Carteirinha carteirinha,
-        @NotBlank
-        Endereco endereco
+        String telefone
 ){ }

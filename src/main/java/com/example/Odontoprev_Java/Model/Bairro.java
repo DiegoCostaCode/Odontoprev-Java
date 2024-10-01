@@ -12,7 +12,7 @@ public class Bairro {
     @Column(name = "BAIRRO")
     private String Bairro;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "Bairro_cidade")
     private Cidade Cidade;
 

@@ -10,7 +10,7 @@ public class Cidade{
     private long id;
     @Column(name = "CIDADE")
     private String cidade;
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "Estado_cidade_id")
     private Estado estado;
 
