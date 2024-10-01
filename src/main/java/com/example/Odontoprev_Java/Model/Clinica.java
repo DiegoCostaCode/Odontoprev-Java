@@ -14,25 +14,28 @@ public class Clinica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(name = "RAZAO_SOCIAL")
     private String razaoSocial;
+
     @ElementCollection(targetClass = Enum_tipo_servico.class)
+    @CollectionTable(name = "usuario_servicos", joinColumns = @JoinColumn(name = "clinica_id"))
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "clinica_servicos", joinColumns = @JoinColumn(name = "clinica_id"))
-    @Column(name = "servicos")
     private List<Enum_tipo_servico> servicos = new ArrayList<>();
+
     @Column(name = "EMAIL_REPRESENTANTE")
     private String emailRepresentante;
-    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ENDERECO_ID")
     private Endereco endereco;
+
     @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "clinica_doutor", // Nome da tabela de junção
             joinColumns = @JoinColumn(name = "clinica_id"), // Coluna da tabela 'Clinica'
             inverseJoinColumns = @JoinColumn(name = "doutor_id") // Coluna da tabela 'Doutor'
     )
-
 
     private List<Doutor> doutores;
 

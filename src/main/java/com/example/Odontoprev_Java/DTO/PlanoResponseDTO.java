@@ -7,6 +7,6 @@ import java.util.List;
 
 public record PlanoResponseDTO(
         Long id,
-        List<Enum_tipo_plano> servicos
+        Enum_tipo_plano tipo_plano
 ){
 }

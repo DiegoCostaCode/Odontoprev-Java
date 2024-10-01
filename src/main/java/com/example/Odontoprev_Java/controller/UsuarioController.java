@@ -1,12 +1,10 @@
 package com.example.Odontoprev_Java.controller;
 
-import com.example.Odontoprev_Java.DTO.endereco.BairroResponseDTO;
 import com.example.Odontoprev_Java.DTO.endereco.EnderecoRequestDTO;
 import com.example.Odontoprev_Java.DTO.usuario.UsuarioRequestDto;
 import com.example.Odontoprev_Java.DTO.usuario.UsuarioResponseDto;
 import com.example.Odontoprev_Java.Model.*;
 import com.example.Odontoprev_Java.Repository.*;
-import com.example.Odontoprev_Java.service.BairroMapper;
 import com.example.Odontoprev_Java.service.UsuarioMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,9 +14,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -38,18 +34,6 @@ public class UsuarioController {
     @Autowired(required = true)
     private UsuarioMapper usuarioMapper;
 
-
-    Pageable paginacao = PageRequest.of(0, 2, Sort.by("nome").descending());
-    @Autowired
-    private BairroRepository bairroRepository;
-    @Autowired
-    private EnderecoRepository enderecoRepository;
-    @Autowired
-    private EstadoRepository estadoRepository;
-    @Autowired
-    private PaisRepository paisRepository;
-    @Autowired
-    private CidadeRepository cidadeRepository;
 
     @Operation(summary = "Cria o usuário")
     @ApiResponses(value = {
@@ -65,62 +49,55 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioResponseDto, HttpStatus.CREATED);
     }
 
+
     @PutMapping(value = "/{usuarioId}/endereco", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Adiciona um endereço ao usuário existente")
+    @Operation(summary = "Adiciona endereco a um usuario existente")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Endereço adicionado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
+            @ApiResponse(responseCode = "200", description = "Endereo adicionado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Usuario não encontrado"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos")
     })
     public ResponseEntity<UsuarioResponseDto> addEnderecoToUsuario(
             @PathVariable Long usuarioId,
             @RequestBody EnderecoRequestDTO enderecoRequestDTO) {
 
-        // Buscar o usuário pelo ID
+        // Verificar se o usuário existe
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
 
-        // Mapear o Endereço
+        // Mapear EnderecoRequestDTO para a entidade Endereco
         Endereco endereco = new Endereco();
         endereco.setRua(enderecoRequestDTO.rua());
         endereco.setNumero(enderecoRequestDTO.numero());
         endereco.setCep(enderecoRequestDTO.cep());
+        endereco.setBairro(enderecoRequestDTO.bairro());
+        endereco.setCidade(enderecoRequestDTO.cidade());
+        endereco.setEstado(enderecoRequestDTO.estado());
+        endereco.setPais(enderecoRequestDTO.pais());
 
-        // Mapear o Bairro
-        Bairro bairro = new Bairro();
-        bairro.setBairro(enderecoRequestDTO.bairro().getBairro());
-
-        // Mapear a Cidade
-        Cidade cidade = new Cidade();
-        cidade.setCidade(enderecoRequestDTO.bairro().getCidade().getCidade());
-
-        // Mapear o Estado
-        Estado estado = new Estado();
-        estado.setEstado(enderecoRequestDTO.bairro().getCidade().getEstado().getEstado());
-
-        // Mapear o País
-        Pais pais = new Pais();
-        pais.setPais(enderecoRequestDTO.bairro().getCidade().getEstado().getPais().getPais());
-
-        // Relacionar as entidades
-        estado.setPais(pais); // Relacionar Estado com País
-        cidade.setEstado(estado); // Relacionar Cidade com Estado
-        bairro.setCidade(cidade); // Relacionar Bairro com Cidade
-        endereco.setBairro(bairro); // Relacionar Endereço com Bairro
-
-        // Relacionar o endereço ao usuário
+        // Adicionar o endereço ao usuário
         usuario.setEndereco(endereco);
 
-        // Salvar o usuário (cascade = CascadeType.ALL fará o resto)
+        // Salvar o usuário com o novo endereço
         usuarioRepository.save(usuario);
 
+        // Mapear o usuário salvo para o DTO de resposta
+        UsuarioResponseDto usuarioResponse = usuarioMapper.usuarioToResponseDto(usuario);
 
-        // Mapear a resposta para o DTO
-        UsuarioResponseDto usuarioResponseDto = usuarioMapper.usuarioToResponseDto(usuario);
-
-        return new ResponseEntity<>(usuarioResponseDto, HttpStatus.OK);
+        // Retornar o usuário atualizado
+        return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
     }
 
 
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UsuarioResponseDto> readUsuario(@PathVariable Long id) {
+        Optional<Usuario> usuarioReserva = usuarioRepository.findById(id);
+        if (usuarioReserva.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        UsuarioResponseDto usuarioResponse = usuarioMapper.usuarioToResponseDto(usuarioReserva.get());
+
+        return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
+    }
 }
 

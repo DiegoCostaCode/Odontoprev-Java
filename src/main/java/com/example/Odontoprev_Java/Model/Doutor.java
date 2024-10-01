@@ -23,7 +23,8 @@ public class Doutor {
     private String email;
     @Column(name = "TELEFONE")
     private String telefone;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ENDERECO_ID")
     private Endereco endereco;
 

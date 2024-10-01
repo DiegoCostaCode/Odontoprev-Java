@@ -26,7 +26,7 @@ public class Usuario {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "CARTEIRINHA_ID")
     private Carteirinha carteirinha;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ENDERECO_ID")
     private Endereco endereco;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)

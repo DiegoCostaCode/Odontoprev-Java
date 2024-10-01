@@ -1,5 +1,7 @@
 package com.example.Odontoprev_Java.Model;
 
+import com.example.Odontoprev_Java.Model.Enums.Enum_estado;
+import com.example.Odontoprev_Java.Model.Enums.Enum_paises;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,9 +20,17 @@ public class Endereco {
     @Column(name = "CEP")
     private String cep;
 
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name = "ENDERECO_BAIRRO")
-    private Bairro bairro;
+    @Column(name = "BAIRRO")
+    private String bairro;
+
+    @Column(name = "CIDADE")
+    private String cidade;
+
+    @Column(name = "ESTADO")
+    private Enum_estado estado;
+
+    @Column(name = "PAIS")
+    private Enum_paises pais;
 
     public long getId() {
         return id;
@@ -54,11 +64,35 @@ public class Endereco {
         this.cep = cep;
     }
 
-    public Bairro getBairro() {
-        return this.bairro;
+    public String getBairro() {
+        return bairro;
     }
 
-    public void setBairro(Bairro bairro) {
+    public void setBairro(String bairro) {
         this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public Enum_estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Enum_estado estado) {
+        this.estado = estado;
+    }
+
+    public Enum_paises getPais() {
+        return pais;
+    }
+
+    public void setPais(Enum_paises pais) {
+        this.pais = pais;
     }
 }

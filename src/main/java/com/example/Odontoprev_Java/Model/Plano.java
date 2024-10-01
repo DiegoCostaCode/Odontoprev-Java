@@ -15,11 +15,9 @@ public class Plano {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ElementCollection(targetClass = Enum_tipo_plano.class)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "CH_PLANO_SERVIÇOS", joinColumns = @JoinColumn(name = "plano_id"))
-    @Column(name = "servicos")
-    private List<Enum_tipo_plano> servicos = new ArrayList<>();
+    @Column(name = "TIPO_PLANO")
+    private Enum_tipo_plano tipo_plano;
 
     public Long getId() {
         return id;
@@ -29,11 +27,11 @@ public class Plano {
         this.id = id;
     }
 
-    public List<Enum_tipo_plano> getServicos() {
-        return servicos;
+    public Enum_tipo_plano getTipo_plano() {
+        return tipo_plano;
     }
 
-    public void setServicos(List<Enum_tipo_plano> servicos) {
-        this.servicos = servicos;
+    public void setTipo_plano(Enum_tipo_plano tipo_plano) {
+        this.tipo_plano = tipo_plano;
     }
 }

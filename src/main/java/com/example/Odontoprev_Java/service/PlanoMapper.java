@@ -13,7 +13,7 @@ public class PlanoMapper {
     {
         Plano plano = new Plano();
 
-        plano.setServicos(planoRequestDto.servicos());
+        plano.setTipo_plano(planoRequestDto.tipo_plano());
         return plano;
     }
 
@@ -21,7 +21,7 @@ public class PlanoMapper {
     {
         return new PlanoResponseDTO(
                 plano.getId(),
-                plano.getServicos()
+                plano.getTipo_plano()
         );
     }
 }

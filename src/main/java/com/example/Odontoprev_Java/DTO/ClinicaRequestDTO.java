@@ -17,9 +17,7 @@ public record ClinicaRequestDTO
                 @NotNull
                 List<Enum_tipo_servico> servicos,
                 @NotBlank
-                String emailRepresentante,
-                @NotBlank
-                Endereco endereco
+                String emailRepresentante
         ) {
 
 }
