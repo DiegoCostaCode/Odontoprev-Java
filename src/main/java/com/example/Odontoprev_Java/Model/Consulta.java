@@ -18,11 +18,9 @@ public class Consulta {
     @Column(name = "DATA")
     private LocalDate agendamento;
 
-    @ElementCollection(targetClass = Enum_tipo_servico.class)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "clinica_servicos", joinColumns = @JoinColumn(name = "clinica_id"))
     @Column(name = "SERVICOS_ID")
-    private List<Enum_tipo_servico> servico;
+    private Enum_tipo_servico servico;
 
     @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "USUARIO_ID")
@@ -55,11 +53,11 @@ public class Consulta {
         this.agendamento = agendamento;
     }
 
-    public List<Enum_tipo_servico> getServico() {
+    public Enum_tipo_servico getServico() {
         return servico;
     }
 
-    public void setServico(List<Enum_tipo_servico> servico) {
+    public void setServico(Enum_tipo_servico servico) {
         this.servico = servico;
     }
 

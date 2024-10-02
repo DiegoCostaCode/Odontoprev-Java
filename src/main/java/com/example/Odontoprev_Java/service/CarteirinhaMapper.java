@@ -1,18 +1,22 @@
 package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.CarteirinhaResponseDTO;
+import com.example.Odontoprev_Java.DTO.CarterinhaRequestDTO;
 import com.example.Odontoprev_Java.Model.Carteirinha;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CarteirinhaMapper {
 
-    public Carteirinha requestRecordToCarteirinha(CarteirinhaResponseDTO carteirinhaResponseDTO)
+    public Carteirinha requestRecordToCarteirinha(@Valid CarterinhaRequestDTO carteirinhaRequestDTO)
     {
         Carteirinha carteirinha = new Carteirinha();
 
-        carteirinha.setUsuario(carteirinhaResponseDTO.usuario());
-        carteirinha.setPlano(carteirinhaResponseDTO.plano());
+        carteirinha.setUsuario(carteirinhaRequestDTO.usuarioId());
+        carteirinha.setEmissao(carteirinhaRequestDTO.emissao());
+        carteirinha.setValidade(carteirinhaRequestDTO.validade());
+        carteirinha.setPlano(carteirinhaRequestDTO.planoId());
         return carteirinha;
     }
 

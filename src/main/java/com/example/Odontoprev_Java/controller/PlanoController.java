@@ -1,13 +1,8 @@
 package com.example.Odontoprev_Java.controller;
 
-import com.example.Odontoprev_Java.DTO.DoutorResponseDTO;
 import com.example.Odontoprev_Java.DTO.PlanoRequestDTO;
 import com.example.Odontoprev_Java.DTO.PlanoResponseDTO;
-import com.example.Odontoprev_Java.DTO.usuario.UsuarioRequestDto;
-import com.example.Odontoprev_Java.DTO.usuario.UsuarioResponseDto;
-import com.example.Odontoprev_Java.Model.Doutor;
 import com.example.Odontoprev_Java.Model.Plano;
-import com.example.Odontoprev_Java.Model.Usuario;
 import com.example.Odontoprev_Java.Repository.PlanoRepository;
 import com.example.Odontoprev_Java.service.PlanoMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController

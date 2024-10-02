@@ -1,8 +1,7 @@
 package com.example.Odontoprev_Java.service;
 
-import com.example.Odontoprev_Java.DTO.usuario.UsuarioRequestDto;
-import com.example.Odontoprev_Java.DTO.usuario.UsuarioResponseDto;
-import com.example.Odontoprev_Java.Model.Endereco;
+import com.example.Odontoprev_Java.DTO.usuario.UsuarioRequestDTO;
+import com.example.Odontoprev_Java.DTO.usuario.UsuarioResponseDTO;
 import com.example.Odontoprev_Java.Model.Usuario;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +10,7 @@ public class UsuarioMapper {
 
 
     //Record para Usuario
-    public Usuario requestRecordToUsuario(UsuarioRequestDto usuarioRequestDto)
+    public Usuario requestRecordToUsuario(UsuarioRequestDTO usuarioRequestDto)
     {
         Usuario usuario = new Usuario();
 
@@ -23,9 +22,9 @@ public class UsuarioMapper {
         return usuario;
     }
 
-    public UsuarioResponseDto usuarioToResponseDto(Usuario usuario)
+    public UsuarioResponseDTO usuarioToResponseDto(Usuario usuario)
     {
-        return new UsuarioResponseDto(
+        return new UsuarioResponseDTO(
                 usuario.getId(),
                 usuario.getNome(),
                 usuario.getDataNascimento(),

@@ -2,14 +2,9 @@ package com.example.Odontoprev_Java.controller;
 
 import com.example.Odontoprev_Java.DTO.ClinicaRequestDTO;
 import com.example.Odontoprev_Java.DTO.ClinicaResponseDTO;
-import com.example.Odontoprev_Java.DTO.PlanoRequestDTO;
-import com.example.Odontoprev_Java.DTO.PlanoResponseDTO;
 import com.example.Odontoprev_Java.DTO.endereco.EnderecoRequestDTO;
-import com.example.Odontoprev_Java.DTO.usuario.UsuarioResponseDto;
 import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Endereco;
-import com.example.Odontoprev_Java.Model.Plano;
-import com.example.Odontoprev_Java.Model.Usuario;
 import com.example.Odontoprev_Java.Repository.ClinicaRepository;
 import com.example.Odontoprev_Java.service.ClinicaMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,9 +15,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +32,6 @@ public class ClinicaController {
     private ClinicaRepository clinicaRepository;
     @Autowired(required = true)
     private ClinicaMapper clinicaMapper;
-
-    Pageable paginacao = PageRequest.of(0, 2, Sort.by("servico").descending());
 
     @Operation(summary = "Registra clínicas")
     @ApiResponses(value = {

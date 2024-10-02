@@ -17,11 +17,11 @@ public class Carteirinha {
     private Date emissao;
     @Column (name = "VALIDADE")
     private Date validade;
-    @OneToOne(cascade = CascadeType.REMOVE, fetch=FetchType.LAZY)
-    @JoinColumn(name = "Id_usuario")
+    @OneToOne
+    @JoinColumn(name = "ID_USUARIO")
     private Usuario usuario;
-    @OneToOne(cascade = CascadeType.REMOVE, fetch=FetchType.EAGER)
-    @JoinColumn(name = "Id_plano")
+    @OneToOne()
+    @JoinColumn(name = "ID_PLANO")
     private Plano plano;
 
     // Construtor
