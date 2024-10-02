@@ -19,25 +19,13 @@
 * **Contratação de planos**
 * **Avaliação de clínicas**
 * **Histórico de consultas para clínicas e clientes**
-* **Autorização prévia para procedimentos, consultas e exames mais caros**
+* **Autorização prévia para procedimentos, consultas e exames mais caros que fogem da média histórica do usário**
 * **Validador de IP para identificar possíveis compartilhamentos de login**
-
-## Público-Alvo
-
-**Clínicas e pessoas físicas a partir dos 18 anos.**
-
-## Estudo de Mercado
-
-**A Odontoprev compete com a Amil Dental e a Unimed Odonto, mas oferece planos mais completos e com benefícios exclusivos.**
-
-## Potencial de Mercado
-
-**O mercado de odontologia está crescendo no país, e a Odontoprev tem um grande potencial de alcançar números surpreendentes com sua proposta de atendimento dinâmico e seguro.**
 
 ## Instrução de como rodar a aplicação
 
 1. **Clone o repositório do projeto**: `git clone https://github.com/DiegoCostaSilva/Odontoprev-Java.git`
-2. **Fáca o BUILD do projeto**
+2. **Faça o BUILD do projeto**
 3. **Rode o projeto**
 4. **Visite o seguinte URL para testar os ENDPOINTS**:  [Swagger](http://localhost:8080/swagger-ui/index.html#/)
 
