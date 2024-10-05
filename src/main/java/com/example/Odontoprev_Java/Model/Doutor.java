@@ -1,9 +1,10 @@
 package com.example.Odontoprev_Java.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Past;
 
+import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "CH_DOUTOR")
@@ -16,7 +17,7 @@ public class Doutor {
     @Column(name = "CPF")
     private String cpf;
     @Column(name = "CH_DATA_NASCIMENTO")
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     @Column(name = "CRO")
     private String cro;
     @Column(name = "E-MAIL")
@@ -40,11 +41,11 @@ public class Doutor {
         return id;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

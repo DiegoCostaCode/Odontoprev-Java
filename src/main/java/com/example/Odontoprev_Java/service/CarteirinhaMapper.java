@@ -1,7 +1,7 @@
 package com.example.Odontoprev_Java.service;
 
-import com.example.Odontoprev_Java.DTO.CarteirinhaResponseDTO;
-import com.example.Odontoprev_Java.DTO.CarterinhaRequestDTO;
+import com.example.Odontoprev_Java.DTO.carteirinha.CarteirinhaResponseDTO;
+import com.example.Odontoprev_Java.DTO.carteirinha.CarterinhaRequestDTO;
 import com.example.Odontoprev_Java.Model.Carteirinha;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;

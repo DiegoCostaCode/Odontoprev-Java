@@ -1,18 +1,11 @@
 package com.example.Odontoprev_Java.controller;
 
-import com.example.Odontoprev_Java.DTO.CarteirinhaResponseDTO;
-import com.example.Odontoprev_Java.DTO.CarterinhaRequestDTO;
 import com.example.Odontoprev_Java.DTO.usuario.UsuarioResponseDTO;
-import com.example.Odontoprev_Java.Model.Carteirinha;
 import com.example.Odontoprev_Java.Model.Usuario;
-import com.example.Odontoprev_Java.Repository.CarteirinhaRepository;
-import com.example.Odontoprev_Java.Repository.PlanoRepository;
 import com.example.Odontoprev_Java.Repository.UsuarioRepository;
 import com.example.Odontoprev_Java.service.CarteirinhaMapper;
 import com.example.Odontoprev_Java.service.UsuarioMapper;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,7 +32,12 @@ public class CarteirinhaController {
     @Autowired(required = true)
     private UsuarioMapper usuarioMapper;
 
-
+    @Operation(summary = "Consulta usuário pelo ID de usuário")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário encontrado"),
+            @ApiResponse(responseCode = "204", description = "Usuário não encontrado"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos")
+    })
     @GetMapping(value = "/{usuarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UsuarioResponseDTO> readUsuario(@PathVariable Long usuarioId) {
         Optional<Usuario> usuarioSalvo = usuarioRepository.findById(usuarioId);
@@ -50,5 +48,4 @@ public class CarteirinhaController {
 
         return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
     }
-
 }

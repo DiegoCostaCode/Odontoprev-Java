@@ -1,6 +1,5 @@
-package com.example.Odontoprev_Java.DTO;
+package com.example.Odontoprev_Java.DTO.consulta;
 
-import com.example.Odontoprev_Java.DTO.usuario.UsuarioResponseDTO;
 import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Doutor;
 import com.example.Odontoprev_Java.Model.Enums.Enum_tipo_servico;

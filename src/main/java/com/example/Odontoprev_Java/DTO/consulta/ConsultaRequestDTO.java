@@ -1,4 +1,4 @@
-package com.example.Odontoprev_Java.DTO;
+package com.example.Odontoprev_Java.DTO.consulta;
 
 import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Doutor;

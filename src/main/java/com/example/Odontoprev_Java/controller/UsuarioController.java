@@ -1,7 +1,6 @@
 package com.example.Odontoprev_Java.controller;
 
-import com.example.Odontoprev_Java.DTO.ConsultaRequestDTO;
-import com.example.Odontoprev_Java.DTO.ConsultaResponseDTO;
+import com.example.Odontoprev_Java.DTO.consulta.ConsultaRequestDTO;
 import com.example.Odontoprev_Java.DTO.endereco.EnderecoRequestDTO;
 import com.example.Odontoprev_Java.DTO.usuario.UsuarioRequestDTO;
 import com.example.Odontoprev_Java.DTO.usuario.UsuarioResponseDTO;
@@ -62,6 +61,11 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioResponseDto, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Consulta usuário pelo ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário encontrado com sucesso"),
+            @ApiResponse(responseCode = "204", description = "Nenhum usuário encontrado")
+    })
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UsuarioResponseDTO> readUsuario(@PathVariable Long id) {
         Optional<Usuario> usuarioReserva = usuarioRepository.findById(id);

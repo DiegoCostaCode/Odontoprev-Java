@@ -1,7 +1,7 @@
 package com.example.Odontoprev_Java.controller;
 
-import com.example.Odontoprev_Java.DTO.PlanoRequestDTO;
-import com.example.Odontoprev_Java.DTO.PlanoResponseDTO;
+import com.example.Odontoprev_Java.DTO.plano.PlanoRequestDTO;
+import com.example.Odontoprev_Java.DTO.plano.PlanoResponseDTO;
 import com.example.Odontoprev_Java.Model.Plano;
 import com.example.Odontoprev_Java.Repository.PlanoRepository;
 import com.example.Odontoprev_Java.service.PlanoMapper;

@@ -1,12 +1,8 @@
 package com.example.Odontoprev_Java.service;
 
-import com.example.Odontoprev_Java.DTO.ClinicaRequestDTO;
-import com.example.Odontoprev_Java.DTO.DoutorRequestDTO;
-import com.example.Odontoprev_Java.DTO.DoutorResponseDTO;
-import com.example.Odontoprev_Java.DTO.PlanoResponseDTO;
-import com.example.Odontoprev_Java.Model.Clinica;
+import com.example.Odontoprev_Java.DTO.doutor.DoutorRequestDTO;
+import com.example.Odontoprev_Java.DTO.doutor.DoutorResponseDTO;
 import com.example.Odontoprev_Java.Model.Doutor;
-import com.example.Odontoprev_Java.Model.Plano;
 import org.springframework.stereotype.Service;
 
 @Service

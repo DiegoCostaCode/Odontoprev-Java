@@ -1,10 +1,8 @@
 package com.example.Odontoprev_Java.controller;
 
-import com.example.Odontoprev_Java.DTO.ClinicaResponseDTO;
-import com.example.Odontoprev_Java.DTO.DoutorRequestDTO;
-import com.example.Odontoprev_Java.DTO.DoutorResponseDTO;
+import com.example.Odontoprev_Java.DTO.doutor.DoutorRequestDTO;
+import com.example.Odontoprev_Java.DTO.doutor.DoutorResponseDTO;
 import com.example.Odontoprev_Java.DTO.endereco.EnderecoRequestDTO;
-import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Doutor;
 import com.example.Odontoprev_Java.Model.Endereco;
 import com.example.Odontoprev_Java.Repository.DoutorRepository;
@@ -17,9 +15,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -92,6 +87,11 @@ public class DoutorController {
         return new ResponseEntity<>(doutorResponseDTO, HttpStatus.OK);
     }
 
+    @Operation(summary = "Consulta um Doutor pelo ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Doutor encontrado"),
+            @ApiResponse(responseCode = "204", description = "Doutor não encontrado")
+    })
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DoutorResponseDTO> readUsuario(@PathVariable Long id) {
         Optional<Doutor> doutorSalvo = doutorRepository.findById(id);

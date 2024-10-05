@@ -1,6 +1,8 @@
 package com.example.Odontoprev_Java.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.engine.internal.Cascade;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -17,10 +19,11 @@ public class Carteirinha {
     private Date emissao;
     @Column (name = "VALIDADE")
     private Date validade;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USUARIO")
+    @JsonIgnore
     private Usuario usuario;
-    @OneToOne()
+    @OneToOne
     @JoinColumn(name = "ID_PLANO")
     private Plano plano;
 

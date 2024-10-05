@@ -1,12 +1,16 @@
 package com.example.Odontoprev_Java.controller;
 
-import com.example.Odontoprev_Java.DTO.ClinicaRequestDTO;
-import com.example.Odontoprev_Java.DTO.ClinicaResponseDTO;
+import com.example.Odontoprev_Java.DTO.clinica.ClinicaRequestDTO;
+import com.example.Odontoprev_Java.DTO.clinica.ClinicaResponseDTO;
+import com.example.Odontoprev_Java.DTO.doutor.DoutorRequestDTO;
 import com.example.Odontoprev_Java.DTO.endereco.EnderecoRequestDTO;
 import com.example.Odontoprev_Java.Model.Clinica;
+import com.example.Odontoprev_Java.Model.Doutor;
 import com.example.Odontoprev_Java.Model.Endereco;
 import com.example.Odontoprev_Java.Repository.ClinicaRepository;
+import com.example.Odontoprev_Java.Repository.DoutorRepository;
 import com.example.Odontoprev_Java.service.ClinicaMapper;
+import com.example.Odontoprev_Java.service.DoutorMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -33,6 +37,11 @@ public class ClinicaController {
     @Autowired(required = true)
     private ClinicaMapper clinicaMapper;
 
+    @Autowired
+    private DoutorRepository doutorRepository;
+    @Autowired
+    private DoutorMapper doutorMapper;
+
     @Operation(summary = "Registra clínicas")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Clínica registrada com sucesso!"),
@@ -51,7 +60,7 @@ public class ClinicaController {
     @Operation(summary = "Adiciona endereco a uma clínica existente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Endereo adicionado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Usuario não encontrado"),
+            @ApiResponse(responseCode = "404", description = "Clínica não encontrada"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos")
     })
     public ResponseEntity<ClinicaResponseDTO> addEnderecoToClinica(
@@ -85,6 +94,12 @@ public class ClinicaController {
         return new ResponseEntity<>(clinicaResponse, HttpStatus.OK);
     }
 
+    @Operation(summary = "Consulta clínica pelo ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Clínica encontrada"),
+            @ApiResponse(responseCode = "204", description = "Clínica não encontrada"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos")
+    })
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClinicaResponseDTO> readUsuario(@PathVariable Long id) {
         Optional<Clinica> clinicaSalva = clinicaRepository.findById(id);
@@ -95,4 +110,37 @@ public class ClinicaController {
 
         return new ResponseEntity<>(clinicaResponseDTO, HttpStatus.OK);
     }
+
+    @Operation(summary = "Adiciona doutores a uma clínica existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Doutor adicionado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Clínica não encontrada"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos")
+    })
+    @PutMapping(value = "/{clinicaId}/doutor", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClinicaResponseDTO> addDoutorToClinica(
+            @PathVariable Long clinicaId,
+            @Valid @RequestBody DoutorRequestDTO doutorRequestDTO) {
+
+        // Verificar se a clínica existe
+        Clinica clinica = clinicaRepository.findById(clinicaId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Clínica não encontrada"));
+
+        // Mapear DoutorRequestDTO para a entidade Doutor
+        Doutor doutor = doutorMapper.requestRecordToDoutor(doutorRequestDTO);
+
+        // Adicionar o doutor à lista de doutores da clínica
+        clinica.getDoutores().add(doutor);
+
+        // Salvar o doutor e a clínica
+        doutorRepository.save(doutor);
+        clinicaRepository.save(clinica);
+
+        // Mapear a clínica salva para o DTO de resposta
+        ClinicaResponseDTO clinicaResponseDTO = clinicaMapper.clinicaToResponseDto(clinica);
+
+        // Retornar a clínica atualizada
+        return new ResponseEntity<>(clinicaResponseDTO, HttpStatus.OK);
+    }
+
 }

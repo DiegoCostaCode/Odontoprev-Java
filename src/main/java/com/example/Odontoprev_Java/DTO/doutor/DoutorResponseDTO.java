@@ -1,7 +1,8 @@
-package com.example.Odontoprev_Java.DTO;
+package com.example.Odontoprev_Java.DTO.doutor;
 
 import com.example.Odontoprev_Java.Model.Endereco;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public record DoutorResponseDTO(
@@ -10,7 +11,7 @@ public record DoutorResponseDTO(
         String cpf,
         String cro,
         String email,
-        Date dataNascimento,
+        LocalDate dataNascimento,
         String telefone,
         Endereco endereco
         ) {
