@@ -3,7 +3,7 @@
 ## Integrantes do Grupo
 
 * **[Diego Costa Silva RM552648](https://www.linkedin.com/in/diegocostacs/)**: Desenvolvedor principal do projeto, responsável por criar a aplicação e documentar o processo de desenvolvimento.
-* **[Lucas Minozzo Bronzeri RM553458](https://www.linkedin.com/in/lucas-minozzo-bronzeri-b212a4248/)**: Coworker que cuidou de Banco de Dados, e ajudou na estruturação e nas tomadas de decisão do projeto.
+* **[Lucas Minozzo Bronzeri RM553745](https://www.linkedin.com/in/lucas-minozzo-bronzeri-b212a4248/)**: Coworker que cuidou de Banco de Dados, e ajudou na estruturação e nas tomadas de decisão do projeto.
 
 ## Descrição do Problema
 
