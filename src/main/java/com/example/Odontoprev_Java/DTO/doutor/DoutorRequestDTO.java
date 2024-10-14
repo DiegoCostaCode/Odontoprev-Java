@@ -1,12 +1,11 @@
 package com.example.Odontoprev_Java.DTO.doutor;
 
-import com.example.Odontoprev_Java.Model.Endereco;
+import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 
 public record DoutorRequestDTO

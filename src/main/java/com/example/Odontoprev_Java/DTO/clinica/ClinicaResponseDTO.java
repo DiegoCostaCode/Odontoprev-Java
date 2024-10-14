@@ -1,7 +1,7 @@
 package com.example.Odontoprev_Java.DTO.clinica;
 
 import com.example.Odontoprev_Java.Model.Doutor;
-import com.example.Odontoprev_Java.Model.Endereco;
+import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 import com.example.Odontoprev_Java.Model.Enums.Enum_tipo_servico;
 
 import java.util.List;

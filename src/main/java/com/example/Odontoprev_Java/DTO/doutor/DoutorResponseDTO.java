@@ -1,9 +1,8 @@
 package com.example.Odontoprev_Java.DTO.doutor;
 
-import com.example.Odontoprev_Java.Model.Endereco;
+import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public record DoutorResponseDTO(
         Long id,

@@ -1,4 +1,4 @@
-package com.example.Odontoprev_Java.Model.Enums;
+package com.example.Odontoprev_Java.Model.Endereco.Enum;
 
 public enum Enum_paises {
     BRASIL("Brasil");

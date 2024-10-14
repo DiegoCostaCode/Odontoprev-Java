@@ -1,12 +1,11 @@
 package com.example.Odontoprev_Java.Model;
 
-import com.example.Odontoprev_Java.Model.Enums.Enum_tipo_plano;
+import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 import com.example.Odontoprev_Java.Model.Enums.Enum_tipo_servico;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "CH_CLINICA")

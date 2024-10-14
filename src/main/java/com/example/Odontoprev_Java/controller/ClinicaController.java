@@ -6,7 +6,7 @@ import com.example.Odontoprev_Java.DTO.doutor.DoutorRequestDTO;
 import com.example.Odontoprev_Java.DTO.endereco.EnderecoRequestDTO;
 import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Doutor;
-import com.example.Odontoprev_Java.Model.Endereco;
+import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 import com.example.Odontoprev_Java.Repository.ClinicaRepository;
 import com.example.Odontoprev_Java.Repository.DoutorRepository;
 import com.example.Odontoprev_Java.service.ClinicaMapper;

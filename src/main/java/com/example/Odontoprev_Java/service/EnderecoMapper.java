@@ -2,7 +2,7 @@ package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.endereco.EnderecoRequestDTO;
 import com.example.Odontoprev_Java.DTO.endereco.EnderecoResponseDTO;
-import com.example.Odontoprev_Java.Model.Endereco;
+import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 
 public class EnderecoMapper {
     //Record para Plano
