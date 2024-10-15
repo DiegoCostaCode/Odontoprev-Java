@@ -1,37 +1,25 @@
 package com.example.Odontoprev_Java.Model;
 
-import com.example.Odontoprev_Java.Model.Enums.Enum_tipo_plano;
-import com.example.Odontoprev_Java.Model.Enums.Enum_tipo_servico;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@Getter
+@Setter
 @Entity
-@Table(name = "CH_PLANO")
+@Table(name = "Odonto_Plano")
 public class Plano {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "TIPO_PLANO")
-    private Enum_tipo_plano tipo_plano;
+    @Column(name = "Nome")
+    private String nome;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "Descricao")
+    private String descricao;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(name = "Preco")
+    private double preco;
 
-    public Enum_tipo_plano getTipo_plano() {
-        return tipo_plano;
-    }
-
-    public void setTipo_plano(Enum_tipo_plano tipo_plano) {
-        this.tipo_plano = tipo_plano;
-    }
 }

@@ -7,19 +7,19 @@
 
 ## Descrição do Problema
 
-**Clínicas médicas fraudando consultas/exames/cirurgias e clientes que utilizam do plano de forma imprópria/desnecessária, gerando gastos para a Odontoprev.**
+**Clínicas médicas fraudando atendimentos/exames/cirurgias e clientes que utilizam do plano de forma imprópria/desnecessária, gerando gastos para a Odontoprev.**
 
 ## Descrição da Solução
 
-**Um aplicativo que coloca a Odontoprev, o cliente e a clínica no mesmo ambiente, permitindo que os clientes agendem e acompanhem suas consultas, contratem planos e avaliem clínicas. A clínica pode lançar informações referentes às consultas dos clientes e receber também.**
+**Um aplicativo que coloca a Odontoprev, o cliente e a clínica no mesmo ambiente, permitindo que os clientes agendem e acompanhem suas atendimentos, contratem planos e avaliem clínicas. A clínica pode lançar informações referentes às atendimentos dos clientes e receber também.**
 
 ## Funcionalidades
 
-* **Agendamento de consultas**
+* **Agendamento de atendimentos**
 * **Contratação de planos**
 * **Avaliação de clínicas**
-* **Histórico de consultas para clínicas e clientes**
-* **Autorização prévia para procedimentos, consultas e exames mais caros que fogem da média histórica do usário**
+* **Histórico de atendimentos para clínicas e clientes**
+* **Autorização prévia para procedimentos, atendimentos e exames mais caros que fogem da média histórica do usário**
 * **Validador de IP para identificar possíveis compartilhamentos de login**
 
 ## Instrução de como rodar a aplicação

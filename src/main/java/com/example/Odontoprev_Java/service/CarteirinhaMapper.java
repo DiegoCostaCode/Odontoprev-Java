@@ -13,7 +13,7 @@ public class CarteirinhaMapper {
     {
         Carteirinha carteirinha = new Carteirinha();
 
-        carteirinha.setUsuario(carteirinhaRequestDTO.usuarioId());
+        carteirinha.setUsuario(carteirinhaRequestDTO.pacienteId());
         carteirinha.setEmissao(carteirinhaRequestDTO.emissao());
         carteirinha.setValidade(carteirinhaRequestDTO.validade());
         carteirinha.setPlano(carteirinhaRequestDTO.planoId());

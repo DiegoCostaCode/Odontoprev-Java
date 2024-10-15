@@ -2,7 +2,7 @@ package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.consulta.ConsultaRequestDTO;
 import com.example.Odontoprev_Java.DTO.consulta.ConsultaResponseDTO;
-import com.example.Odontoprev_Java.Model.Consulta;
+import com.example.Odontoprev_Java.Model.Atendimento;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,24 +10,24 @@ public class ConsultaMapper {
 
 
 
-    public Consulta requestToAgendamento(ConsultaRequestDTO consultaRequestDTO) {
-        Consulta consulta = new Consulta();
-        consulta.setAgendamento(consultaRequestDTO.agendamento());
-        consulta.setServico(consultaRequestDTO.servico());
-        consulta.setClinica(consultaRequestDTO.clinicaId());
-        consulta.setObservacoes(consultaRequestDTO.observacoes());
-        return consulta;
+    public Atendimento requestToAgendamento(ConsultaRequestDTO consultaRequestDTO) {
+        Atendimento atendimento = new Atendimento();
+        atendimento.setAgendamento(consultaRequestDTO.agendamento());
+        atendimento.setServico(consultaRequestDTO.servico());
+        atendimento.setClinica(consultaRequestDTO.clinicaId());
+        atendimento.setObservacoes(consultaRequestDTO.observacoes());
+        return atendimento;
     }
 
-    public ConsultaResponseDTO consultaToResponseDto(Consulta consulta) {
+    public ConsultaResponseDTO consultaToResponseDto(Atendimento atendimento) {
         return new ConsultaResponseDTO(
-                consulta.getId(),
-                consulta.getAgendamento(),
-                consulta.getServico(),
-                consulta.getUsuario(),
-                consulta.getDoutor(),
-                consulta.getClinica(),
-                consulta.getObservacoes()
+                atendimento.getId(),
+                atendimento.getAgendamento(),
+                atendimento.getServico(),
+                atendimento.getUsuario(),
+                atendimento.getDoutor(),
+                atendimento.getClinica(),
+                atendimento.getObservacoes()
         );
     }
 }

@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "usuario",
+			"name": "paciente",
 			"item": [
 				{
 					"name": "Usuario-endereco",
@@ -23,7 +23,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/usuario/1/endereco"
+						"url": "http://localhost:8080/paciente/1/endereco"
 					},
 					"response": []
 				},
@@ -49,7 +49,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/usuario/cadastro"
+						"url": "http://localhost:8080/paciente/cadastro"
 					},
 					"response": []
 				},
@@ -67,7 +67,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/usuario/1/carteirinha/1"
+						"url": "http://localhost:8080/paciente/1/carteirinha/1"
 					},
 					"response": []
 				}
@@ -145,7 +145,7 @@
 					"response": []
 				},
 				{
-					"name": "plano-consulta",
+					"name": "plano-atendimento",
 					"request": {
 						"method": "GET",
 						"header": [],

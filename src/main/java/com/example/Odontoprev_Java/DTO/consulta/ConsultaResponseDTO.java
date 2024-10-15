@@ -2,8 +2,7 @@ package com.example.Odontoprev_Java.DTO.consulta;
 
 import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Doutor;
-import com.example.Odontoprev_Java.Model.Enums.Enum_tipo_servico;
-import com.example.Odontoprev_Java.Model.Usuario;
+import com.example.Odontoprev_Java.Model.Paciente;
 
 import java.time.LocalDate;
 
@@ -11,7 +10,7 @@ public record ConsultaResponseDTO(
         Long id,
         LocalDate agendamento,
         Enum_tipo_servico servico,
-        Usuario usuario,
+        Paciente paciente,
         Doutor doutor,
         Clinica clinica,
         String observacoes

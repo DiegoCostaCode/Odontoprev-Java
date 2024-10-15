@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "CH_USUARIO")
-public class Usuario {
+@Table(name = "Odonto_Paciente")
+public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "CH_NOME")
+    @Column(name = "Nome")
     private String nome;
     @Column(name = "CH_DATA_NASCIMENTO")
     private LocalDate dataNascimento;
@@ -31,18 +31,18 @@ public class Usuario {
     private Endereco endereco;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "historico_consultas")
-    private List<Consulta> consultas = new ArrayList<>();
+    private List<Atendimento> atendimentos = new ArrayList<>();
 
     public Endereco getEndereco() {
         return endereco;
     }
 
-    public List<Consulta> getConsultas() {
-        return consultas;
+    public List<Atendimento> getConsultas() {
+        return atendimentos;
     }
 
-    public void setConsultas(List<Consulta> consultas) {
-        this.consultas = consultas;
+    public void setConsultas(List<Atendimento> atendimentos) {
+        this.atendimentos = atendimentos;
     }
 
     public LocalDate getDataNascimento() {

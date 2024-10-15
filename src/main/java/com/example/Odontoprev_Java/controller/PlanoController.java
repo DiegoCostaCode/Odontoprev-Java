@@ -46,7 +46,7 @@ public class PlanoController {
         return new ResponseEntity<>(planoResponseDto, HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Consulta planos")
+    @Operation(summary = "Atendimento planos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Planos encontradas"),
             @ApiResponse(responseCode = "404", description = "Planos não encontrados"),

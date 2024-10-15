@@ -1,88 +1,39 @@
 package com.example.Odontoprev_Java.Model;
 
 import com.example.Odontoprev_Java.Model.Endereco.Endereco;
-import com.example.Odontoprev_Java.Model.Enums.Enum_tipo_servico;
-import jakarta.persistence.*;
 
-import java.util.ArrayList;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
-@Table(name = "CH_CLINICA")
+@Table(name = "Odonto_Clinica")
 public class Clinica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "RAZAO_SOCIAL")
+    @Column(name = "Razão_social")
     private String razaoSocial;
 
-    @ElementCollection(targetClass = Enum_tipo_servico.class)
-    @CollectionTable(name = "usuario_servicos", joinColumns = @JoinColumn(name = "clinica_id"))
-    @Enumerated(EnumType.STRING)
-    private List<Enum_tipo_servico> servicos = new ArrayList<>();
+    @Column(name = "Descricao")
+    private String descricao;
 
-    @Column(name = "EMAIL_REPRESENTANTE")
+    @Column(name = "CNPJ")
+    private String cnpj;
+
+    @Column(name = "Email_representante")
     private String emailRepresentante;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ENDERECO_ID")
+    @JoinColumn(name = "Endereco_id")
     private Endereco endereco;
 
-    @ManyToMany(cascade = CascadeType.REMOVE)
-    @JoinTable(
-            name = "clinica_doutor", // Nome da tabela de junção
-            joinColumns = @JoinColumn(name = "clinica_id"), // Coluna da tabela 'Clinica'
-            inverseJoinColumns = @JoinColumn(name = "doutor_id") // Coluna da tabela 'Doutor'
-    )
+    @OneToMany(mappedBy = "clinica", fetch = FetchType.LAZY)
+    private List<ClinicaDoutor> clinicaDoutores;
 
-    private List<Doutor> doutores;
-
-    public long getId() {
-        return id;
-    }
-
-    public List<Doutor> getDoutores() {
-        return doutores;
-    }
-
-    public void setDoutores(List<Doutor> doutores) {
-        this.doutores = doutores;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getRazaoSocial() {
-        return razaoSocial;
-    }
-
-    public void setRazaoSocial(String razaoSocial) {
-        this.razaoSocial = razaoSocial;
-    }
-
-    public List<Enum_tipo_servico> getServicos() {
-        return servicos;
-    }
-
-    public void setServicos(List<Enum_tipo_servico> servicos) {
-        this.servicos = servicos;
-    }
-
-    public String getEmailRepresentante() {
-        return emailRepresentante;
-    }
-
-    public void setEmailRepresentante(String emailRepresentante) {
-        this.emailRepresentante = emailRepresentante;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
 }

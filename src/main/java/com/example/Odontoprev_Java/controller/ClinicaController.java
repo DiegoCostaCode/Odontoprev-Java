@@ -94,7 +94,7 @@ public class ClinicaController {
         return new ResponseEntity<>(clinicaResponse, HttpStatus.OK);
     }
 
-    @Operation(summary = "Consulta clínica pelo ID")
+    @Operation(summary = "Atendimento clínica pelo ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Clínica encontrada"),
             @ApiResponse(responseCode = "204", description = "Clínica não encontrada"),

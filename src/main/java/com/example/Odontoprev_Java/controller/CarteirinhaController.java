@@ -1,10 +1,10 @@
 package com.example.Odontoprev_Java.controller;
 
 import com.example.Odontoprev_Java.DTO.usuario.UsuarioResponseDTO;
-import com.example.Odontoprev_Java.Model.Usuario;
-import com.example.Odontoprev_Java.Repository.UsuarioRepository;
+import com.example.Odontoprev_Java.Model.Paciente;
+import com.example.Odontoprev_Java.Repository.PacienteRepository;
 import com.example.Odontoprev_Java.service.CarteirinhaMapper;
-import com.example.Odontoprev_Java.service.UsuarioMapper;
+import com.example.Odontoprev_Java.service.PacienteMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -24,15 +24,15 @@ public class CarteirinhaController {
 
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private PacienteRepository pacienteRepository;
 
     @Autowired(required = true)
     private CarteirinhaMapper carteirinhaMapper;
 
     @Autowired(required = true)
-    private UsuarioMapper usuarioMapper;
+    private PacienteMapper pacienteMapper;
 
-    @Operation(summary = "Consulta usuário pelo ID de usuário")
+    @Operation(summary = "Atendimento usuário pelo ID de usuário")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Usuário encontrado"),
             @ApiResponse(responseCode = "204", description = "Usuário não encontrado"),
@@ -40,11 +40,11 @@ public class CarteirinhaController {
     })
     @GetMapping(value = "/{usuarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UsuarioResponseDTO> readUsuario(@PathVariable Long usuarioId) {
-        Optional<Usuario> usuarioSalvo = usuarioRepository.findById(usuarioId);
+        Optional<Paciente> usuarioSalvo = pacienteRepository.findById(usuarioId);
         if (usuarioSalvo.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        UsuarioResponseDTO usuarioResponse = usuarioMapper.usuarioToResponseDto(usuarioSalvo.get());
+        UsuarioResponseDTO usuarioResponse = pacienteMapper.usuarioToResponseDto(usuarioSalvo.get());
 
         return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
     }

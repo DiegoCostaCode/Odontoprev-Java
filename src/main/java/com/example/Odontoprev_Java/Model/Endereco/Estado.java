@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(name = "Odonto_Estado")
 public class Estado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +17,7 @@ public class Estado {
     @Column(name = "Estado")
     private Enum_estado estado;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name ="Id_pais")
     private Pais pais_id;
 }

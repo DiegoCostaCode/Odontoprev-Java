@@ -87,7 +87,7 @@ public class DoutorController {
         return new ResponseEntity<>(doutorResponseDTO, HttpStatus.OK);
     }
 
-    @Operation(summary = "Consulta um Doutor pelo ID")
+    @Operation(summary = "Atendimento um Doutor pelo ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Doutor encontrado"),
             @ApiResponse(responseCode = "204", description = "Doutor não encontrado")
