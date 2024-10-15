@@ -1,7 +1,7 @@
 package com.example.Odontoprev_Java.service;
 
-import com.example.Odontoprev_Java.DTO.usuario.UsuarioRequestDTO;
-import com.example.Odontoprev_Java.DTO.usuario.UsuarioResponseDTO;
+import com.example.Odontoprev_Java.DTO.usuario.PacienteRequestDTO;
+import com.example.Odontoprev_Java.DTO.usuario.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.Paciente;
 import org.springframework.stereotype.Service;
 
@@ -10,21 +10,21 @@ public class PacienteMapper {
 
 
     //Record para Paciente
-    public Paciente requestRecordToUsuario(UsuarioRequestDTO usuarioRequestDto)
+    public Paciente requestRecordToUsuario(PacienteRequestDTO pacienteRequestDto)
     {
         Paciente paciente = new Paciente();
 
-        paciente.setNome(usuarioRequestDto.nome());
-        paciente.setEmail(usuarioRequestDto.email());
-        paciente.setDataNascimento(usuarioRequestDto.dataNascimento());
-        paciente.setCpf(usuarioRequestDto.cpf());
-        paciente.setTelefone(usuarioRequestDto.telefone());
+        paciente.setNome(pacienteRequestDto.nome());
+        paciente.setEmail(pacienteRequestDto.email());
+        paciente.setDataNascimento(pacienteRequestDto.dataNascimento());
+        paciente.setCpf(pacienteRequestDto.cpf());
+        paciente.setTelefone(pacienteRequestDto.telefone());
         return paciente;
     }
 
-    public UsuarioResponseDTO usuarioToResponseDto(Paciente paciente)
+    public PacienteResponseDTO usuarioToResponseDto(Paciente paciente)
     {
-        return new UsuarioResponseDTO(
+        return new PacienteResponseDTO(
                 paciente.getId(),
                 paciente.getNome(),
                 paciente.getDataNascimento(),

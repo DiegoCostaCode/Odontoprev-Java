@@ -14,5 +14,5 @@ public class Tipo_usuario {
     private long id;
 
     @Column(name = "Atribuicao")
-    private com.example.Odontoprev_Java.Model.Tipo_usuario.Enum_tipo_usuario atribuicao;
+    private Enum_tipo_usuario atribuicao;
 }

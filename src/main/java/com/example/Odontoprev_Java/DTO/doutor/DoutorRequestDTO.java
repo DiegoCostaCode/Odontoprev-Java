@@ -10,26 +10,12 @@ import java.time.LocalDate;
 
 public record DoutorRequestDTO
         (
-                @NotBlank
-                @Size(min = 3, max = 50, message = "O nome deve ter no mínimo 3 e no máximo 10 caracteres")
+                @NotBlank(message = "Nome é obrigatório")
+                @Size(min = 2, max = 100, message = "Nome deve ter entre 2 e 100 caracteres")
                 String nome,
-                @NotBlank
-                @CPF(message="CPF inválido.")
-                String cpf,
-                @NotBlank
-                @Pattern(regexp = "\\d{5}",message="CRO inválido.")
-                String cro,
-                @Past(message = "A data de nascimento deve ser no passado.")
-                @DateTimeFormat(pattern = "dd/MM/yyyy")
-                LocalDate dataNascimento,
-                @Email(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}",message="E-mail inválido")
-                String email,
-                @NotNull
-                @Pattern(
-                        regexp = "\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{4})/",
-                        message = "Insira um telefone válido!")
-                String telefone,
-                Endereco endereco
+                @NotBlank(message = "Data de nascimento é obrigatória")
+                @Size(min = 6, max = 6, message = "CRM deve ter 6 caracteres")
+                String CRM
         )
         {
 

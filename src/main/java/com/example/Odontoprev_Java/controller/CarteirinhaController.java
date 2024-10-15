@@ -1,6 +1,6 @@
 package com.example.Odontoprev_Java.controller;
 
-import com.example.Odontoprev_Java.DTO.usuario.UsuarioResponseDTO;
+import com.example.Odontoprev_Java.DTO.usuario.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.Paciente;
 import com.example.Odontoprev_Java.Repository.PacienteRepository;
 import com.example.Odontoprev_Java.service.CarteirinhaMapper;
@@ -39,12 +39,12 @@ public class CarteirinhaController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos")
     })
     @GetMapping(value = "/{usuarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UsuarioResponseDTO> readUsuario(@PathVariable Long usuarioId) {
+    public ResponseEntity<PacienteResponseDTO> readUsuario(@PathVariable Long usuarioId) {
         Optional<Paciente> usuarioSalvo = pacienteRepository.findById(usuarioId);
         if (usuarioSalvo.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        UsuarioResponseDTO usuarioResponse = pacienteMapper.usuarioToResponseDto(usuarioSalvo.get());
+        PacienteResponseDTO usuarioResponse = pacienteMapper.usuarioToResponseDto(usuarioSalvo.get());
 
         return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
     }

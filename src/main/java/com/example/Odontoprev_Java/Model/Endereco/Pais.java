@@ -1,5 +1,6 @@
 package com.example.Odontoprev_Java.Model.Endereco;
 
+import com.example.Odontoprev_Java.Model.Endereco.Enum.Enum_paises;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import lombok.Setter;
 public class Pais {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id_pais;
+    private long id_pais;
 
-    private String Pais;
+    private Enum_paises Pais;
 }

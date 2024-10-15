@@ -12,4 +12,7 @@ public class Prodecimento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_procedimento;
+
+    @Column(name = "Descricao")
+    private Enum_procedimento descricao;
 }

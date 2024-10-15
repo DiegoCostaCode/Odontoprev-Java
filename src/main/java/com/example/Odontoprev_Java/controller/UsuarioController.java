@@ -1,9 +1,9 @@
 package com.example.Odontoprev_Java.controller;
 
-import com.example.Odontoprev_Java.DTO.consulta.ConsultaRequestDTO;
+import com.example.Odontoprev_Java.DTO.atendimento.AtendimentoRequestDTO;
 import com.example.Odontoprev_Java.DTO.endereco.EnderecoRequestDTO;
-import com.example.Odontoprev_Java.DTO.usuario.UsuarioRequestDTO;
-import com.example.Odontoprev_Java.DTO.usuario.UsuarioResponseDTO;
+import com.example.Odontoprev_Java.DTO.usuario.PacienteRequestDTO;
+import com.example.Odontoprev_Java.DTO.usuario.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.*;
 import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 import com.example.Odontoprev_Java.Repository.*;
@@ -37,7 +37,7 @@ public class UsuarioController {
     private PlanoRepository planoRepository;
 
     @Autowired
-    private ConsultaRepository consultaRepository;
+    private AtendimentoRepository atendimentoRepository;
 
     @Autowired
     private ClinicaRepository clinicaRepository;
@@ -54,12 +54,12 @@ public class UsuarioController {
             @ApiResponse(responseCode = "400", description = "Atributos informados são inválidos", content =  @Content(schema = @Schema()))
     })
     @PostMapping(value = "/cadastro", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UsuarioResponseDTO> createUsuario(@Valid @RequestBody UsuarioRequestDTO usuarioRequest)
+    public ResponseEntity<PacienteResponseDTO> createUsuario(@Valid @RequestBody PacienteRequestDTO usuarioRequest)
     {
         Paciente pacienteConvertida = pacienteMapper.requestRecordToUsuario(usuarioRequest);
         Paciente pacienteCriada = pacienteRepository.save(pacienteConvertida);
-        UsuarioResponseDTO usuarioResponseDto = pacienteMapper.usuarioToResponseDto(pacienteCriada);
-        return new ResponseEntity<>(usuarioResponseDto, HttpStatus.CREATED);
+        PacienteResponseDTO pacienteResponseDto = pacienteMapper.usuarioToResponseDto(pacienteCriada);
+        return new ResponseEntity<>(pacienteResponseDto, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Atendimento usuário pelo ID")
@@ -68,12 +68,12 @@ public class UsuarioController {
             @ApiResponse(responseCode = "204", description = "Nenhum usuário encontrado")
     })
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UsuarioResponseDTO> readUsuario(@PathVariable Long id) {
+    public ResponseEntity<PacienteResponseDTO> readUsuario(@PathVariable Long id) {
         Optional<Paciente> usuarioReserva = pacienteRepository.findById(id);
         if (usuarioReserva.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        UsuarioResponseDTO usuarioResponse = pacienteMapper.usuarioToResponseDto(usuarioReserva.get());
+        PacienteResponseDTO usuarioResponse = pacienteMapper.usuarioToResponseDto(usuarioReserva.get());
 
         return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
     }
@@ -85,7 +85,7 @@ public class UsuarioController {
             @ApiResponse(responseCode = "404", description = "Paciente não encontrado"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos")
     })
-    public ResponseEntity<UsuarioResponseDTO> addEnderecoToUsuario(
+    public ResponseEntity<PacienteResponseDTO> addEnderecoToUsuario(
             @PathVariable Long usuarioId,
             @RequestBody EnderecoRequestDTO enderecoRequestDTO) {
 
@@ -110,7 +110,7 @@ public class UsuarioController {
         pacienteRepository.save(paciente);
 
         // Mapear o usuário salvo para o DTO de resposta
-        UsuarioResponseDTO usuarioResponse = pacienteMapper.usuarioToResponseDto(paciente);
+        PacienteResponseDTO usuarioResponse = pacienteMapper.usuarioToResponseDto(paciente);
 
         // Retornar o usuário atualizado
         return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
@@ -124,7 +124,7 @@ public class UsuarioController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos")
     })
     @PutMapping(value = "/{usuarioId}/carteirinha/{planoId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UsuarioResponseDTO> createCarteirinhaForUser   (@PathVariable Long usuarioId, @PathVariable Long planoId) {
+    public ResponseEntity<PacienteResponseDTO> createCarteirinhaForUser   (@PathVariable Long usuarioId, @PathVariable Long planoId) {
 
         // Verificar se o usuário existe
         Paciente paciente = pacienteRepository.findById(usuarioId)
@@ -148,7 +148,7 @@ public class UsuarioController {
         pacienteRepository.save(paciente);
 
         // Mapear o usuário salvo para o DTO de resposta
-        UsuarioResponseDTO usuarioResponse = pacienteMapper.usuarioToResponseDto(paciente);
+        PacienteResponseDTO usuarioResponse = pacienteMapper.usuarioToResponseDto(paciente);
 
         // Retornar o usuário atualizado
         return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
@@ -161,34 +161,34 @@ public class UsuarioController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos")
     })
     @PostMapping(value = "/{usuarioId}/consulta", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UsuarioResponseDTO> marcarConsulta(@PathVariable Long usuarioId, @RequestBody ConsultaRequestDTO consultaRequestDTO) {
+    public ResponseEntity<PacienteResponseDTO> marcarConsulta(@PathVariable Long usuarioId, @RequestBody AtendimentoRequestDTO atendimentoRequestDTO) {
 
         // Verificar se o usuário existe
         Paciente paciente = pacienteRepository.findById(usuarioId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
 
         // Verificar se a clínica existe
-        Clinica clinica = clinicaRepository.findById(consultaRequestDTO.clinicaId().getId())
+        Clinica clinica = clinicaRepository.findById(atendimentoRequestDTO.clinicaId().getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Clínica não encontrada"));
 
         // Verificar se o serviço é prestado pela clínica
-        if (!clinica.getServicos().contains(consultaRequestDTO.servico())) {
+        if (!clinica.getServicos().contains(atendimentoRequestDTO.servico())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A clínica não presta o serviço solicitado");
         }
 
         // Criar uma nova atendimento com os detalhes do serviço e clínica
         Atendimento atendimento = new Atendimento();
-        atendimento.setAgendamento(consultaRequestDTO.agendamento());
-        atendimento.setServico(consultaRequestDTO.servico());
+        atendimento.setAgendamento(atendimentoRequestDTO.agendamento());
+        atendimento.setServico(atendimentoRequestDTO.servico());
         atendimento.setUsuario(paciente);
         atendimento.setClinica(clinica);
-        atendimento.setObservacoes(consultaRequestDTO.observacoes());
+        atendimento.setObservacoes(atendimentoRequestDTO.observacoes());
 
         // Salvar a atendimento
-        Atendimento atendimentoSalva = consultaRepository.save(atendimento);
+        Atendimento atendimentoSalva = atendimentoRepository.save(atendimento);
 
         // Mapear o usuário salvo para o DTO de resposta
-        UsuarioResponseDTO usuarioResponse = pacienteMapper.usuarioToResponseDto(paciente);
+        PacienteResponseDTO usuarioResponse = pacienteMapper.usuarioToResponseDto(paciente);
 
         // Retornar o usuário atualizado
         return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);

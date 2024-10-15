@@ -7,7 +7,7 @@ import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 import java.time.LocalDate;
 import java.util.List;
 
-public record UsuarioResponseDTO(
+public record PacienteResponseDTO(
         Long id,
         String nome,
         LocalDate dataNascimento,

@@ -1,5 +1,6 @@
 package com.example.Odontoprev_Java.Model;
 
+import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,10 @@ public class Doutor {
     @Column(name = "CRM")
     private String CRM;
 
-    @OneToMany(mappedBy = "doutor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy ="Odonto_Doutor", fetch = FetchType.LAZY)
     private List<ClinicaDoutor> clinicaDoutores;
+
+    @OneToOne
+    @JoinColumn(name = "Endereco_id")
+    private Endereco endereco;
 }

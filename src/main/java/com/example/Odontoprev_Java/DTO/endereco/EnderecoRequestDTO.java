@@ -1,25 +1,29 @@
 package com.example.Odontoprev_Java.DTO.endereco;
 
+import com.example.Odontoprev_Java.Model.Endereco.Cidade;
 import com.example.Odontoprev_Java.Model.Endereco.Enum.Enum_estado;
 import com.example.Odontoprev_Java.Model.Endereco.Enum.Enum_paises;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 public record EnderecoRequestDTO
         (
-                @NotNull
-                String rua,
-                @NotNull
-                int numero,
-                @NotNull
-                String cep,
-                @NotNull
-                String bairro,
-                @NotNull
-                String cidade,
-                @NotNull
-                Enum_estado estado,
-                @NotNull
-                Enum_paises pais
+        @NotBlank
+        @Size(min = 1, max = 100)
+        String rua,
 
-        ) {
+        @Size(max = 100)
+        String complemento,
+
+        @NotNull
+        @Min(1)
+        int numero,
+
+        @NotBlank
+        @Pattern(regexp = "\\d{5}-\\d{3}")
+        String cep,
+
+        @NotBlank
+        @Size(min = 1, max = 50)
+        CidadeRequestDTO cidade
+) {
 }

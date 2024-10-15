@@ -11,7 +11,7 @@ import lombok.Setter;
 public class Plano {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_plano;
 
     @Column(name = "Nome")
     private String nome;
