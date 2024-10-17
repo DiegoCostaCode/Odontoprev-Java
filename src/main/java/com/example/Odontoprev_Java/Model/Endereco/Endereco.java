@@ -27,6 +27,6 @@ public class Endereco {
 
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "cidade")
-    private Cidade cidade_id;
+    private Cidade cidade;
 
 }

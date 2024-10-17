@@ -1,16 +1,10 @@
 package com.example.Odontoprev_Java.controller;
 
-import com.example.Odontoprev_Java.DTO.atendimento.AtendimentoRequestDTO;
-import com.example.Odontoprev_Java.DTO.endereco.EnderecoRequestDTO;
 import com.example.Odontoprev_Java.DTO.usuario.PacienteRequestDTO;
 import com.example.Odontoprev_Java.DTO.usuario.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.*;
-import com.example.Odontoprev_Java.Model.Endereco.Cidade;
-import com.example.Odontoprev_Java.Model.Endereco.Endereco;
-import com.example.Odontoprev_Java.Model.Endereco.Enum.Enum_estado;
-import com.example.Odontoprev_Java.Model.Endereco.Estado;
-import com.example.Odontoprev_Java.Model.Endereco.Pais;
 import com.example.Odontoprev_Java.Repository.*;
+import com.example.Odontoprev_Java.service.EnderecoMapper;
 import com.example.Odontoprev_Java.service.PacienteMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,15 +18,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Date;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/usuario", produces = {"aplication/json"})
+@RequestMapping(value = "/paciente", produces = {"aplication/json"})
 @Tag(name = "api-usuarios")
 public class UsuarioController {
+
 //    @Autowired
 //    private PacienteRepository pacienteRepository;
 //
@@ -53,6 +46,12 @@ public class UsuarioController {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @Autowired
+    private EnderecoRepository enderecoRepository;
+
+    @Autowired
+    private EnderecoMapper enderecoMapper;
+
 
     @Operation(summary = "Cria o paciente")
     @ApiResponses(value = {
@@ -69,59 +68,18 @@ public class UsuarioController {
 
     }
 
-    @Operation(summary = "Atendimento paciente pelo ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Usuário encontrado com sucesso"),
-            @ApiResponse(responseCode = "204", description = "Nenhum usuário encontrado")
-    })
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PacienteResponseDTO> readUsuario(@PathVariable Long id) {
-        Optional<Paciente> pacienteSalvo = pacienteRepository.findById(id);
+
+    @GetMapping(value = "/{paciente_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PacienteResponseDTO> readUsuario(@PathVariable Long paciente_id) {
+        Optional<Paciente> pacienteSalvo = pacienteRepository.findById(paciente_id);
         if (pacienteSalvo.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        PacienteResponseDTO usuarioResponse = pacienteMapper.pacienteResponseDTO(pacienteSalvo.get());
+        PacienteResponseDTO pacienteResponse = pacienteMapper.pacienteResponseDTO(pacienteSalvo.get());
 
-        return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
+        return new ResponseEntity<>(pacienteResponse, HttpStatus.OK);
     };
 
-    @PutMapping(value = "/{pacienteId}/endereco", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PacienteResponseDTO> addEnderecoToUsuario(
-            @PathVariable Long pacienteId,
-            @Valid @RequestBody EnderecoRequestDTO enderecoRequestDTO) {
-
-        Paciente paciente = pacienteRepository.findById(pacienteId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente não encontrado"));
-
-        Endereco endereco = new Endereco();
-        endereco.setRua(enderecoRequestDTO.rua());
-        endereco.setComplemento(enderecoRequestDTO.complemento());
-        endereco.setNumero(enderecoRequestDTO.numero());
-        endereco.setCEP(enderecoRequestDTO.cep());
-
-        Cidade cidade = new Cidade();
-        cidade.setCidade(enderecoRequestDTO.cidade().nome());
-
-        Estado estado = new Estado();
-        estado.setNome(enderecoRequestDTO.cidade().estado().nome());
-
-        Pais pais = new Pais();
-        pais.setNome(enderecoRequestDTO.cidade().estado().pais().nome());
-
-        estado.setPais_id(pais);
-        cidade.setEstado_id(estado);
-        endereco.setCidade_id(cidade);
-
-        paciente.setEndereco(endereco);
-        pacienteRepository.save(paciente);
-
-        PacienteResponseDTO pacienteResponse = pacienteMapper.pacienteResponseDTO(paciente);
-        return new ResponseEntity<>(pacienteResponse, HttpStatus.OK);
-    }
-
-
-
-//
 //
 //    @Operation(summary = "Cria uma carteirinha para um usuário existente")
 //    @ApiResponses(value = {

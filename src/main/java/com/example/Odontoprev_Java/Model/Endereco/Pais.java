@@ -14,5 +14,6 @@ public class Pais {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_pais;
 
+    @Column(name = "nome")
     private Enum_paises nome;
 }

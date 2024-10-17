@@ -17,7 +17,7 @@ public class Cidade {
     private String cidade;
 
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name ="estado")
-    private Estado estado_id;
+    @JoinColumn(name = "estado")
+    private Estado estado;
 
 }

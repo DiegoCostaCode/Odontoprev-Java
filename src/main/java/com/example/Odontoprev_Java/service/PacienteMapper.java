@@ -9,31 +9,31 @@ import org.springframework.stereotype.Service;
 @Service
 public class PacienteMapper {
 
-    public Paciente requestToPlano(PacienteRequestDTO pacienteRequestDTO)
-    {
-        Paciente paciente = new Paciente();
+        public Paciente requestToPlano(PacienteRequestDTO pacienteRequestDTO)
+        {
+            Paciente paciente = new Paciente();
 
-        paciente.setNome(pacienteRequestDTO.nome());
-        paciente.setCpf(pacienteRequestDTO.cpf());
-        paciente.setDataNascimento(pacienteRequestDTO.dataNascimento());
-        paciente.setEmail(pacienteRequestDTO.email());
-        paciente.setTelefone(pacienteRequestDTO.telefone());
+            paciente.setNome(pacienteRequestDTO.nome());
+            paciente.setCpf(pacienteRequestDTO.cpf());
+            paciente.setDataNascimento(pacienteRequestDTO.dataNascimento());
+            paciente.setEmail(pacienteRequestDTO.email());
+            paciente.setTelefone(pacienteRequestDTO.telefone());
 
-        return paciente;
-    }
+            return paciente;
+        }
 
-    public PacienteResponseDTO pacienteResponseDTO(Paciente paciente)
-    {
-        return new PacienteResponseDTO(
-                paciente.getId(),
-                paciente.getNome(),
-                paciente.getDataNascimento(),
-                paciente.getCpf(),
-                paciente.getEmail(),
-                paciente.getTelefone(),
-                paciente.getEndereco()
-        );
-    }
+        public PacienteResponseDTO pacienteResponseDTO(Paciente paciente)
+        {
+            return new PacienteResponseDTO(
+                    paciente.getId(),
+                    paciente.getNome(),
+                    paciente.getDataNascimento(),
+                    paciente.getCpf(),
+                    paciente.getEmail(),
+                    paciente.getTelefone(),
+                    paciente.getEndereco()
+            );
+        }
 
 
 }

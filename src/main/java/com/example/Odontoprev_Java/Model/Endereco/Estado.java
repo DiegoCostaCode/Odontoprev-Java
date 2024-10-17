@@ -19,5 +19,5 @@ public class Estado {
 
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name ="pais")
-    private Pais pais_id;
+    private Pais pais;
 }

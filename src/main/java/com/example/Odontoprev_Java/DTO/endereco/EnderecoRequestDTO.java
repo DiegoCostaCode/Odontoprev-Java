@@ -22,7 +22,7 @@ public record EnderecoRequestDTO
         @Pattern(regexp = "\\d{5}-\\d{3}")
         String cep,
 
-        @NotBlank
-        CidadeRequestDTO cidade
+        @NotNull
+        Cidade cidade
 ) {
 }

@@ -11,6 +11,7 @@ public record EnderecoResponseDTO
                 long id,
                 String rua,
                 int numero,
+                String complemento,
                 String cep,
                 Cidade cidade
         ) {
