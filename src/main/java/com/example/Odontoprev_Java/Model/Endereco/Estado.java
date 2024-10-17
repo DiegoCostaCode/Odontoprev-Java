@@ -15,9 +15,9 @@ public class Estado {
     private long id_estado;
 
     @Column(name = "Estado")
-    private Enum_estado estado;
+    private Enum_estado nome;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name ="Id_pais")
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name ="pais")
     private Pais pais_id;
 }

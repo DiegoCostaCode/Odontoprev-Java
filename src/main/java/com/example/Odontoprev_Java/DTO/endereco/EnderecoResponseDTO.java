@@ -8,12 +8,10 @@ import com.example.Odontoprev_Java.Model.Endereco.Pais;
 
 public record EnderecoResponseDTO
         (
-                Long id,
+                long id,
                 String rua,
                 int numero,
                 String cep,
-                Cidade cidade,
-                Estado estado,
-                Pais pais
+                Cidade cidade
         ) {
 }

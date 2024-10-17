@@ -23,7 +23,6 @@ public record EnderecoRequestDTO
         String cep,
 
         @NotBlank
-        @Size(min = 1, max = 50)
         CidadeRequestDTO cidade
 ) {
 }

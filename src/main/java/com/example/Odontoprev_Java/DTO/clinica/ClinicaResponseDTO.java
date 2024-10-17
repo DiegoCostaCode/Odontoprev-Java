@@ -1,5 +1,7 @@
 package com.example.Odontoprev_Java.DTO.clinica;
 
+import com.example.Odontoprev_Java.Model.Atendimento;
+import com.example.Odontoprev_Java.Model.ClinicaDoutor;
 import com.example.Odontoprev_Java.Model.Doutor;
 import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 
@@ -8,8 +10,10 @@ import java.util.List;
 public record ClinicaResponseDTO(
         Long id,
         String razaoSocial,
-        List<Enum_tipo_servico> servicos,
+        String descricao,
+        String cnpj,
         String emailRepresentante,
         Endereco endereco,
-        List<Doutor> doutores
+        List<ClinicaDoutor> doutores,
+        List<Atendimento> atendimentos
 ){}

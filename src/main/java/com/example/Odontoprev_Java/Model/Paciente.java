@@ -2,7 +2,9 @@ package com.example.Odontoprev_Java.Model;
 
 import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -41,8 +43,20 @@ public class Paciente {
     @JoinColumn(name = "Endereco_id")
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "Odonto_Paciente" , fetch = FetchType.LAZY)
+    @OneToMany
     @JoinColumn(name = "historico_atendimentos")
     private List<Atendimento> atendimentos = new ArrayList<>();
+
+    public Paciente() {}
+
+    public Paciente(String nome, LocalDate dataNascimento, String cpf, String email, String telefone, Carteirinha carteirinha, Endereco endereco) {
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+        this.email = email;
+        this.telefone = telefone;
+        this.carteirinha = carteirinha;
+        this.endereco = endereco;
+    }
 
 }

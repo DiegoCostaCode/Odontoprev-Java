@@ -22,7 +22,7 @@ public class Doutor {
     @Column(name = "CRM")
     private String CRM;
 
-    @OneToMany(mappedBy ="Odonto_Doutor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy ="doutor", fetch = FetchType.LAZY)
     private List<ClinicaDoutor> clinicaDoutores;
 
     @OneToOne

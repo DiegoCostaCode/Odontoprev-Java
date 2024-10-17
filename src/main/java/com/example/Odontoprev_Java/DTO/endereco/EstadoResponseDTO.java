@@ -5,7 +5,7 @@ import com.example.Odontoprev_Java.Model.Endereco.Pais;
 
 public record EstadoResponseDTO
         (
-                Long id_estado,
+                long id_estado,
                 Enum_estado nome,
                 Pais pais
         ){

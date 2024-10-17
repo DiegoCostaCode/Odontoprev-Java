@@ -14,5 +14,5 @@ public class Pais {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_pais;
 
-    private Enum_paises Pais;
+    private Enum_paises nome;
 }

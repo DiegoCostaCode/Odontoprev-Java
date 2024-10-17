@@ -1,10 +1,11 @@
 package com.example.Odontoprev_Java.DTO.endereco;
 
+import com.example.Odontoprev_Java.Model.Endereco.Enum.Enum_paises;
 import com.example.Odontoprev_Java.Model.Endereco.Pais;
 
 public record PaisResponseDTO
         (
-                Long id_pais,
-                Pais pais
+                long id_pais,
+                Enum_paises pais
         ) {
 }

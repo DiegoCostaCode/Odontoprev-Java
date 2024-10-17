@@ -33,10 +33,10 @@ public class Clinica {
     @JoinColumn(name = "Endereco_id")
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "Odonto_Clinica", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "clinica", fetch = FetchType.LAZY)
     private List<ClinicaDoutor> clinicaDoutores;
 
-    @OneToMany(mappedBy = "Odonto_Clinica", fetch = FetchType.LAZY)
+    @OneToMany()
     @JoinColumn(name = "historico_atendimentos")
     private List<Atendimento> atendimentos;
 

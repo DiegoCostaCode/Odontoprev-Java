@@ -25,8 +25,8 @@ public class Endereco {
     @Column(name = "CEP")
     private String CEP;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Id_cidade")
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "cidade")
     private Cidade cidade_id;
 
 }
