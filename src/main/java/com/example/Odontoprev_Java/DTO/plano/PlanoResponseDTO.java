@@ -4,6 +4,7 @@ public record PlanoResponseDTO(
         Long id_plano,
         String nome,
         String descricao,
-        double preco
+        double preco,
+        boolean ativo
 ){
 }

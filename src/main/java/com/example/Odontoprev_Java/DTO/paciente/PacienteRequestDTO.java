@@ -1,4 +1,4 @@
-package com.example.Odontoprev_Java.DTO.usuario;
+package com.example.Odontoprev_Java.DTO.paciente;
 
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.br.CPF;

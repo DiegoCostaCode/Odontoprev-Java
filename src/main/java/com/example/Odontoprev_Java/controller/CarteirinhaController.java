@@ -1,49 +1,65 @@
-//package com.example.Odontoprev_Java.controller;
-//
-//import com.example.Odontoprev_Java.DTO.usuario.PacienteResponseDTO;
-//import com.example.Odontoprev_Java.Model.Paciente;
-//import com.example.Odontoprev_Java.Repository.PacienteRepository;
-//import io.swagger.v3.oas.annotations.Operation;
-//import io.swagger.v3.oas.annotations.responses.ApiResponse;
-//import io.swagger.v3.oas.annotations.responses.ApiResponses;
-//import io.swagger.v3.oas.annotations.tags.Tag;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.MediaType;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.Optional;
-//
-//@RestController
-//@RequestMapping(value = "/carteirinha", produces = {"aplication/json"})
-//@Tag(name = "api-carteirinha")
-//public class CarteirinhaController {
-//
-//
-//    @Autowired
-//    private PacienteRepository pacienteRepository;
-//
-////    @Autowired(required = true)
-////    private CarteirinhaMapper carteirinhaMapper;
-////
-////    @Autowired(required = true)
-////    private PacienteMapper pacienteMapper;
-//
-//    @Operation(summary = "Atendimento usuário pelo ID de usuário")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Usuário encontrado"),
-//            @ApiResponse(responseCode = "204", description = "Usuário não encontrado"),
-//            @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos")
-//    })
-//    @GetMapping(value = "/{usuarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<PacienteResponseDTO> readUsuario(@PathVariable Long usuarioId) {
-//        Optional<Paciente> usuarioSalvo = pacienteRepository.findById(usuarioId);
-//        if (usuarioSalvo.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }
-//        PacienteResponseDTO usuarioResponse = pacienteMapper.usuarioToResponseDto(usuarioSalvo.get());
-//
-//        return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
-//    }
-//}
+package com.example.Odontoprev_Java.controller;
+
+import com.example.Odontoprev_Java.DTO.carteirinha.CarteirinhaResponseDTO;
+import com.example.Odontoprev_Java.DTO.carteirinha.CarterinhaRequestDTO;
+
+import com.example.Odontoprev_Java.Model.Carteirinha;
+import com.example.Odontoprev_Java.Model.Paciente;
+import com.example.Odontoprev_Java.Model.Plano;
+import com.example.Odontoprev_Java.Repository.CarteirinhaRepository;
+import com.example.Odontoprev_Java.Repository.PacienteRepository;
+import com.example.Odontoprev_Java.Repository.PlanoRepository;
+import com.example.Odontoprev_Java.service.CarteirinhaMapper;
+import com.example.Odontoprev_Java.service.PacienteMapper;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
+
+@RestController
+@RequestMapping(value = "/carteirinha", produces = {"aplication/json"})
+@Tag(name = "api-carteirinha")
+public class CarteirinhaController {
+
+
+    @Autowired
+    private PacienteRepository pacienteRepository;
+
+    @Autowired(required = true)
+    private CarteirinhaMapper carteirinhaMapper;
+
+    @Autowired(required = true)
+    private PacienteMapper pacienteMapper;
+    @Autowired
+    private PlanoRepository planoRepository;
+    @Autowired
+    private CarteirinhaRepository carteirinhaRepository;
+
+
+    @PostMapping(value = "/gerar", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CarteirinhaResponseDTO> createCarteirinha(
+            @Valid @RequestBody CarterinhaRequestDTO carterinhaRequestDTO){
+
+        Paciente paciente = pacienteRepository.findById(carterinhaRequestDTO.pacienteId().getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente não encontrado"));
+
+        Plano plano = planoRepository.findById(carterinhaRequestDTO.planoId().getId_plano())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente não encontrado"));
+
+
+        Carteirinha carteirinha = new Carteirinha();
+        carteirinha.setPaciente(paciente);
+        carteirinha.setPlano(plano);
+
+        Carteirinha carteirinhaCriada = carteirinhaRepository.save(carteirinha);
+        CarteirinhaResponseDTO carteirinhaResponse = carteirinhaMapper.carteirinhaResponseDTO(carteirinhaCriada);
+
+        return new ResponseEntity<>(carteirinhaResponse, HttpStatus.CREATED);
+    }
+}

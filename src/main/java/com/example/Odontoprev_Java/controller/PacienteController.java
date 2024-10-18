@@ -1,7 +1,7 @@
 package com.example.Odontoprev_Java.controller;
 
-import com.example.Odontoprev_Java.DTO.usuario.PacienteRequestDTO;
-import com.example.Odontoprev_Java.DTO.usuario.PacienteResponseDTO;
+import com.example.Odontoprev_Java.DTO.paciente.PacienteRequestDTO;
+import com.example.Odontoprev_Java.DTO.paciente.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.*;
 import com.example.Odontoprev_Java.Repository.*;
 import com.example.Odontoprev_Java.service.EnderecoMapper;
@@ -24,7 +24,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/paciente", produces = {"aplication/json"})
 @Tag(name = "api-usuarios")
-public class UsuarioController {
+public class PacienteController {
 
 //    @Autowired
 //    private PacienteRepository pacienteRepository;

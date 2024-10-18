@@ -22,4 +22,7 @@ public class Plano {
     @Column(name = "Preco")
     private double preco;
 
+    @Column(name = "Ativo")
+    private boolean ativo = false;
+
 }

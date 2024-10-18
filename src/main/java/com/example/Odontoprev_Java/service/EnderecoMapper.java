@@ -2,11 +2,7 @@ package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.endereco.EnderecoRequestDTO;
 import com.example.Odontoprev_Java.DTO.endereco.EnderecoResponseDTO;
-import com.example.Odontoprev_Java.DTO.usuario.PacienteRequestDTO;
-import com.example.Odontoprev_Java.DTO.usuario.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.Endereco.Endereco;
-import com.example.Odontoprev_Java.Model.Paciente;
-import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.stereotype.Service;
 
 @Service

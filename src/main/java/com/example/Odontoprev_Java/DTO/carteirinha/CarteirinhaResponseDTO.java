@@ -9,7 +9,8 @@ import java.util.UUID;
 public record CarteirinhaResponseDTO
         (
                 UUID id,
-                Date date,
+                long numero,
+                Date emissao,
                 Date validade,
                 Paciente paciente,
                 Plano plano

@@ -10,21 +10,11 @@ import java.util.Date;
 
 public record CarterinhaRequestDTO
         (
-                @NotNull(message = "Data de emissão não pode ser nula")
-                @PastOrPresent(message = "Data de emissão deve ser no passado ou presente")
-                Date emissao,
-
-                @NotNull(message = "Data de validade não pode ser nula")
-                @Future(message = "Data de validade deve ser no futuro")
-                Date validade,
-
                 @NotNull(message = "Plano não pode ser nulo")
                 Plano planoId,
 
                 @NotNull(message = "Paciente não pode ser nulo")
                 Paciente pacienteId
         ) {
-
-
 
 }

@@ -1,6 +1,7 @@
 package com.example.Odontoprev_Java.DTO.plano;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
@@ -15,6 +16,10 @@ public record PlanoRequestDTO (
         String descricao,
 
         @Positive(message = "Preço deve ser positivo")
-        double preco
+        double preco,
+
+        @NotNull(message = "Ativo é obrigatório")
+        boolean ativo
+
     ){
 }

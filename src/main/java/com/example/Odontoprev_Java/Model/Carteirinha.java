@@ -19,34 +19,33 @@ public class Carteirinha {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id_carteirinha;
 
-    @Column (name = "Numero")
-    private int numero;
+    @Column(name = "Numero")
+    private long numero = gerarNumero();
 
     @Column (name = "Emissao")
-    private Date emissao;
+    private Date emissao = new Date();
 
     @Column (name = "Validade")
-    private Date validade;
+    private Date validade = calcularValidade(1);
+
     @OneToOne
     @JoinColumn(name = "Paciente_id")
-    private Paciente id_paciente;
+    private Paciente paciente;
+
     @OneToOne
     @JoinColumn(name = "Plano_id")
-    private Plano id_plano;
-
-
-
-    public Carteirinha() {
-        this.emissao = new Date();
-        this.validade = calcularValidade(1);
-    }
-
+    private Plano plano;
 
     private Date calcularValidade(int anos) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(this.emissao);
         cal.add(Calendar.YEAR, anos);
         return cal.getTime();
+    }
+
+
+    public long gerarNumero() {
+        return (long) (Math.random() * 1_000_000_000_000_000_00L);
     }
 
 

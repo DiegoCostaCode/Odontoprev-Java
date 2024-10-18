@@ -1,4 +1,4 @@
-package com.example.Odontoprev_Java.DTO.usuario;
+package com.example.Odontoprev_Java.DTO.paciente;
 
 import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 

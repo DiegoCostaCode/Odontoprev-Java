@@ -35,9 +35,7 @@ public class Paciente {
     @Column(name = "Telefone")
     private String telefone;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "Carteirinha")
-    private Carteirinha carteirinha;
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Endereco_id")
@@ -49,13 +47,12 @@ public class Paciente {
 
     public Paciente() {}
 
-    public Paciente(String nome, LocalDate dataNascimento, String cpf, String email, String telefone, Carteirinha carteirinha, Endereco endereco) {
+    public Paciente(String nome, LocalDate dataNascimento, String cpf, String email, String telefone, Endereco endereco) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;
         this.email = email;
         this.telefone = telefone;
-        this.carteirinha = carteirinha;
         this.endereco = endereco;
     }
 
