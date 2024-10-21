@@ -43,15 +43,14 @@ public class CarteirinhaController {
 
 
     @PostMapping(value = "/gerar", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CarteirinhaResponseDTO> createCarteirinha(
+    public ResponseEntity<CarteirinhaResponseDTO> gerarCarteirinha(
             @Valid @RequestBody CarterinhaRequestDTO carterinhaRequestDTO){
 
-        Paciente paciente = pacienteRepository.findById(carterinhaRequestDTO.pacienteId().getId())
+        Paciente paciente = pacienteRepository.findById(carterinhaRequestDTO.paciente().getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente não encontrado"));
 
-        Plano plano = planoRepository.findById(carterinhaRequestDTO.planoId().getId_plano())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente não encontrado"));
-
+        Plano plano = planoRepository.findById(carterinhaRequestDTO.plano().getId_plano())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Plano não encontrado"));
 
         Carteirinha carteirinha = new Carteirinha();
         carteirinha.setPaciente(paciente);
@@ -62,4 +61,6 @@ public class CarteirinhaController {
 
         return new ResponseEntity<>(carteirinhaResponse, HttpStatus.CREATED);
     }
+
+
 }

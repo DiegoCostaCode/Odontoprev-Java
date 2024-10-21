@@ -12,8 +12,8 @@ public class CarteirinhaMapper {
     {
         Carteirinha carteirinha = new Carteirinha();
 
-        carteirinha.setPaciente(carteirinhaRequestDTO.pacienteId());
-        carteirinha.setPlano(carteirinhaRequestDTO.planoId());
+        carteirinha.setPaciente(carteirinhaRequestDTO.paciente());
+        carteirinha.setPlano(carteirinhaRequestDTO.plano());
 
         return carteirinha;
     }

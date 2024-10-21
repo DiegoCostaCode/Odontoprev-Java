@@ -13,9 +13,14 @@ public record DoutorRequestDTO
                 @NotBlank(message = "Nome é obrigatório")
                 @Size(min = 2, max = 100, message = "Nome deve ter entre 2 e 100 caracteres")
                 String nome,
+
                 @NotBlank(message = "Data de nascimento é obrigatória")
                 @Size(min = 6, max = 6, message = "CRM deve ter 6 caracteres")
-                String CRM
+                String CRM,
+
+                @NotBlank(message = "CPF é obrigatório")
+                @CPF(message = "CPF inválido")
+                String CPF
         )
         {
 

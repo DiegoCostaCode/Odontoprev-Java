@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "Odonto_Procedimento")
-public class Prodecimento {
+public class Procedimento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_procedimento;

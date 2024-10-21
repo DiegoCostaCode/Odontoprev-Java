@@ -3,6 +3,7 @@ package com.example.Odontoprev_Java.DTO.atendimento;
 import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Doutor;
 import com.example.Odontoprev_Java.Model.Paciente;
+import com.example.Odontoprev_Java.Model.Procedimento.Procedimento;
 import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,6 +27,9 @@ public record AtendimentoRequestDTO(
 
         @NotNull(message = "Custo é obrigatório")
         @Positive(message = "Custo deve ser positivo")
-        double custo
+        double custo,
+
+        @NotBlank
+        Procedimento procedimento
 ) {
 }

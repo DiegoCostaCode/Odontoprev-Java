@@ -1,5 +1,6 @@
 package com.example.Odontoprev_Java.Model;
 
+import com.example.Odontoprev_Java.Model.Procedimento.Procedimento;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,21 +17,25 @@ public class Atendimento {
     private long id_atendimento;
 
     @Column(name = "Data")
-    private LocalDate data;
+    private LocalDate data = LocalDate.now();
 
     @Column(name = "Descrição")
     private String descricao;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Paciente_id")
     private Paciente paciente;
 
-    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "Clinica_id")
     private Clinica clinica;
 
     @Column(name = "Custo")
     private double custo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Procedimento_id")
+    private Procedimento procedimento;
 
 
 }

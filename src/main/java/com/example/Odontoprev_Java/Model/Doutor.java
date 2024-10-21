@@ -22,10 +22,9 @@ public class Doutor {
     @Column(name = "CRM")
     private String CRM;
 
+    @Column(name = "CPF")
+    private String CPF;
+
     @OneToMany(mappedBy ="doutor", fetch = FetchType.LAZY)
     private List<ClinicaDoutor> clinicaDoutores;
-
-    @OneToOne
-    @JoinColumn(name = "Endereco_id")
-    private Endereco endereco;
 }

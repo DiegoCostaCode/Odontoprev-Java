@@ -36,7 +36,6 @@ public class Paciente {
     private String telefone;
 
 
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Endereco_id")
     private Endereco endereco;

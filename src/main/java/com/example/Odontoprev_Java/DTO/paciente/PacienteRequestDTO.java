@@ -1,5 +1,6 @@
 package com.example.Odontoprev_Java.DTO.paciente;
 
+import com.example.Odontoprev_Java.Model.Paciente;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;

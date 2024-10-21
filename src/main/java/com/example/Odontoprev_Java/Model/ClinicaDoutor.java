@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 
@@ -25,10 +26,10 @@ public class ClinicaDoutor {
     private Doutor doutor;
 
     @Column(name = "data_relacionamento")
-    private LocalDate dataRelacionamento;
+    private LocalDate dataRelacionamento = LocalDate.now();
 
     @Column(name = "data_fim_relacionamento")
-    private LocalDate dataFimRelacionamento;
+    private LocalDate dataFimRelacionamento = LocalDate.now();
 
 }
 

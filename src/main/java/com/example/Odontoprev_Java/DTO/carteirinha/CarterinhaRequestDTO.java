@@ -11,10 +11,10 @@ import java.util.Date;
 public record CarterinhaRequestDTO
         (
                 @NotNull(message = "Plano não pode ser nulo")
-                Plano planoId,
+                Plano plano,
 
                 @NotNull(message = "Paciente não pode ser nulo")
-                Paciente pacienteId
+                Paciente paciente
         ) {
 
 }
