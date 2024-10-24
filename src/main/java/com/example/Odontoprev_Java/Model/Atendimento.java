@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -17,7 +18,7 @@ public class Atendimento {
     private long id_atendimento;
 
     @Column(name = "Data")
-    private LocalDate data = LocalDate.now();
+    private Date data = new Date();
 
     @Column(name = "Descrição")
     private String descricao;

@@ -3,9 +3,13 @@ package com.example.Odontoprev_Java.controller;
 import com.example.Odontoprev_Java.DTO.atendimento.AtendimentoRequestDTO;
 import com.example.Odontoprev_Java.DTO.atendimento.AtendimentoResponseDTO;
 import com.example.Odontoprev_Java.Model.Atendimento;
+import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Paciente;
+import com.example.Odontoprev_Java.Model.Procedimento.Procedimento;
 import com.example.Odontoprev_Java.Repository.AtendimentoRepository;
+import com.example.Odontoprev_Java.Repository.ClinicaRepository;
 import com.example.Odontoprev_Java.Repository.PacienteRepository;
+import com.example.Odontoprev_Java.Repository.ProcedimentorRepository;
 import com.example.Odontoprev_Java.service.AtendimentoMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/atendimento", produces = {"aplication/json"})
+@Tag(name = "api-atendimento")
 public class AtendimentoController {
 
     @Autowired
@@ -29,6 +34,12 @@ public class AtendimentoController {
 
     @Autowired
     private PacienteRepository pacienteRepository;
+
+    @Autowired
+    private ProcedimentorRepository procedimentoRepository;
+
+    @Autowired
+    private ClinicaRepository clinicaRepository;
 
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,20 +53,23 @@ public class AtendimentoController {
         return new ResponseEntity<>(atendimentoResponseDTO, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/marcar/{pacienteId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AtendimentoResponseDTO> createAtendimento(@PathVariable long pacienteId,@RequestBody AtendimentoRequestDTO atendimentoRequestDTO) {
+    @PostMapping(value = "/marcar", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AtendimentoResponseDTO> createAtendimento(@RequestBody AtendimentoRequestDTO atendimentoRequestDTO) {
 
-        Paciente paciente = pacienteRepository.findById(pacienteId)
+        Paciente paciente = pacienteRepository.findById(atendimentoRequestDTO.paciente().getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente inválido"));
+
+
+        Clinica clinica = clinicaRepository.findById(atendimentoRequestDTO.clinica().getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Clinica inválido"));
+
 
         Atendimento atendimento = atendimentoMapper.atendimentoRequest(atendimentoRequestDTO);
 
-        atendimento.setClinica(atendimentoRequestDTO.clinica());
-        atendimento.setDescricao(atendimentoRequestDTO.descricao());
-        atendimento.setData(atendimentoRequestDTO.data());
-        atendimento.setCusto(atendimentoRequestDTO.custo());
-        atendimento.setProcedimento(atendimentoRequestDTO.procedimento());
+        atendimento.setClinica(clinica);
         atendimento.setPaciente(paciente);
+        atendimento.setDescricao(atendimentoRequestDTO.descricao());
+        atendimento.setCusto(atendimentoRequestDTO.custo());
 
         Atendimento atendimentoCriado = atendimentoRepository.save(atendimento);
         AtendimentoResponseDTO atendimentoResponseDTO = atendimentoMapper.atendimentoToResponse(atendimentoCriado);
