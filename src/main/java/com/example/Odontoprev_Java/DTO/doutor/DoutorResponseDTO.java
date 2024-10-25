@@ -10,7 +10,6 @@ public record DoutorResponseDTO(
         Long id,
         String nome,
         String CRM,
-        String CPF,
-        List<ClinicaDoutor> clinicaDotores
+        String CPF
         ) {
 }

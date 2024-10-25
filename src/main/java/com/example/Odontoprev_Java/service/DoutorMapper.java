@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DoutorMapper {
 
-    public Doutor requestToDoutor(DoutorRequestDTO doutorRequestDTO)
+    public Doutor doutorToRequest(DoutorRequestDTO doutorRequestDTO)
     {
         Doutor doutor = new Doutor();
 
@@ -22,14 +22,13 @@ public class DoutorMapper {
         return doutor;
     }
 
-    public DoutorResponseDTO doutorResponseDTO(Doutor doutor)
+    public DoutorResponseDTO doutorToResponse(Doutor doutor)
     {
         return new DoutorResponseDTO(
                 doutor.getId(),
                 doutor.getNome(),
                 doutor.getCRM(),
-                doutor.getCPF(),
-                doutor.getClinicaDoutores()
+                doutor.getCPF()
         );
     }
 }

@@ -13,7 +13,5 @@ public record ClinicaResponseDTO(
         String descricao,
         String cnpj,
         String emailRepresentante,
-        Endereco endereco,
-        List<ClinicaDoutor> doutores,
-        List<Atendimento> atendimentos
+        Endereco endereco
 ){}

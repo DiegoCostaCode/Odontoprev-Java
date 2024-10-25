@@ -18,7 +18,7 @@ public class CarteirinhaMapper {
         return carteirinha;
     }
 
-    public CarteirinhaResponseDTO carteirinhaResponseDTO(Carteirinha carteirinha)
+    public CarteirinhaResponseDTO carteirinhaToResponse(Carteirinha carteirinha)
     {
         return new CarteirinhaResponseDTO(
                 carteirinha.getId_carteirinha(),

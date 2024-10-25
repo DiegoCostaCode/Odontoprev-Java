@@ -35,14 +35,10 @@ public class Paciente {
     @Column(name = "Telefone")
     private String telefone;
 
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Endereco_id")
     private Endereco endereco;
 
-    @OneToMany
-    @JoinColumn(name = "historico_atendimentos")
-    private List<Atendimento> atendimentos = new ArrayList<>();
 
     public Paciente() {}
 

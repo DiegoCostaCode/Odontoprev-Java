@@ -7,8 +7,6 @@ import java.time.LocalDate;
 
 public record SinistroRequestDTO
         (
-                @PastOrPresent(message = "A data do sinistro não pode ser no futuro")
-                LocalDate data_sinistro,
 
                 @NotBlank(message = "A descrição não pode estar em branco")
                 String descricao,

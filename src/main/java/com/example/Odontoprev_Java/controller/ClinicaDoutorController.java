@@ -2,6 +2,7 @@ package com.example.Odontoprev_Java.controller;
 
 import com.example.Odontoprev_Java.DTO.clinicaDoutor.ClinicaDoutorRequestDTO;
 import com.example.Odontoprev_Java.DTO.clinicaDoutor.ClinicaDoutorResponseDTO;
+import com.example.Odontoprev_Java.DTO.procedimento.ProdecimentoResponseDTO;
 import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.ClinicaDoutor;
 import com.example.Odontoprev_Java.Model.Doutor;
@@ -9,6 +10,8 @@ import com.example.Odontoprev_Java.Model.Plano;
 import com.example.Odontoprev_Java.Repository.ClinicaDoutorRepository;
 import com.example.Odontoprev_Java.Repository.ClinicaRepository;
 import com.example.Odontoprev_Java.Repository.DoutorRepository;
+import com.example.Odontoprev_Java.service.ClinicaDoutorMapper;
+import com.example.Odontoprev_Java.service.ClinicaMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +19,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/cadastro-relacionamento")
@@ -31,15 +36,17 @@ public class ClinicaDoutorController {
     @Autowired
     private ClinicaDoutorRepository clinicaDoutorRepository;
 
+    @Autowired
+    private ClinicaDoutorMapper clinicaDoutorMapper;
 
 
-    @PostMapping(value = "/{clinicaId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ClinicaDoutor> createClinicaDoutor(@PathVariable Long clinicaId, @Valid @RequestBody ClinicaDoutorRequestDTO clinicaDoutorRequestDTO) {
+    @PostMapping(value = "/registrar", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClinicaDoutor> createClinicaDoutor( @Valid @RequestBody ClinicaDoutorRequestDTO clinicaDoutorRequestDTO) {
 
-        Clinica clinica = clinicaRepository.findById(clinicaId)
+        Clinica clinica = clinicaRepository.findById(clinicaDoutorRequestDTO.clinicaId().getId())
                 .orElseThrow(() -> new RuntimeException("Clinica não encontrado"));
 
-        Doutor doutor = doutorRepository.findById(clinicaDoutorRequestDTO.clinicaId().getId())
+        Doutor doutor = doutorRepository.findById(clinicaDoutorRequestDTO.doutorId().getId())
                 .orElseThrow(() -> new RuntimeException("Doutor não encontrado"));
 
         ClinicaDoutor clinicaDoutor = new ClinicaDoutor();
@@ -51,6 +58,15 @@ public class ClinicaDoutorController {
         clinicaDoutorRepository.save(clinicaDoutor);
 
         return new ResponseEntity<>(clinicaDoutor, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/listar-relacoes", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ClinicaDoutorResponseDTO>> listarRelacoes() {
+        List<ClinicaDoutor> clinicaDoutor = clinicaDoutorRepository.findAll();
+        List<ClinicaDoutorResponseDTO> clinicaDoutorResponseDTOS = clinicaDoutor.stream()
+                .map(clinicaDoutorMapper::clinicaDoutorToResponse)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(clinicaDoutorResponseDTOS, HttpStatus.OK);
     }
 
 }

@@ -57,7 +57,7 @@ public class CarteirinhaController {
         carteirinha.setPlano(plano);
 
         Carteirinha carteirinhaCriada = carteirinhaRepository.save(carteirinha);
-        CarteirinhaResponseDTO carteirinhaResponse = carteirinhaMapper.carteirinhaResponseDTO(carteirinhaCriada);
+        CarteirinhaResponseDTO carteirinhaResponse = carteirinhaMapper.carteirinhaToResponse(carteirinhaCriada);
 
         return new ResponseEntity<>(carteirinhaResponse, HttpStatus.CREATED);
     }

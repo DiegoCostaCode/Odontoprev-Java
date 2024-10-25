@@ -13,6 +13,7 @@ public class Procedimento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_procedimento;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "Descricao")
     private Enum_procedimento descricao;
 }

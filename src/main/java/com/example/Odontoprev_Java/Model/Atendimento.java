@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,26 +17,25 @@ public class Atendimento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_atendimento;
 
-    @Column(name = "Data")
-    private LocalDate data = LocalDate.now();
+    @Column(name = "Data_Hora_Atendimento")
+    private LocalDateTime dataHoraAtendimento;
 
     @Column(name = "Descrição")
     private String descricao;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "Paciente_id")
     private Paciente paciente;
 
-    @OneToOne( fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "Clinica_id")
     private Clinica clinica;
 
     @Column(name = "Custo")
     private double custo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "Procedimento_id")
     private Procedimento procedimento;
-
 
 }

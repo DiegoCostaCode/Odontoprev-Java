@@ -28,9 +28,7 @@ public class ClinicaMapper {
                 clinica.getDescricao(),
                 clinica.getCnpj(),
                 clinica.getEmailRepresentante(),
-                clinica.getEndereco(),
-                clinica.getClinicaDoutores(),
-                clinica.getAtendimentos()
+                clinica.getEndereco()
         );
     }
 

@@ -12,7 +12,7 @@ public class AtendimentoMapper {
     {
         Atendimento atendimento = new Atendimento();
 
-        atendimento.setData(atendimentoRequestDTO.data());
+        atendimento.setDataHoraAtendimento(atendimentoRequestDTO.diaHoraAtendimento());
         atendimento.setDescricao(atendimentoRequestDTO.descricao());
         atendimento.setCusto(atendimentoRequestDTO.custo());
         atendimento.setClinica(atendimentoRequestDTO.clinica());
@@ -25,11 +25,12 @@ public class AtendimentoMapper {
     {
         return new AtendimentoResponseDTO(
                 atendimento.getId_atendimento(),
-                atendimento.getData(),
+                atendimento.getDataHoraAtendimento(),
                 atendimento.getDescricao(),
                 atendimento.getPaciente(),
                 atendimento.getClinica(),
-                atendimento.getCusto()
+                atendimento.getCusto(),
+                atendimento.getProcedimento()
         );
     }
 }

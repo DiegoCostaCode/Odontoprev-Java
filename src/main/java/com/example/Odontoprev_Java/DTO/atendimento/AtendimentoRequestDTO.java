@@ -8,12 +8,13 @@ import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public record AtendimentoRequestDTO(
-        @NotNull(message = "Data de agendamento é obrigatória")
-        @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-        @Past(message = "Data de agendamento deve ser no passado")
-        LocalDate data,
+        @NotBlank(message = "Data de agendamento é obrigatória")
+        @FutureOrPresent(message = "Data de agendamento deve ser no passado")
+        LocalDateTime diaHoraAtendimento,
 
         @NotBlank
         @Size(min = 2, max = 100, message = "Descrição deve ter entre 2 e 100 caracteres")
@@ -29,7 +30,7 @@ public record AtendimentoRequestDTO(
         @Positive(message = "Custo deve ser positivo")
         double custo,
 
-        @NotBlank
+        @NotBlank(message = "Um atendimento deve ter um procedimento!")
         Procedimento procedimento
 ) {
 }

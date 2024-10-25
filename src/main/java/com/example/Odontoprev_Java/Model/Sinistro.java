@@ -16,7 +16,7 @@ public class Sinistro {
     private long id_sinistro;
 
     @Column(name = "Data_sinistro")
-    private LocalDate data_sinistro;
+    private LocalDate data_sinistro = LocalDate.now();
 
     @Column(name = "Descricao")
     private String descricao;

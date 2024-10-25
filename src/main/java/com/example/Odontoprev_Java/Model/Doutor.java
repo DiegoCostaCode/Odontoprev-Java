@@ -24,7 +24,4 @@ public class Doutor {
 
     @Column(name = "CPF")
     private String CPF;
-
-    @OneToMany(mappedBy ="doutor", fetch = FetchType.LAZY)
-    private List<ClinicaDoutor> clinicaDoutores;
 }

@@ -33,5 +33,24 @@ public class DoutorController {
     @Autowired(required = true)
     private DoutorMapper doutorMapper;
 
+    @PostMapping(value = "/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DoutorResponseDTO> cadastrarDoutor(
+            @Valid @RequestBody DoutorRequestDTO doutorRequestDTO){
+
+        Doutor doutor = doutorMapper.doutorToRequest(doutorRequestDTO);
+        Doutor doutorCriado = doutorRepository.save(doutor);
+        DoutorResponseDTO doutorResponse = doutorMapper.doutorToResponse(doutorCriado);
+        return ResponseEntity.status(HttpStatus.CREATED).body(doutorResponse);
+    }
+
+    @GetMapping(value = "/buscar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DoutorResponseDTO> buscarDoutor(@PathVariable Long id){
+        Optional<Doutor> doutor = doutorRepository.findById(id);
+        if(doutor.isPresent()){
+            DoutorResponseDTO doutorResponse = doutorMapper.doutorToResponse(doutor.get());
+            return ResponseEntity.ok(doutorResponse);
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doutor não encontrado");
+    }
 
 }
