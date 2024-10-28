@@ -19,26 +19,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/paciente", produces = {"aplication/json"})
 @Tag(name = "api-usuarios")
 public class PacienteController {
 
-//    @Autowired
-//    private PacienteRepository pacienteRepository;
-//
-//    @Autowired
-//    private PlanoRepository planoRepository;
-//
-//    @Autowired
-//    private AtendimentoRepository atendimentoRepository;
-//
-//    @Autowired
-//    private ClinicaRepository clinicaRepository;
-//    @Autowired()
-//    private ConsultaMapper consultaMapper;
+
 
     @Autowired(required = true)
     private PacienteMapper pacienteMapper;
@@ -79,6 +69,15 @@ public class PacienteController {
 
         return new ResponseEntity<>(pacienteResponse, HttpStatus.OK);
     };
+
+    @GetMapping(value = "/lista-pacientes", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<PacienteResponseDTO>> listarPacientes() {
+        List<Paciente> pacientes = pacienteRepository.findAll();
+        List<PacienteResponseDTO> pacientesResponse = pacientes.stream()
+                .map(pacienteMapper::pacienteResponseDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(pacientesResponse, HttpStatus.OK);
+    }
 
 //
 //    @Operation(summary = "Cria uma carteirinha para um usuário existente")
