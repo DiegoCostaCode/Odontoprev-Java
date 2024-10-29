@@ -42,9 +42,9 @@ public class ClinicaController {
     @PostMapping(value = "/cadastro",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClinicaResponseDTO> createClinica(@Valid @RequestBody ClinicaRequestDTO clinicaRequestDTO)
     {
-        Clinica clinicaConvertida = clinicaMapper.requestClinica(clinicaRequestDTO);
+        Clinica clinicaConvertida = clinicaMapper.requestToClinica(clinicaRequestDTO);
         Clinica clinicaCriada = clinicaRepository.save(clinicaConvertida);
-        ClinicaResponseDTO clinicaResponseDTO = clinicaMapper.clinicaResponseDTO(clinicaCriada);
+        ClinicaResponseDTO clinicaResponseDTO = clinicaMapper.clinicaToResponse(clinicaCriada);
         return new ResponseEntity<>(clinicaResponseDTO, HttpStatus.CREATED);
     }
 
@@ -55,33 +55,33 @@ public class ClinicaController {
         if (clinicaSalva.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        ClinicaResponseDTO clinicaResponseDTO = clinicaMapper.clinicaResponseDTO(clinicaSalva.get());
+        ClinicaResponseDTO clinicaResponseDTO = clinicaMapper.clinicaToResponse(clinicaSalva.get());
 
         return new ResponseEntity<>(clinicaResponseDTO, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ClinicaResponseDTO> updateClinica(@PathVariable Long id, @Valid @RequestBody ClinicaRequestDTO clinicaRequestDTO) {
-        Optional<Clinica> clinicaSalva = clinicaRepository.findById(id);
+    @PutMapping(value = "/{idClinica}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClinicaResponseDTO> updateClinica(@PathVariable Long idClinica, @Valid @RequestBody ClinicaRequestDTO clinicaRequestDTO) {
+        Optional<Clinica> clinicaSalva = clinicaRepository.findById(idClinica);
         if (clinicaSalva.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        Clinica clinicaConvertida = clinicaMapper.requestClinica(clinicaRequestDTO);
-        clinicaConvertida.setId(id);
+        Clinica clinicaConvertida = clinicaMapper.requestToClinica(clinicaRequestDTO);
+        clinicaConvertida.setId(idClinica);
         Clinica clinicaAtualizada = clinicaRepository.save(clinicaConvertida);
-        ClinicaResponseDTO clinicaResponseDTO = clinicaMapper.clinicaResponseDTO(clinicaAtualizada);
+        ClinicaResponseDTO clinicaResponseDTO = clinicaMapper.clinicaToResponse(clinicaAtualizada);
 
         return new ResponseEntity<>(clinicaResponseDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ClinicaResponseDTO> deleteClinica(@PathVariable Long id) {
-        Optional<Clinica> clinicaSalva = clinicaRepository.findById(id);
+    @DeleteMapping(value = "/{idClinica}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClinicaResponseDTO> deleteClinica(@PathVariable Long idClinica) {
+        Optional<Clinica> clinicaSalva = clinicaRepository.findById(idClinica);
         if (clinicaSalva.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        clinicaRepository.deleteById(id);
-        ClinicaResponseDTO clinicaResponseDTO = clinicaMapper.clinicaResponseDTO(clinicaSalva.get());
+        clinicaRepository.deleteById(idClinica);
+        ClinicaResponseDTO clinicaResponseDTO = clinicaMapper.clinicaToResponse(clinicaSalva.get());
 
         return new ResponseEntity<>(clinicaResponseDTO, HttpStatus.OK);
     }

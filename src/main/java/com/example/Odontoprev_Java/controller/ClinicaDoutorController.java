@@ -40,7 +40,7 @@ public class ClinicaDoutorController {
     private ClinicaDoutorMapper clinicaDoutorMapper;
 
 
-    @PostMapping(value = "/registrar", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClinicaDoutor> createClinicaDoutor( @Valid @RequestBody ClinicaDoutorRequestDTO clinicaDoutorRequestDTO) {
 
         Clinica clinica = clinicaRepository.findById(clinicaDoutorRequestDTO.clinicaId().getId())
@@ -60,13 +60,29 @@ public class ClinicaDoutorController {
         return new ResponseEntity<>(clinicaDoutor, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/listar-relacoes", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ClinicaDoutorResponseDTO>> listarRelacoes() {
         List<ClinicaDoutor> clinicaDoutor = clinicaDoutorRepository.findAll();
         List<ClinicaDoutorResponseDTO> clinicaDoutorResponseDTOS = clinicaDoutor.stream()
                 .map(clinicaDoutorMapper::clinicaDoutorToResponse)
                 .collect(Collectors.toList());
         return new ResponseEntity<>(clinicaDoutorResponseDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{idClinicaDoutor}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClinicaDoutorResponseDTO> buscarRelacao(@PathVariable Long idClinicaDoutor) {
+        ClinicaDoutor clinicaDoutor = clinicaDoutorRepository.findById(idClinicaDoutor)
+                .orElseThrow(() -> new RuntimeException("Relação não encontrada"));
+        ClinicaDoutorResponseDTO clinicaDoutorResponseDTO = clinicaDoutorMapper.clinicaDoutorToResponse(clinicaDoutor);
+        return new ResponseEntity<>(clinicaDoutorResponseDTO, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{idClinicaDoutor}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClinicaDoutorResponseDTO> deletarRelacao(@PathVariable Long idClinicaDoutor) {
+        ClinicaDoutor clinicaDoutor = clinicaDoutorRepository.findById(idClinicaDoutor)
+                .orElseThrow(() -> new RuntimeException("Relação não encontrada"));
+        clinicaDoutorRepository.delete(clinicaDoutor);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

@@ -12,7 +12,7 @@ import lombok.Setter;
 public class Estado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_estado;
+    private long id;
 
     @Column(name = "Estado")
     private Enum_estado nome;

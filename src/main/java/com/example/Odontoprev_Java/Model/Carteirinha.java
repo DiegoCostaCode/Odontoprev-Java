@@ -17,7 +17,7 @@ import java.util.UUID;
 public class Carteirinha {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id_carteirinha;
+    private UUID id;
 
     @Column(name = "Numero")
     private long numero = gerarNumero();

@@ -1,5 +1,6 @@
 package com.example.Odontoprev_Java.controller;
 
+import com.example.Odontoprev_Java.DTO.doutor.DoutorResponseDTO;
 import com.example.Odontoprev_Java.DTO.paciente.PacienteRequestDTO;
 import com.example.Odontoprev_Java.DTO.paciente.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.*;
@@ -28,27 +29,14 @@ import java.util.stream.Collectors;
 @Tag(name = "api-usuarios")
 public class PacienteController {
 
-
-
-    @Autowired(required = true)
+    @Autowired
     private PacienteMapper pacienteMapper;
 
     @Autowired
     private PacienteRepository pacienteRepository;
 
-    @Autowired
-    private EnderecoRepository enderecoRepository;
 
-    @Autowired
-    private EnderecoMapper enderecoMapper;
-
-
-    @Operation(summary = "Cria o paciente")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Paciente registrado com sucesso!"),
-            @ApiResponse(responseCode = "400", description = "Atributos informados são inválidos", content =  @Content(schema = @Schema()))
-    })
-    @PostMapping(value = "/cadastro", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PacienteResponseDTO> createUsuario(@Valid @RequestBody PacienteRequestDTO pacienteRequest)
     {
         Paciente pacienteConvertida = pacienteMapper.requestToPlano(pacienteRequest);
@@ -58,10 +46,9 @@ public class PacienteController {
 
     }
 
-
-    @GetMapping(value = "/{paciente_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PacienteResponseDTO> readUsuario(@PathVariable Long paciente_id) {
-        Optional<Paciente> pacienteSalvo = pacienteRepository.findById(paciente_id);
+    @GetMapping(value = "/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PacienteResponseDTO> readUsuario(@PathVariable Long idPaciente) {
+        Optional<Paciente> pacienteSalvo = pacienteRepository.findById(idPaciente);
         if (pacienteSalvo.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -70,92 +57,39 @@ public class PacienteController {
         return new ResponseEntity<>(pacienteResponse, HttpStatus.OK);
     };
 
-    @GetMapping(value = "/lista-pacientes", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PacienteResponseDTO>> listarPacientes() {
         List<Paciente> pacientes = pacienteRepository.findAll();
         List<PacienteResponseDTO> pacientesResponse = pacientes.stream()
                 .map(pacienteMapper::pacienteResponseDTO)
                 .collect(Collectors.toList());
         return new ResponseEntity<>(pacientesResponse, HttpStatus.OK);
+    };
+
+    @PutMapping(value = "/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PacienteResponseDTO> updateUsuario(@PathVariable Long idPaciente, @Valid @RequestBody PacienteRequestDTO pacienteRequest) {
+        Optional<Paciente> pacienteSalvo = pacienteRepository.findById(idPaciente);
+        if (pacienteSalvo.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        Paciente pacienteConvertida = pacienteMapper.requestToPlano(pacienteRequest);
+        pacienteConvertida.setId(idPaciente);
+        Paciente pacienteAtualizada = pacienteRepository.save(pacienteConvertida);
+        PacienteResponseDTO pacienteResponse = pacienteMapper.pacienteResponseDTO(pacienteAtualizada);
+        return new ResponseEntity<>(pacienteResponse, HttpStatus.OK);
     }
 
-//
-//    @Operation(summary = "Cria uma carteirinha para um usuário existente")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Carteirinha criada com sucesso"),
-//            @ApiResponse(responseCode = "404", description = "Usuário ou plano não encontrado"),
-//            @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos")
-//    })
-//    @PutMapping(value = "/{usuarioId}/carteirinha/{planoId}", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<PacienteResponseDTO> createCarteirinhaForUser   (@PathVariable Long usuarioId, @PathVariable Long planoId) {
-//
-//        // Verificar se o usuário existe
-//        Paciente paciente = pacienteRepository.findById(usuarioId)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
-//
-//        // Verificar se o plano existe
-//        Plano plano = planoRepository.findById(planoId)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Plano não encontrado"));
-//
-//        // Criar uma nova carteirinha com os detalhes do plano
-//        Carteirinha carteirinha = new Carteirinha();
-//        carteirinha.setEmissao(new Date()); // Data de emissão atual
-//        carteirinha.setValidade(new Date()); // Data de validade atual
-//        carteirinha.setUsuario(paciente);
-//        carteirinha.setPlano(plano);
-//
-//        // Adicionar a carteirinha ao usuário
-//        paciente.setCarteirinha(carteirinha);
-//
-//        // Salvar o usuário com a nova carteirinha
-//        pacienteRepository.save(paciente);
-//
-//        // Mapear o usuário salvo para o DTO de resposta
-//        PacienteResponseDTO usuarioResponse = pacienteMapper.usuarioToResponseDto(paciente);
-//
-//        // Retornar o usuário atualizado
-//        return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
-//    }
-//
-//    @Operation(summary = "Marca uma consulta para um usuário existente")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Atendimento marcada com sucesso"),
-//            @ApiResponse(responseCode = "404", description = "Usuário, clínica ou serviço não encontrado"),
-//            @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos")
-//    })
-//    @PostMapping(value = "/{usuarioId}/consulta", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<PacienteResponseDTO> marcarConsulta(@PathVariable Long usuarioId, @RequestBody AtendimentoRequestDTO atendimentoRequestDTO) {
-//
-//        // Verificar se o usuário existe
-//        Paciente paciente = pacienteRepository.findById(usuarioId)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
-//
-//        // Verificar se a clínica existe
-//        Clinica clinica = clinicaRepository.findById(atendimentoRequestDTO.clinicaId().getId())
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Clínica não encontrada"));
-//
-//        // Verificar se o serviço é prestado pela clínica
-//        if (!clinica.getServicos().contains(atendimentoRequestDTO.servico())) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A clínica não presta o serviço solicitado");
-//        }
-//
-//        // Criar uma nova atendimento com os detalhes do serviço e clínica
-//        Atendimento atendimento = new Atendimento();
-//        atendimento.setAgendamento(atendimentoRequestDTO.agendamento());
-//        atendimento.setServico(atendimentoRequestDTO.servico());
-//        atendimento.setUsuario(paciente);
-//        atendimento.setClinica(clinica);
-//        atendimento.setObservacoes(atendimentoRequestDTO.observacoes());
-//
-//        // Salvar a atendimento
-//        Atendimento atendimentoSalva = atendimentoRepository.save(atendimento);
-//
-//        // Mapear o usuário salvo para o DTO de resposta
-//        PacienteResponseDTO usuarioResponse = pacienteMapper.usuarioToResponseDto(paciente);
-//
-//        // Retornar o usuário atualizado
-//        return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
-//    }
+
+    @DeleteMapping(value = "/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PacienteResponseDTO> deleteUsuario(@PathVariable Long idPaciente) {
+        Optional<Paciente> pacienteSalvo = pacienteRepository.findById(idPaciente);
+        if (pacienteSalvo.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        pacienteRepository.deleteById(idPaciente);
+        PacienteResponseDTO pacienteResponse = pacienteMapper.pacienteResponseDTO(pacienteSalvo.get());
+        return new ResponseEntity<>(pacienteResponse, HttpStatus.OK);
+    }
 
 }
 

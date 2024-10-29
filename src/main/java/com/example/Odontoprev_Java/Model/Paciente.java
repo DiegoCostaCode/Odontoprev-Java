@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -24,7 +25,7 @@ public class Paciente {
     private String nome;
 
     @Column(name = "Data_nascimento")
-    private LocalDate dataNascimento;
+    private Date dataNascimento;
 
     @Column(name = "Cpf")
     private String cpf;
@@ -42,7 +43,7 @@ public class Paciente {
 
     public Paciente() {}
 
-    public Paciente(String nome, LocalDate dataNascimento, String cpf, String email, String telefone, Endereco endereco) {
+    public Paciente(String nome, Date dataNascimento, String cpf, String email, String telefone, Endereco endereco) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;

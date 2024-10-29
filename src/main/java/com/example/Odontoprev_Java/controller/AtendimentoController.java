@@ -41,10 +41,9 @@ public class AtendimentoController {
     private SinistroRepository sinistroRepository;
 
 
-
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AtendimentoResponseDTO> readAtendimento(@PathVariable Long id) {
-        Optional<Atendimento> atendimentoSalvo = atendimentoRepository.findById(id);
+    @GetMapping(value = "/{idAtendimento}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AtendimentoResponseDTO> readAtendimento(@PathVariable Long idAtendimento) {
+        Optional<Atendimento> atendimentoSalvo = atendimentoRepository.findById(idAtendimento);
         if (atendimentoSalvo.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -53,13 +52,13 @@ public class AtendimentoController {
         return new ResponseEntity<>(atendimentoResponseDTO, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/marcar", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping( produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AtendimentoResponseDTO> createAtendimento(@RequestBody AtendimentoRequestDTO atendimentoRequestDTO) {
 
         Paciente paciente = pacienteRepository.findById(atendimentoRequestDTO.paciente().getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente inválido!"));
 
-        Procedimento procedimento = procedimentoRepository.findById(atendimentoRequestDTO.procedimento().getId_procedimento())
+        Procedimento procedimento = procedimentoRepository.findById(atendimentoRequestDTO.procedimento().getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Procedimento inválido!"));
 
         Clinica clinica = clinicaRepository.findById(atendimentoRequestDTO.clinica().getId())
@@ -91,4 +90,33 @@ public class AtendimentoController {
         return new ResponseEntity<>(atendimentoResponseDTO, HttpStatus.CREATED);
     }
 
+    @PutMapping(value = "/{idAtendimento}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AtendimentoResponseDTO> updateAtendimento(@PathVariable Long idAtendimento, @RequestBody AtendimentoRequestDTO atendimentoRequestDTO) {
+        Optional<Atendimento> atendimentoSalvo = atendimentoRepository.findById(idAtendimento);
+        if (atendimentoSalvo.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        Paciente paciente = pacienteRepository.findById(atendimentoRequestDTO.paciente().getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente inválido!"));
+
+        Procedimento procedimento = procedimentoRepository.findById(atendimentoRequestDTO.procedimento().getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Procedimento inválido!"));
+
+        Clinica clinica = clinicaRepository.findById(atendimentoRequestDTO.clinica().getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Clinica inválida!"));
+
+        Atendimento atendimento = atendimentoSalvo.get();
+
+        atendimento.setClinica(clinica);
+        atendimento.setProcedimento(procedimento);
+        atendimento.setPaciente(paciente);
+        atendimento.setDescricao(atendimentoRequestDTO.descricao());
+        atendimento.setCusto(atendimentoRequestDTO.custo());
+
+        Atendimento atendimentoAtualizado = atendimentoRepository.save(atendimento);
+        AtendimentoResponseDTO atendimentoResponseDTO = atendimentoMapper.atendimentoToResponse(atendimentoAtualizado);
+
+        return new ResponseEntity<>(atendimentoResponseDTO, HttpStatus.OK);
+    }
 }

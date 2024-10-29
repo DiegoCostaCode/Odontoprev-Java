@@ -20,7 +20,7 @@ public class ProdecimentoMapper {
     public ProdecimentoResponseDTO procedimentoToResponse(Procedimento procedimento)
     {
         return new ProdecimentoResponseDTO(
-                procedimento.getId_procedimento(),
+                procedimento.getId(),
                 procedimento.getDescricao()
         );
     }

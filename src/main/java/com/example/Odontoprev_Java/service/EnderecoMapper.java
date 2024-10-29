@@ -21,10 +21,10 @@ public class EnderecoMapper {
         return endereco;
     }
 
-    public EnderecoResponseDTO enderecoResponseDTO(Endereco endereco)
+    public EnderecoResponseDTO enderecoToResponse(Endereco endereco)
     {
         return new EnderecoResponseDTO(
-                endereco.getId_endereco(),
+                endereco.getId(),
                 endereco.getRua(),
                 endereco.getNumero(),
                 endereco.getComplemento(),

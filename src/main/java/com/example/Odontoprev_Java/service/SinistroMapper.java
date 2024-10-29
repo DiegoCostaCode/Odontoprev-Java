@@ -25,7 +25,7 @@ public class SinistroMapper {
     public SinistroResponseDTO sinistroToResponse(Sinistro sinistro)
     {
         return new SinistroResponseDTO(
-                sinistro.getId_sinistro(),
+                sinistro.getId(),
                 sinistro.getData_sinistro(),
                 sinistro.getDescricao(),
                 sinistro.getCusto_excedente(),

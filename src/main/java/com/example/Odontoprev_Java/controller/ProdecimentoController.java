@@ -26,8 +26,8 @@ public class ProdecimentoController {
     @Autowired
     private ProdecimentoMapper prodecimentoMapper;
 
-    @GetMapping(value = "/listar-procedimentos", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ProdecimentoResponseDTO>> listarProcedimentos(){
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ProdecimentoResponseDTO>> listarProcedimentos() {
         List<Procedimento> procedimentos = prodecimentoRepository.findAll();
         List<ProdecimentoResponseDTO> procedimentosResponse = procedimentos.stream()
                 .map(prodecimentoMapper::procedimentoToResponse)
@@ -35,14 +35,32 @@ public class ProdecimentoController {
         return new ResponseEntity<>(procedimentosResponse, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/registrar", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ProdecimentoResponseDTO> prodecimentoSalvo(@Valid @RequestBody ProcedimentoRequestDTO prodecimentoRequestDTO)
-    {
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProdecimentoResponseDTO> criarProcedimento(@Valid @RequestBody ProcedimentoRequestDTO prodecimentoRequestDTO) {
         Procedimento prodecimentoConvertido = prodecimentoMapper.procedimentoRequest(prodecimentoRequestDTO);
         Procedimento prodecimentoCriado = prodecimentoRepository.save(prodecimentoConvertido);
         ProdecimentoResponseDTO prodecimentoResponseDto = prodecimentoMapper.procedimentoToResponse(prodecimentoCriado);
         return new ResponseEntity<>(prodecimentoResponseDto, HttpStatus.CREATED);
     }
 
+    @PutMapping(value = "/{idProcedimento}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProdecimentoResponseDTO> atualizarProcedimento(@PathVariable Long idProcedimento, @Valid @RequestBody ProcedimentoRequestDTO prodecimentoRequestDTO) {
+        Procedimento prodecimento = prodecimentoRepository.findById(idProcedimento)
+                .orElseThrow(() -> new RuntimeException("Procedimento não encontrado"));
 
+        prodecimento.setDescricao(prodecimentoRequestDTO.descricao());
+
+        Procedimento prodecimentoAtualizado = prodecimentoRepository.save(prodecimento);
+        ProdecimentoResponseDTO prodecimentoResponseDto = prodecimentoMapper.procedimentoToResponse(prodecimentoAtualizado);
+        return new ResponseEntity<>(prodecimentoResponseDto, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{idProcedimento}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> deletarProcedimento(@PathVariable Long idProcedimento) {
+        Procedimento prodecimento = prodecimentoRepository.findById(idProcedimento)
+                .orElseThrow(() -> new RuntimeException("Procedimento não encontrado"));
+
+        prodecimentoRepository.delete(prodecimento);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

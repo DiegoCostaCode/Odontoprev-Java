@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class Sinistro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_sinistro;
+    private long id;
 
     @Column(name = "Data_sinistro")
     private LocalDate data_sinistro = LocalDate.now();

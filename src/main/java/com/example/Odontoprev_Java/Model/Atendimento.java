@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class Atendimento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_atendimento;
+    private long id;
 
     @Column(name = "Data_Hora_Atendimento")
     private LocalDateTime dataHoraAtendimento;

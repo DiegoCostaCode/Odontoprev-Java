@@ -11,7 +11,7 @@ import lombok.Setter;
 public class Procedimento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_procedimento;
+    private long id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "Descricao")

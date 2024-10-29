@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClinicaMapper {
 
-    public Clinica requestClinica(ClinicaRequestDTO clinicaRequestDTO)
+    public Clinica requestToClinica(ClinicaRequestDTO clinicaRequestDTO)
     {
         Clinica clinica = new Clinica();
 
@@ -20,7 +20,7 @@ public class ClinicaMapper {
         return clinica;
     }
 
-    public ClinicaResponseDTO clinicaResponseDTO(Clinica clinica)
+    public ClinicaResponseDTO clinicaToResponse(Clinica clinica)
     {
         return new ClinicaResponseDTO(
                 clinica.getId(),

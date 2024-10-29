@@ -11,7 +11,7 @@ import lombok.Setter;
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_endereco;
+    private long id;
 
     @Column(name = "Rua")
     private String rua;

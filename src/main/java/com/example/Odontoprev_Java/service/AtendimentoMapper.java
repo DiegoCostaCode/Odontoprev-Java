@@ -24,7 +24,7 @@ public class AtendimentoMapper {
     public AtendimentoResponseDTO atendimentoToResponse(Atendimento atendimento)
     {
         return new AtendimentoResponseDTO(
-                atendimento.getId_atendimento(),
+                atendimento.getId(),
                 atendimento.getDataHoraAtendimento(),
                 atendimento.getDescricao(),
                 atendimento.getPaciente(),

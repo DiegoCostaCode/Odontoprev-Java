@@ -20,10 +20,10 @@ public class PlanoMapper {
             return plano;
         }
 
-        public PlanoResponseDTO planoResponseDTO(Plano plano)
+        public PlanoResponseDTO planoToResponse(Plano plano)
         {
             return new PlanoResponseDTO(
-                    plano.getId_plano(),
+                    plano.getId(),
                     plano.getNome(),
                     plano.getDescricao(),
                     plano.getPreco(),

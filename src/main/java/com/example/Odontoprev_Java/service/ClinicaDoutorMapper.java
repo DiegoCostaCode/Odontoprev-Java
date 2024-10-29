@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClinicaDoutorMapper {
 
-    public ClinicaDoutor clinicaDoutorRequest(ClinicaDoutorRequestDTO clinicaDoutorRequestDTO)
+    public ClinicaDoutor RequestToClinicaDoutor(ClinicaDoutorRequestDTO clinicaDoutorRequestDTO)
     {
         ClinicaDoutor clinicaDoutor = new ClinicaDoutor();
 

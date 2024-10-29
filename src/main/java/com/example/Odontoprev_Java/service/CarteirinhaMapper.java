@@ -21,7 +21,7 @@ public class CarteirinhaMapper {
     public CarteirinhaResponseDTO carteirinhaToResponse(Carteirinha carteirinha)
     {
         return new CarteirinhaResponseDTO(
-                carteirinha.getId_carteirinha(),
+                carteirinha.getId(),
                 carteirinha.getNumero(),
                 carteirinha.getEmissao(),
                 carteirinha.getValidade(),

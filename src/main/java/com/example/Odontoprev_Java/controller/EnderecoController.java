@@ -33,34 +33,32 @@ public class EnderecoController {
     @Autowired
     private ClinicaRepository clinicaRepository;
 
-    @PostMapping(value = "/usuario/{paciente_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EnderecoResponseDTO> UsuarioAddEndereco(
-            @Valid @RequestBody EnderecoRequestDTO enderecoRequestDTO,
-            @PathVariable Long paciente_id)
+    @PostMapping(value = "/paciente/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<EnderecoResponseDTO> PacienteAddEndereco(@PathVariable Long idPaciente,
+            @Valid @RequestBody EnderecoRequestDTO enderecoRequestDTO)
     {
-        Optional<Paciente> pacienteEncontrado = pacienteRepository.findById(paciente_id);
-        if (pacienteEncontrado.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+        Paciente paciente = pacienteRepository.findById(idPaciente)
+                .orElseThrow(() -> new RuntimeException("Paciente não encontrado"));
 
-        Endereco enderecoConvertida = enderecoMapper.requestToEndereco(enderecoRequestDTO);
-        Endereco enderecoCriada = enderecoRepository.save(enderecoConvertida);
-        EnderecoResponseDTO enderecoResponseDto = enderecoMapper.enderecoResponseDTO(enderecoCriada);
+        Endereco endereco = enderecoMapper.requestToEndereco(enderecoRequestDTO);
 
-        Paciente paciente = pacienteEncontrado.get();
-        paciente.setEndereco(enderecoCriada);
+        Endereco enderecoRegistrado = enderecoRepository.save(endereco);
+
+        EnderecoResponseDTO enderecoResponseDto = enderecoMapper.enderecoToResponse(enderecoRegistrado);
+
+        paciente.setEndereco(enderecoRegistrado);
         pacienteRepository.save(paciente);
 
         return new ResponseEntity<>(enderecoResponseDto, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/usuario-atualizar/{paciente_id}/{endereco_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EnderecoResponseDTO> UsuarioUpdateEndereco(
+    @PutMapping(value = "/paciente/{paciente_id}/{endereco_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<EnderecoResponseDTO> usuarioUpdateEndereco(
             @Valid @RequestBody EnderecoRequestDTO enderecoRequestDTO,
             @PathVariable Long paciente_id,  @PathVariable Long endereco_id)
     {
-        Optional<Paciente> pacienteEncontrado = pacienteRepository.findById(paciente_id);
-        if (pacienteEncontrado.isEmpty()) {
+        Optional<Paciente> pacienteSalvo = pacienteRepository.findById(paciente_id);
+        if (pacienteSalvo.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         Optional<Endereco> enderecoSalvo = enderecoRepository.findById(endereco_id);
@@ -70,9 +68,9 @@ public class EnderecoController {
 
         Endereco enderecoConvertida = enderecoMapper.requestToEndereco(enderecoRequestDTO);
         Endereco enderecoCriada = enderecoRepository.save(enderecoConvertida);
-        EnderecoResponseDTO enderecoResponseDto = enderecoMapper.enderecoResponseDTO(enderecoCriada);
+        EnderecoResponseDTO enderecoResponseDto = enderecoMapper.enderecoToResponse(enderecoCriada);
 
-        Paciente paciente = pacienteEncontrado.get();
+        Paciente paciente = pacienteSalvo.get();
         paciente.setEndereco(enderecoCriada);
         pacienteRepository.save(paciente);
 
@@ -81,7 +79,7 @@ public class EnderecoController {
 
 
     @PostMapping(value = "/clinica/{clinica_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EnderecoResponseDTO> ClinicaAddEndereco(
+    public ResponseEntity<EnderecoResponseDTO> clinicaAddEndereco(
             @Valid @RequestBody EnderecoRequestDTO enderecoRequestDTO,
             @PathVariable Long clinica_id)
     {
@@ -92,7 +90,7 @@ public class EnderecoController {
 
         Endereco enderecoConvertida = enderecoMapper.requestToEndereco(enderecoRequestDTO);
         Endereco enderecoCriada = enderecoRepository.save(enderecoConvertida);
-        EnderecoResponseDTO enderecoResponseDto = enderecoMapper.enderecoResponseDTO(enderecoCriada);
+        EnderecoResponseDTO enderecoResponseDto = enderecoMapper.enderecoToResponse(enderecoCriada);
 
         Clinica clinica = clinicaEncontrada.get();
         clinica.setEndereco(enderecoCriada);
@@ -102,9 +100,8 @@ public class EnderecoController {
     }
 
 
-
-    @PutMapping(value = "/clinica-atualizar/{clinica_id}/{endereco_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EnderecoResponseDTO> ClinicaUpdateEndereco(
+    @PutMapping(value = "/clinica/{clinica_id}/{endereco_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<EnderecoResponseDTO> clinicaUpdateEndereco(
             @Valid @RequestBody EnderecoRequestDTO enderecoRequestDTO,
             @PathVariable Long clinica_id,  @PathVariable Long endereco_id)
     {
@@ -119,7 +116,7 @@ public class EnderecoController {
 
         Endereco enderecoConvertida = enderecoMapper.requestToEndereco(enderecoRequestDTO);
         Endereco enderecoCriada = enderecoRepository.save(enderecoConvertida);
-        EnderecoResponseDTO enderecoResponseDto = enderecoMapper.enderecoResponseDTO(enderecoCriada);
+        EnderecoResponseDTO enderecoResponseDto = enderecoMapper.enderecoToResponse(enderecoCriada);
 
         Clinica clinica = clinicaEncontrada.get();
         clinica.setEndereco(enderecoCriada);

@@ -30,7 +30,7 @@ public class DoutorController {
     @Autowired
     private DoutorRepository doutorRepository;
 
-    @Autowired(required = true)
+    @Autowired
     private DoutorMapper doutorMapper;
 
     @PostMapping(value = "/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -51,6 +51,28 @@ public class DoutorController {
             return ResponseEntity.ok(doutorResponse);
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doutor não encontrado");
+    }
+
+    @PutMapping(value = "{idDoutor}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DoutorResponseDTO> atualizarDoutor(@PathVariable Long idDoutor, @Valid @RequestBody DoutorRequestDTO doutorRequestDTO){
+        Doutor doutor = doutorRepository.findById(idDoutor)
+                .orElseThrow(() -> new RuntimeException("Doutor não encontrado"));
+
+        doutor.setNome(doutorRequestDTO.nome());
+        doutor.setCPF(doutorRequestDTO.CPF());
+        doutor.setCRM(doutorRequestDTO.CRM());
+
+        Doutor doutorAtualizado = doutorRepository.save(doutor);
+        DoutorResponseDTO doutorResponseDTO = doutorMapper.doutorToResponse(doutorAtualizado);
+        return ResponseEntity.ok(doutorResponseDTO);
+    }
+
+    @DeleteMapping(value = "/{idDoutor}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> deletarDoutor(@PathVariable Long idDoutor){
+        Doutor doutor = doutorRepository.findById(idDoutor)
+                .orElseThrow(() -> new RuntimeException("Doutor não encontrado"));
+        doutorRepository.delete(doutor);
+        return ResponseEntity.noContent().build();
     }
 
 }
