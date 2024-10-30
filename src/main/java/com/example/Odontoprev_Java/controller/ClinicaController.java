@@ -25,7 +25,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/clinica", produces = {"aplication/json"})
@@ -39,7 +41,7 @@ public class ClinicaController {
     private ClinicaMapper clinicaMapper;
 
 
-    @PostMapping(value = "/cadastro",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClinicaResponseDTO> createClinica(@Valid @RequestBody ClinicaRequestDTO clinicaRequestDTO)
     {
         Clinica clinicaConvertida = clinicaMapper.requestToClinica(clinicaRequestDTO);
@@ -58,6 +60,15 @@ public class ClinicaController {
         ClinicaResponseDTO clinicaResponseDTO = clinicaMapper.clinicaToResponse(clinicaSalva.get());
 
         return new ResponseEntity<>(clinicaResponseDTO, HttpStatus.OK);
+    }
+    
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ClinicaResponseDTO>> listarClinicas() {
+        List<Clinica> clinicas = clinicaRepository.findAll();
+        List<ClinicaResponseDTO> clinicasResponse = clinicas.stream()
+                .map(clinicaMapper::clinicaToResponse)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(clinicasResponse, HttpStatus.OK);
     }
 
     @PutMapping(value = "/{idClinica}", produces = MediaType.APPLICATION_JSON_VALUE)

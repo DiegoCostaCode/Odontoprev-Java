@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +18,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "Odonto_Paciente")
-public class Paciente {
+public class Paciente extends RepresentationModel<Paciente> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

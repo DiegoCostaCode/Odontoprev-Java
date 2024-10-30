@@ -69,6 +69,28 @@ public class ClinicaDoutorController {
         return new ResponseEntity<>(clinicaDoutorResponseDTOS, HttpStatus.OK);
     }
 
+    @PutMapping(value = "/{idClinicaDoutor}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClinicaDoutorResponseDTO> atualizarRelacao(@PathVariable Long idClinicaDoutor, @Valid @RequestBody ClinicaDoutorRequestDTO clinicaDoutorRequestDTO) {
+        ClinicaDoutor clinicaDoutor = clinicaDoutorRepository.findById(idClinicaDoutor)
+                .orElseThrow(() -> new RuntimeException("Relação não encontrada"));
+
+        Clinica clinica = clinicaRepository.findById(clinicaDoutorRequestDTO.clinicaId().getId())
+                .orElseThrow(() -> new RuntimeException("Clinica não encontrada"));
+
+        Doutor doutor = doutorRepository.findById(clinicaDoutorRequestDTO.doutorId().getId())
+                .orElseThrow(() -> new RuntimeException("Doutor não encontrado"));
+
+        clinicaDoutor.setClinica(clinica);
+        clinicaDoutor.setDoutor(doutor);
+        clinicaDoutor.setDataRelacionamento(clinicaDoutorRequestDTO.dataRelacionamento());
+        clinicaDoutor.setDataFimRelacionamento(clinicaDoutorRequestDTO.dataFimRelacionamento());
+
+        clinicaDoutorRepository.save(clinicaDoutor);
+
+        ClinicaDoutorResponseDTO clinicaDoutorResponseDTO = clinicaDoutorMapper.clinicaDoutorToResponse(clinicaDoutor);
+        return new ResponseEntity<>(clinicaDoutorResponseDTO, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/{idClinicaDoutor}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClinicaDoutorResponseDTO> buscarRelacao(@PathVariable Long idClinicaDoutor) {
         ClinicaDoutor clinicaDoutor = clinicaDoutorRepository.findById(idClinicaDoutor)

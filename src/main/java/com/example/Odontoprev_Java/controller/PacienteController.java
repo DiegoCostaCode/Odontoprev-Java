@@ -1,5 +1,6 @@
 package com.example.Odontoprev_Java.controller;
 
+import com.example.Odontoprev_Java.DTO.atendimento.AtendimentoResponseDTO;
 import com.example.Odontoprev_Java.DTO.doutor.DoutorResponseDTO;
 import com.example.Odontoprev_Java.DTO.paciente.PacienteRequestDTO;
 import com.example.Odontoprev_Java.DTO.paciente.PacienteResponseDTO;
@@ -15,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping(value = "/paciente", produces = {"aplication/json"})
@@ -36,8 +41,44 @@ public class PacienteController {
     private PacienteRepository pacienteRepository;
 
 
+
+
+    @GetMapping(value = "/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<EntityModel<PacienteResponseDTO>>readPaciente(@PathVariable Long idPaciente) {
+        Optional<Paciente> pacienteSalvo = pacienteRepository.findById(idPaciente);
+        if (pacienteSalvo.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        PacienteResponseDTO pacienteResponse = pacienteMapper.pacienteResponseDTO(pacienteSalvo.get());
+
+        EntityModel<PacienteResponseDTO> pacienteModel = EntityModel.of(pacienteResponse,
+                linkTo(methodOn(PacienteController.class).readPaciente(idPaciente)).withSelfRel(),
+                linkTo(methodOn(PacienteController.class).readPaciente(null)).withRel("get"),
+                linkTo(methodOn(PacienteController.class).createPaciente(null)).withRel("post"),
+                linkTo(methodOn(PacienteController.class).deleteUsuario(idPaciente)).withRel("delete"),
+                linkTo(methodOn(PacienteController.class).updatePaciente(idPaciente, null)).withRel("update"));
+
+        return new ResponseEntity<>(pacienteModel, HttpStatus.OK);
+    };
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<EntityModel<PacienteResponseDTO>>> listarPacientes() {
+        List<Paciente> pacientes = pacienteRepository.findAll();
+        List<EntityModel<PacienteResponseDTO>> pacientesResponse = pacientes.stream()
+                .map(paciente -> {
+                    PacienteResponseDTO pacienteResponse = pacienteMapper.pacienteResponseDTO(paciente);
+                    return EntityModel.of(pacienteResponse,
+                            linkTo(methodOn(PacienteController.class).readPaciente(paciente.getId())).withSelfRel(),
+                            linkTo(methodOn(PacienteController.class).createPaciente(null)).withRel("post"),
+                            linkTo(methodOn(PacienteController.class).deleteUsuario(paciente.getId())).withRel("delete"),
+                            linkTo(methodOn(PacienteController.class).updatePaciente(paciente.getId(), null)).withRel("update"));
+                })
+                .collect(Collectors.toList());
+    return new ResponseEntity<>(pacientesResponse, HttpStatus.OK);
+}
+
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PacienteResponseDTO> createUsuario(@Valid @RequestBody PacienteRequestDTO pacienteRequest)
+    public ResponseEntity<PacienteResponseDTO> createPaciente(@Valid @RequestBody PacienteRequestDTO pacienteRequest)
     {
         Paciente pacienteConvertida = pacienteMapper.requestToPlano(pacienteRequest);
         Paciente pacienteCriada = pacienteRepository.save(pacienteConvertida);
@@ -46,28 +87,8 @@ public class PacienteController {
 
     }
 
-    @GetMapping(value = "/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PacienteResponseDTO> readUsuario(@PathVariable Long idPaciente) {
-        Optional<Paciente> pacienteSalvo = pacienteRepository.findById(idPaciente);
-        if (pacienteSalvo.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        PacienteResponseDTO pacienteResponse = pacienteMapper.pacienteResponseDTO(pacienteSalvo.get());
-
-        return new ResponseEntity<>(pacienteResponse, HttpStatus.OK);
-    };
-
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<PacienteResponseDTO>> listarPacientes() {
-        List<Paciente> pacientes = pacienteRepository.findAll();
-        List<PacienteResponseDTO> pacientesResponse = pacientes.stream()
-                .map(pacienteMapper::pacienteResponseDTO)
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(pacientesResponse, HttpStatus.OK);
-    };
-
     @PutMapping(value = "/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PacienteResponseDTO> updateUsuario(@PathVariable Long idPaciente, @Valid @RequestBody PacienteRequestDTO pacienteRequest) {
+    public ResponseEntity<PacienteResponseDTO> updatePaciente(@PathVariable Long idPaciente, @Valid @RequestBody PacienteRequestDTO pacienteRequest) {
         Optional<Paciente> pacienteSalvo = pacienteRepository.findById(idPaciente);
         if (pacienteSalvo.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
