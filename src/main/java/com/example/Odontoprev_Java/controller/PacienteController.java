@@ -8,6 +8,7 @@ import com.example.Odontoprev_Java.Model.*;
 import com.example.Odontoprev_Java.Repository.*;
 import com.example.Odontoprev_Java.service.EnderecoMapper;
 import com.example.Odontoprev_Java.service.PacienteMapper;
+import com.example.Odontoprev_Java.service.PacienteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -36,6 +37,9 @@ public class PacienteController {
 
     @Autowired
     private PacienteMapper pacienteMapper;
+
+    @Autowired
+    private PacienteService pacienteService;
 
     @Autowired
     private PacienteRepository pacienteRepository;
@@ -100,6 +104,33 @@ public class PacienteController {
         pacienteRepository.deleteById(idPaciente);
         PacienteResponseDTO pacienteResponse = pacienteMapper.pacienteResponseDTO(pacienteSalvo.get());
         return new ResponseEntity<>(pacienteResponse, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/inserirOdontoPaciente", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> inserirOdontoPaciente(@Valid @RequestBody PacienteRequestDTO pacienteRequestDTO) {
+
+        pacienteService.inserirOdontoPaciente(
+                pacienteRequestDTO.dataNascimento(),
+                null,
+                pacienteRequestDTO.cpf(),
+                pacienteRequestDTO.email(),
+                pacienteRequestDTO.nome(),
+                pacienteRequestDTO.telefone());
+        return new ResponseEntity<>("Paciente inserido com sucesso usando procedure!", HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/atualizarOdontoPaciente/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> atualizarOdontoPaciente(@PathVariable Long idPaciente, @Valid @RequestBody PacienteRequestDTO pacienteRequestDTO) {
+
+        pacienteService.atualizarOdontoPaciente(
+                pacienteRequestDTO.dataNascimento(),
+                null,
+                pacienteRequestDTO.cpf(),
+                pacienteRequestDTO.email(),
+                pacienteRequestDTO.nome(),
+                pacienteRequestDTO.telefone(),
+                idPaciente);
+        return new ResponseEntity<>("Paciente atualizado com sucesso usando procedure!", HttpStatus.CREATED);
     }
 
 }

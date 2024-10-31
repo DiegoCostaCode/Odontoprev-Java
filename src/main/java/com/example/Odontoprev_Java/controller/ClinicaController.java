@@ -4,12 +4,14 @@ import com.example.Odontoprev_Java.DTO.clinica.ClinicaRequestDTO;
 import com.example.Odontoprev_Java.DTO.clinica.ClinicaResponseDTO;
 import com.example.Odontoprev_Java.DTO.doutor.DoutorRequestDTO;
 import com.example.Odontoprev_Java.DTO.endereco.EnderecoRequestDTO;
+import com.example.Odontoprev_Java.DTO.paciente.PacienteRequestDTO;
 import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Doutor;
 import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 import com.example.Odontoprev_Java.Repository.ClinicaRepository;
 import com.example.Odontoprev_Java.Repository.DoutorRepository;
 import com.example.Odontoprev_Java.service.ClinicaMapper;
+import com.example.Odontoprev_Java.service.ClinicaService;
 import com.example.Odontoprev_Java.service.DoutorMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -41,8 +43,11 @@ public class ClinicaController {
     @Autowired
     private ClinicaRepository clinicaRepository;
 
-    @Autowired(required = true)
+    @Autowired
     private ClinicaMapper clinicaMapper;
+
+    @Autowired
+    private ClinicaService clinicaService;
 
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -109,5 +114,16 @@ public class ClinicaController {
         return new ResponseEntity<>(clinicaResponseDTO, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/inserirOdontoClinica", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> inserirOdontoClinica(@Valid @RequestBody ClinicaRequestDTO clinicaRequestDTO) {
+
+        clinicaService.inserirOdontoClinica(
+                null,
+                clinicaRequestDTO.CNPJ(),
+                clinicaRequestDTO.descricao(),
+                clinicaRequestDTO.emailRepresentante(),
+                clinicaRequestDTO.razaoSocial());
+        return new ResponseEntity<>("Paciente inserido com sucesso", HttpStatus.CREATED);
+    }
 
 }
