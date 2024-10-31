@@ -1,12 +1,12 @@
 package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.procedimento.ProcedimentoRequestDTO;
-import com.example.Odontoprev_Java.DTO.procedimento.ProdecimentoResponseDTO;
+import com.example.Odontoprev_Java.DTO.procedimento.ProcedimentoResponseDTO;
 import com.example.Odontoprev_Java.Model.Procedimento.Procedimento;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProdecimentoMapper {
+public class ProcedimentoMapper {
 
     public Procedimento procedimentoRequest(ProcedimentoRequestDTO procedimentoRequestDTO)
     {
@@ -17,9 +17,9 @@ public class ProdecimentoMapper {
         return procedimento;
     }
 
-    public ProdecimentoResponseDTO procedimentoToResponse(Procedimento procedimento)
+    public ProcedimentoResponseDTO procedimentoToResponse(Procedimento procedimento)
     {
-        return new ProdecimentoResponseDTO(
+        return new ProcedimentoResponseDTO(
                 procedimento.getId(),
                 procedimento.getDescricao()
         );

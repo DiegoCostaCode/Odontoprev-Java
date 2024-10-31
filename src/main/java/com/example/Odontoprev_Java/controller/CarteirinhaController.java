@@ -14,13 +14,20 @@ import com.example.Odontoprev_Java.service.PacienteMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping(value = "/carteirinha", produces = {"aplication/json"})
@@ -41,9 +48,25 @@ public class CarteirinhaController {
     @Autowired
     private CarteirinhaRepository carteirinhaRepository;
 
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<EntityModel<CarteirinhaResponseDTO>>> readCarteirinhas() {
+        List<Carteirinha> carteirinhas = carteirinhaRepository.findAll();
+        List<EntityModel<CarteirinhaResponseDTO>> carteirinhaResponse = carteirinhas.stream()
+                .map(carteirinha -> {
+                    CarteirinhaResponseDTO responseDTO = carteirinhaMapper.carteirinhaToResponse(carteirinha);
+                    return EntityModel.of(responseDTO,
+                            linkTo(methodOn(CarteirinhaController.class).readCarteirinhas()).withSelfRel(),
+                            linkTo(methodOn(CarteirinhaController.class).createCarteirinha(null)).withRel("create"),
+                            linkTo(methodOn(CarteirinhaController.class).readCarteirinhaById(carteirinha.getId())).withRel("get"),
+                                    linkTo(methodOn(CarteirinhaController.class).updateCarteirinha(null, carteirinha.getId(),null)).withRel("update"),
+                            linkTo(methodOn(CarteirinhaController.class).deletarCarteirinha(carteirinha.getId())).withRel("delete"));
+                })
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(carteirinhaResponse, HttpStatus.OK);
+    }
 
-    @PostMapping(value = "/gerar", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CarteirinhaResponseDTO> gerarCarteirinha(
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CarteirinhaResponseDTO> createCarteirinha(
             @Valid @RequestBody CarterinhaRequestDTO carterinhaRequestDTO){
 
         Paciente paciente = pacienteRepository.findById(carterinhaRequestDTO.paciente().getId())
@@ -63,7 +86,7 @@ public class CarteirinhaController {
     }
 
     @GetMapping(value = "/{idCarteirinha}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CarteirinhaResponseDTO> buscarCarteirinha(@PathVariable Long idCarteirinha){
+    public ResponseEntity<CarteirinhaResponseDTO> readCarteirinhaById(@PathVariable UUID idCarteirinha){
         Optional<Carteirinha> carteirinha = carteirinhaRepository.findById(idCarteirinha);
         if(carteirinha.isPresent()){
             CarteirinhaResponseDTO carteirinhaResponse = carteirinhaMapper.carteirinhaToResponse(carteirinha.get());
@@ -72,8 +95,8 @@ public class CarteirinhaController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Carteirinha não encontrada");
     }
 
-    @PutMapping(value = "/{idPaciente}/{idCarteirinha}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CarteirinhaResponseDTO> atualizarCarteirinha(@PathVariable Long idCarteirinha,@PathVariable Long idPaciente, @Valid @RequestBody CarterinhaRequestDTO carterinhaRequestDTO){
+    @PutMapping(value = "/paciente/{idPaciente}/carteirinha/{idCarteirinha}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CarteirinhaResponseDTO> updateCarteirinha(@PathVariable Long idPaciente, UUID idCarteirinha, @Valid @RequestBody CarterinhaRequestDTO carterinhaRequestDTO){
 
         Carteirinha carteirinha = carteirinhaRepository.findById(idCarteirinha)
                 .orElseThrow(() -> new RuntimeException("Carteirinha não encontrada"));
@@ -90,12 +113,11 @@ public class CarteirinhaController {
     }
 
     @DeleteMapping(value = "/{idCarteirinha}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> deletarCarteirinha(@PathVariable Long idCarteirinha){
+    public ResponseEntity<Void> deletarCarteirinha(@PathVariable UUID idCarteirinha){
         Carteirinha carteirinha = carteirinhaRepository.findById(idCarteirinha)
                 .orElseThrow(() -> new RuntimeException("Carteirinha não encontrada"));
         carteirinhaRepository.delete(carteirinha);
         return ResponseEntity.noContent().build();
     }
-
 
 }

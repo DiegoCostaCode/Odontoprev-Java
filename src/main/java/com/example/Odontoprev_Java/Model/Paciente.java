@@ -1,24 +1,15 @@
 package com.example.Odontoprev_Java.Model;
-
 import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import org.springframework.hateoas.RepresentationModel;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "Odonto_Paciente")
-public class Paciente extends RepresentationModel<Paciente> {
+public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

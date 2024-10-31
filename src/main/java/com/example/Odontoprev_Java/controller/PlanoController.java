@@ -41,7 +41,7 @@ public class PlanoController {
     private PlanoMapper planoMapper;
 
    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-public ResponseEntity<List<EntityModel<PlanoResponseDTO>>> readPlanos(){
+   public ResponseEntity<List<EntityModel<PlanoResponseDTO>>> readPlanos(){
     List<Plano> planos = planoRepository.findAll();
     List<EntityModel<PlanoResponseDTO>> planosResponse = planos.stream()
             .map(plano -> {
@@ -54,7 +54,7 @@ public ResponseEntity<List<EntityModel<PlanoResponseDTO>>> readPlanos(){
             })
             .collect(Collectors.toList());
     return new ResponseEntity<>(planosResponse, HttpStatus.OK);
-}
+    }
 
     @PostMapping( produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PlanoResponseDTO> createPlano(@Valid @RequestBody PlanoRequestDTO planoRequestDTO)
@@ -78,7 +78,6 @@ public ResponseEntity<List<EntityModel<PlanoResponseDTO>>> readPlanos(){
         PlanoResponseDTO planoResponseDTO = planoMapper.planoToResponse(planoAtualizado);
         return new ResponseEntity<>(planoResponseDTO, HttpStatus.OK);
     }
-
 
     @DeleteMapping(value = "/{idPlano}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PlanoResponseDTO> deletePlano(@PathVariable Long idPlano)

@@ -3,6 +3,7 @@ package com.example.Odontoprev_Java.controller;
 import com.example.Odontoprev_Java.DTO.doutor.DoutorRequestDTO;
 import com.example.Odontoprev_Java.DTO.doutor.DoutorResponseDTO;
 import com.example.Odontoprev_Java.DTO.endereco.EnderecoRequestDTO;
+import com.example.Odontoprev_Java.DTO.paciente.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.Doutor;
 import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 import com.example.Odontoprev_Java.Repository.DoutorRepository;
@@ -15,12 +16,19 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping(value = "/doutor", produces = {"aplication/json"})
@@ -33,8 +41,8 @@ public class DoutorController {
     @Autowired
     private DoutorMapper doutorMapper;
 
-    @PostMapping(value = "/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DoutorResponseDTO> cadastrarDoutor(
+    @PostMapping( produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DoutorResponseDTO> createDoutor(
             @Valid @RequestBody DoutorRequestDTO doutorRequestDTO){
 
         Doutor doutor = doutorMapper.doutorToRequest(doutorRequestDTO);
@@ -43,18 +51,37 @@ public class DoutorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(doutorResponse);
     }
 
-    @GetMapping(value = "/buscar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DoutorResponseDTO> buscarDoutor(@PathVariable Long id){
-        Optional<Doutor> doutor = doutorRepository.findById(id);
-        if(doutor.isPresent()){
-            DoutorResponseDTO doutorResponse = doutorMapper.doutorToResponse(doutor.get());
-            return ResponseEntity.ok(doutorResponse);
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<EntityModel<DoutorResponseDTO>>> readDoutor(){
+        List<Doutor> doutores = doutorRepository.findAll();
+        List<EntityModel<DoutorResponseDTO>> doutoresResponse = doutores.stream()
+                .map(doutor -> {
+                    DoutorResponseDTO doutorResponse = doutorMapper.doutorToResponse(doutor);
+                    return EntityModel.of(doutorResponse,
+                            linkTo(methodOn(DoutorController.class).readDoutor()).withSelfRel(),
+                            linkTo(methodOn(DoutorController.class).createDoutor(null)).withRel("post"),
+                            linkTo(methodOn(DoutorController.class).readDoutorById(doutor.getId())).withRel("get"),
+                            linkTo(methodOn(DoutorController.class).updateDoutor(doutor.getId(), null)).withRel("put"),
+                            linkTo(methodOn(DoutorController.class).deleteDoutor(doutor.getId())).withRel("delete"));
+                })
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(doutoresResponse, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{idDoutor}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DoutorResponseDTO> readDoutorById(@PathVariable Long idDoutor){
+        Optional<Doutor> doutor = doutorRepository.findById(idDoutor);
+        if(doutor.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doutor não encontrado");
+        DoutorResponseDTO doutorResponse = doutorMapper.doutorToResponse(doutor.get());
+
+
+        return new ResponseEntity<>(doutorResponse, HttpStatus.OK);
     }
 
     @PutMapping(value = "{idDoutor}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DoutorResponseDTO> atualizarDoutor(@PathVariable Long idDoutor, @Valid @RequestBody DoutorRequestDTO doutorRequestDTO){
+    public ResponseEntity<DoutorResponseDTO> updateDoutor(@PathVariable Long idDoutor, @Valid @RequestBody DoutorRequestDTO doutorRequestDTO){
         Doutor doutor = doutorRepository.findById(idDoutor)
                 .orElseThrow(() -> new RuntimeException("Doutor não encontrado"));
 
@@ -68,7 +95,7 @@ public class DoutorController {
     }
 
     @DeleteMapping(value = "/{idDoutor}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> deletarDoutor(@PathVariable Long idDoutor){
+    public ResponseEntity<Void> deleteDoutor(@PathVariable Long idDoutor){
         Doutor doutor = doutorRepository.findById(idDoutor)
                 .orElseThrow(() -> new RuntimeException("Doutor não encontrado"));
         doutorRepository.delete(doutor);

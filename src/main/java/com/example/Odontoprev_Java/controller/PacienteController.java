@@ -40,25 +40,15 @@ public class PacienteController {
     @Autowired
     private PacienteRepository pacienteRepository;
 
-
-
-
     @GetMapping(value = "/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EntityModel<PacienteResponseDTO>>readPaciente(@PathVariable Long idPaciente) {
+    public ResponseEntity<PacienteResponseDTO>readPaciente(@PathVariable Long idPaciente) {
         Optional<Paciente> pacienteSalvo = pacienteRepository.findById(idPaciente);
         if (pacienteSalvo.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         PacienteResponseDTO pacienteResponse = pacienteMapper.pacienteResponseDTO(pacienteSalvo.get());
 
-        EntityModel<PacienteResponseDTO> pacienteModel = EntityModel.of(pacienteResponse,
-                linkTo(methodOn(PacienteController.class).readPaciente(idPaciente)).withSelfRel(),
-                linkTo(methodOn(PacienteController.class).readPaciente(null)).withRel("get"),
-                linkTo(methodOn(PacienteController.class).createPaciente(null)).withRel("post"),
-                linkTo(methodOn(PacienteController.class).deleteUsuario(idPaciente)).withRel("delete"),
-                linkTo(methodOn(PacienteController.class).updatePaciente(idPaciente, null)).withRel("update"));
-
-        return new ResponseEntity<>(pacienteModel, HttpStatus.OK);
+        return new ResponseEntity<>(pacienteResponse, HttpStatus.OK);
     };
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

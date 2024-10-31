@@ -3,12 +3,13 @@ package com.example.Odontoprev_Java.Model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "Odonto_Plano")
-public class Plano {
+public class Plano extends RepresentationModel<Plano> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

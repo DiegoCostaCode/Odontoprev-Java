@@ -8,6 +8,7 @@ import com.example.Odontoprev_Java.Repository.*;
 import com.example.Odontoprev_Java.service.AtendimentoMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping(value = "/atendimento", produces = {"aplication/json"})
@@ -41,8 +47,9 @@ public class AtendimentoController {
     private SinistroRepository sinistroRepository;
 
 
+
     @GetMapping(value = "/{idAtendimento}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AtendimentoResponseDTO> readAtendimento(@PathVariable Long idAtendimento) {
+    public ResponseEntity<AtendimentoResponseDTO> readAtendimentoById(@PathVariable Long idAtendimento) {
         Optional<Atendimento> atendimentoSalvo = atendimentoRepository.findById(idAtendimento);
         if (atendimentoSalvo.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -50,6 +57,23 @@ public class AtendimentoController {
         AtendimentoResponseDTO atendimentoResponseDTO = atendimentoMapper.atendimentoToResponse(atendimentoSalvo.get());
 
         return new ResponseEntity<>(atendimentoResponseDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<EntityModel<AtendimentoResponseDTO>>> readAtendimentos() {
+        List<Atendimento> atendimentos = atendimentoRepository.findAll();
+        List<EntityModel<AtendimentoResponseDTO>> atendimentosResponse = atendimentos.stream()
+                .map(atendimento -> {
+                    AtendimentoResponseDTO atendimentoResponse = atendimentoMapper.atendimentoToResponse(atendimento);
+                    return EntityModel.of(atendimentoResponse,
+                            linkTo(methodOn(AtendimentoController.class).readAtendimentos()).withSelfRel(),
+                            linkTo(methodOn(AtendimentoController.class).createAtendimento(null)).withRel("post"),
+                            linkTo(methodOn(AtendimentoController.class).readAtendimentoById(atendimento.getId())).withRel("get"),
+                            linkTo(methodOn(AtendimentoController.class).updateAtendimento(atendimento.getId(), null)).withRel("put"),
+                            linkTo(methodOn(AtendimentoController.class).deleteAtendimento(atendimento.getId())).withRel("delete"));
+                })
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(atendimentosResponse, HttpStatus.OK);
     }
 
     @PostMapping( produces = MediaType.APPLICATION_JSON_VALUE)
@@ -118,5 +142,15 @@ public class AtendimentoController {
         AtendimentoResponseDTO atendimentoResponseDTO = atendimentoMapper.atendimentoToResponse(atendimentoAtualizado);
 
         return new ResponseEntity<>(atendimentoResponseDTO, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{idAtendimento}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> deleteAtendimento(@PathVariable Long idAtendimento) {
+        Optional<Atendimento> atendimentoSalvo = atendimentoRepository.findById(idAtendimento);
+        if (atendimentoSalvo.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        atendimentoRepository.deleteById(idAtendimento);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
