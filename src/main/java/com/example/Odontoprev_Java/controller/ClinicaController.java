@@ -2,22 +2,12 @@ package com.example.Odontoprev_Java.controller;
 
 import com.example.Odontoprev_Java.DTO.clinica.ClinicaRequestDTO;
 import com.example.Odontoprev_Java.DTO.clinica.ClinicaResponseDTO;
-import com.example.Odontoprev_Java.DTO.doutor.DoutorRequestDTO;
-import com.example.Odontoprev_Java.DTO.endereco.EnderecoRequestDTO;
 import com.example.Odontoprev_Java.DTO.paciente.PacienteRequestDTO;
+import com.example.Odontoprev_Java.DTO.paciente.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.Clinica;
-import com.example.Odontoprev_Java.Model.Doutor;
-import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 import com.example.Odontoprev_Java.Repository.ClinicaRepository;
-import com.example.Odontoprev_Java.Repository.DoutorRepository;
 import com.example.Odontoprev_Java.service.ClinicaMapper;
-import com.example.Odontoprev_Java.service.ClinicaService;
-import com.example.Odontoprev_Java.service.DoutorMapper;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import com.example.Odontoprev_Java.service.procedures.ClinicaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -114,16 +103,25 @@ public class ClinicaController {
         return new ResponseEntity<>(clinicaResponseDTO, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/inserirOdontoClinica", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> inserirOdontoClinica(@Valid @RequestBody ClinicaRequestDTO clinicaRequestDTO) {
+    //Endpoints criados apenas para a matéria de banco de dados!
 
-        clinicaService.inserirOdontoClinica(
-                null,
-                clinicaRequestDTO.CNPJ(),
-                clinicaRequestDTO.descricao(),
-                clinicaRequestDTO.emailRepresentante(),
-                clinicaRequestDTO.razaoSocial());
-        return new ResponseEntity<>("Paciente inserido com sucesso", HttpStatus.CREATED);
+    @PostMapping(value = "/procedure", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClinicaResponseDTO> createOdontoClinica(@Valid @RequestBody ClinicaRequestDTO clinicaRequestDTO) {
+
+        ClinicaResponseDTO clinicaResponse = clinicaService.inserirOdontoClinica(clinicaRequestDTO);
+        return new ResponseEntity<>(clinicaResponse, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/procedure/{idClinica}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClinicaResponseDTO> updateOdontoPaciente(@PathVariable Long idClinica, @Valid @RequestBody ClinicaRequestDTO clinicaRequestDTO) {
+        ClinicaResponseDTO clinicaResponse = clinicaService.updateOdontoClinica(clinicaRequestDTO, idClinica);
+        return new ResponseEntity<>(clinicaResponse, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "/procedure/{idClinica}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> deleteOdontoClinica(@PathVariable Long idClinica) {
+        clinicaService.deleteOdontoClinica(idClinica);
+        return new ResponseEntity<>("Clinica deletado com sucesso!", HttpStatus.OK);
     }
 
 }

@@ -20,13 +20,13 @@ public class Paciente {
     @Column(name = "Data_nascimento")
     private Date dataNascimento;
 
-    @Column(name = "Cpf")
+    @Column(name = "Cpf", unique = true)
     private String cpf;
 
-    @Column(name = "Email")
+    @Column(name = "Email", unique = true)
     private String email;
 
-    @Column(name = "Telefone")
+    @Column(name = "Telefone", unique = true)
     private String telefone;
 
     @OneToOne(cascade = CascadeType.ALL)

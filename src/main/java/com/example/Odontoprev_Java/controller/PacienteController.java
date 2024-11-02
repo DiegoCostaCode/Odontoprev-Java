@@ -1,19 +1,11 @@
 package com.example.Odontoprev_Java.controller;
 
-import com.example.Odontoprev_Java.DTO.atendimento.AtendimentoResponseDTO;
-import com.example.Odontoprev_Java.DTO.doutor.DoutorResponseDTO;
 import com.example.Odontoprev_Java.DTO.paciente.PacienteRequestDTO;
 import com.example.Odontoprev_Java.DTO.paciente.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.*;
 import com.example.Odontoprev_Java.Repository.*;
-import com.example.Odontoprev_Java.service.EnderecoMapper;
 import com.example.Odontoprev_Java.service.PacienteMapper;
-import com.example.Odontoprev_Java.service.PacienteService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import com.example.Odontoprev_Java.service.procedures.PacienteService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +86,6 @@ public class PacienteController {
         return new ResponseEntity<>(pacienteResponse, HttpStatus.OK);
     }
 
-
     @DeleteMapping(value = "/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PacienteResponseDTO> deleteUsuario(@PathVariable Long idPaciente) {
         Optional<Paciente> pacienteSalvo = pacienteRepository.findById(idPaciente);
@@ -106,31 +97,24 @@ public class PacienteController {
         return new ResponseEntity<>(pacienteResponse, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/inserirOdontoPaciente", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> inserirOdontoPaciente(@Valid @RequestBody PacienteRequestDTO pacienteRequestDTO) {
+    //Endpoints criados apenas para a matéria de banco de dados!
 
-        pacienteService.inserirOdontoPaciente(
-                pacienteRequestDTO.dataNascimento(),
-                null,
-                pacienteRequestDTO.cpf(),
-                pacienteRequestDTO.email(),
-                pacienteRequestDTO.nome(),
-                pacienteRequestDTO.telefone());
-        return new ResponseEntity<>("Paciente inserido com sucesso usando procedure!", HttpStatus.CREATED);
+    @PostMapping(value = "/procedure", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PacienteResponseDTO> createOdontoPaciente(@Valid @RequestBody PacienteRequestDTO pacienteRequestDTO) {
+        PacienteResponseDTO pacienteResponse = pacienteService.inserirOdontoPaciente(pacienteRequestDTO);
+        return new ResponseEntity<>(pacienteResponse, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/atualizarOdontoPaciente/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> atualizarOdontoPaciente(@PathVariable Long idPaciente, @Valid @RequestBody PacienteRequestDTO pacienteRequestDTO) {
+    @PutMapping(value = "/procedure/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PacienteResponseDTO> updateOdontoPaciente(@PathVariable Long idPaciente, @Valid @RequestBody PacienteRequestDTO pacienteRequestDTO) {
+        PacienteResponseDTO pacienteResponse = pacienteService.updateOdontoPaciente(pacienteRequestDTO, idPaciente);
+        return new ResponseEntity<>(pacienteResponse, HttpStatus.CREATED);
+    }
 
-        pacienteService.atualizarOdontoPaciente(
-                pacienteRequestDTO.dataNascimento(),
-                null,
-                pacienteRequestDTO.cpf(),
-                pacienteRequestDTO.email(),
-                pacienteRequestDTO.nome(),
-                pacienteRequestDTO.telefone(),
-                idPaciente);
-        return new ResponseEntity<>("Paciente atualizado com sucesso usando procedure!", HttpStatus.CREATED);
+    @DeleteMapping(value = "/procedure/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> deleteOdontoPaciente(@PathVariable Long idPaciente) {
+        pacienteService.deleteOdontoPaciente(idPaciente);
+        return new ResponseEntity<>("Paciente deletado com sucesso!", HttpStatus.OK);
     }
 
 }

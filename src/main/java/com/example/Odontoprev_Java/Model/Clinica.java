@@ -17,7 +17,7 @@ public class Clinica {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "Razão_social")
+    @Column(name = "Razao_social")
     private String razaoSocial;
 
     @Column(name = "Descricao")
@@ -32,7 +32,6 @@ public class Clinica {
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "Endereco_id")
     private Endereco endereco;
-
 
 
 }
