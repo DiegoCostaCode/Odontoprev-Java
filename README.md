@@ -44,6 +44,7 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 
 
 # API Endpoints - SPRINT2 - Java
+**[Testando endpoints](https://youtu.be/XoNUMdeHdU8)**
 
 ## Paciente
 
@@ -80,6 +81,8 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 |--------|---------------------------------------|---------------------------------------------|
 | POST   | `/endereco/paciente/{id}`            | Adicionar Endereço a Paciente               |
 | PUT    | `/endereco/paciente/{pacienteId}/{enderecoId}` | Atualizar Endereço de Paciente              |
+| POST   | `/endereco/clinica/{id}`            | Adicionar Endereço a Paciente               |
+| PUT    | `/endereco/clinica/{clinicaId}/{enderecoId}` | Atualizar Endereço de Clinica              |
 | DELETE | `/endereco/{id}`                     | Deletar Endereço de Paciente                |
 
 ## Carteirinha
@@ -88,12 +91,14 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 |--------|---------------------------|-------------------------------|
 | POST   | `/carteirinha`           | Gerar Carteirinha             |
 | GET    | `/carteirinha`           | Listar Carteirinhas          |
+| PUT    | `/carteirinha/{id}`           | Atualizar plano de Carteirinha          |
 | DELETE | `/carteirinha/{id}`      | Deletar Carteirinha          |
 
 ## Atendimento
 
 | Método | URL                       | Descrição                     |
 |--------|---------------------------|-------------------------------|
+| GET   | `/atendimento`            | Listar Atendimento             |
 | POST   | `/atendimento`            | Marcar Atendimento             |
 | PUT    | `/atendimento/{id}`       | Atualizar Atendimento          |
 | DELETE | `/atendimento/{id}`       | Deletar Atendimento            |
@@ -134,7 +139,7 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 | PUT    | `/cadastro-relacionamento/{id}`       | Atualizar Relacionamento      |
 | DELETE | `/cadastro-relacionamento/{id}`       | Deletar Relacionamento        |
 
-## Procedures
+## Procedures (Endpoint extra)
 
 | Método | URL                          | Descrição                     |
 |--------|------------------------------|-------------------------------|
@@ -163,5 +168,5 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 
 ## Link para vídeo apresentando a Proposta Tecnológica
 
-* **[pitch]()**
+
 
