@@ -13,14 +13,130 @@
 
 **Um aplicativo que coloca a Odontoprev, o cliente e a clínica no mesmo ambiente, permitindo que os clientes agendem e acompanhem suas atendimentos, contratem planos e avaliem clínicas. A clínica pode lançar informações referentes às atendimentos dos clientes e receber também.**
 
-## Funcionalidades
+## Progresso na Sprint 2
 
-* **Agendamento de atendimentos**
-* **Contratação de planos**
-* **Avaliação de clínicas**
-* **Histórico de atendimentos para clínicas e clientes**
-* **Autorização prévia para procedimentos, atendimentos e exames mais caros que fogem da média histórica do usário**
-* **Validador de IP para identificar possíveis compartilhamentos de login**
+Na Sprint 2, realizamos diversas melhorias e implementações para expandir e otimizar a estrutura do sistema:
+
+| Implementação                                | Descrição                                                                                                                                                                                                                                 |
+|----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Refatoração do Banco de Dados**            | Revisamos e aprimoramos o modelo de dados, refletindo as atualizações no DER e garantindo um banco mais eficiente e escalável. As tabelas e classes foram criadas com **JPA** e **Hibernate** para integração com o sistema Java.         |
+| **Simplificação de Código com Lombok**       | Implementamos **Lombok** para reduzir o código boilerplate, facilitando a manutenção e deixando o código mais limpo e legível ao eliminar a necessidade de getters e setters manuais.                                                    |
+| **Implementação de HATEOAS com EntityModel** | Usando a biblioteca **Spring HATEOAS**, integramos o padrão HATEOAS aos endpoints da API, utilizando **EntityModel**. Com isso, os endpoints RESTful agora oferecem links dinâmicos, facilitando a navegação e escalabilidade da API.     |
+| **Procedures no Banco de Dados**             | Desenvolvemos procedures no banco de dados para operações específicas de Paciente e Clínica, centralizando a lógica de negócios diretamente no banco e aprimorando o desempenho e eficiência em consultas complexas.                        |
+
+## Atividades da Sprint 2
+
+| Atividade                                                                 | Responsável          | Prazo de Entrega |
+|---------------------------------------------------------------------------|----------------------|------------------|
+| Revisar modelagem do banco de dados e identificar melhorias para a aplicação | Diego Costa Silva    | 01/10            |
+| Refatorar o modelo DER do banco para refletir as melhorias e iniciar a implementação em Java | Diego Costa Silva    | 01/10            |
+| Implementação do banco de dados e criação das tabelas/classes (usando JPA e Hibernate) | Diego Costa Silva    | 01/10            |
+| Desenvolvimento dos endpoints RESTful da API para CRUD de Pacientes, Clínicas, Planos, Endereços e tabelas dependentes (Carteirinha, Atendimento, Procedimento, Sinistro e Doutor) | Diego Costa Silva    | 01/10            |
+| Realizar testes iniciais na estrutura desenvolvida para refinamento do projeto | Diego Costa Silva    | 01/10            |
+| Documentar o projeto e preparar os entregáveis  
+
+# API Endpoints - SPRINT2 - Java
+
+## Paciente
+
+| Método | URL                           | Descrição                      |
+|--------|-------------------------------|--------------------------------|
+| GET    | `/paciente`                   | Listar Pacientes               |
+| GET    | `/paciente/{id}`              | Obter Paciente por ID          |
+| POST   | `/paciente`                   | Cadastrar Paciente             |
+| PUT    | `/paciente/{id}`              | Atualizar Cadastro de Paciente  |
+| DELETE | `/paciente/{id}`              | Deletar Cadastro de Paciente    |
+
+## Clínica
+
+| Método | URL                           | Descrição                      |
+|--------|-------------------------------|--------------------------------|
+| GET    | `/clinica`                    | Listar Clínicas                |
+| GET    | `/clinica/{id}`               | Obter Clínica por ID           |
+| POST   | `/clinica`                    | Cadastrar Clínica              |
+| PUT    | `/clinica/{id}`               | Atualizar Cadastro de Clínica   |
+| DELETE | `/clinica/{id}`               | Deletar Cadastro de Clínica     |
+
+## Plano
+
+| Método | URL                           | Descrição                      |
+|--------|-------------------------------|--------------------------------|
+| GET    | `/plano`                      | Listar Planos                  |
+| POST   | `/plano`                      | Cadastrar Plano                |
+| PUT    | `/plano/{id}`                 | Atualizar Plano                |
+| DELETE | `/plano/{id}`                 | Deletar Plano                  |
+
+## Endereço
+
+| Método | URL                                   | Descrição                                   |
+|--------|---------------------------------------|---------------------------------------------|
+| POST   | `/endereco/paciente/{id}`            | Adicionar Endereço a Paciente               |
+| PUT    | `/endereco/paciente/{pacienteId}/{enderecoId}` | Atualizar Endereço de Paciente              |
+| DELETE | `/endereco/{id}`                     | Deletar Endereço de Paciente                |
+
+## Carteirinha
+
+| Método | URL                       | Descrição                     |
+|--------|---------------------------|-------------------------------|
+| POST   | `/carteirinha`           | Gerar Carteirinha             |
+| GET    | `/carteirinha`           | Listar Carteirinhas          |
+| DELETE | `/carteirinha/{id}`      | Deletar Carteirinha          |
+
+## Atendimento
+
+| Método | URL                       | Descrição                     |
+|--------|---------------------------|-------------------------------|
+| POST   | `/atendimento`            | Marcar Atendimento             |
+| PUT    | `/atendimento/{id}`       | Atualizar Atendimento          |
+| DELETE | `/atendimento/{id}`       | Deletar Atendimento            |
+
+## Procedimento
+
+| Método | URL                          | Descrição                     |
+|--------|------------------------------|-------------------------------|
+| POST   | `/procedimento/criar`        | Registrar Procedimento        |
+| GET    | `/procedimento`              | Listar Procedimentos         |
+| PUT    | `/procedimento/{id}`         | Atualizar Procedimento        |
+| DELETE | `/procedimento/{id}`         | Deletar Procedimento          |
+
+## Sinistro
+
+| Método | URL                       | Descrição                     |
+|--------|---------------------------|-------------------------------|
+| GET    | `/sinistro`               | Listar Fraudes                |
+| POST   | `/sinistro`               | Registrar Fraude              |
+| PUT    | `/sinistro/{id}`          | Atualizar Fraude              |
+| DELETE | `/sinistro/{id}`          | Deletar Fraude                |
+
+## Doutor
+
+| Método | URL                          | Descrição                     |
+|--------|------------------------------|-------------------------------|
+| POST   | `/doutor/cadastrar`          | Cadastrar Doutor              |
+| GET    | `/doutor/{id}`               | Obter Doutor por ID          |
+| PUT    | `/doutor/{id}`               | Atualizar Doutor              |
+| DELETE | `/doutor/{id}`               | Deletar Doutor                |
+
+## Clinica-Doutor-Relacionamento
+
+| Método | URL                                   | Descrição                     |
+|--------|---------------------------------------|-------------------------------|
+| POST   | `/cadastro-relacionamento`            | Criar Relacionamento          |
+| GET    | `/cadastro-relacionamento`            | Listar Relações               |
+| PUT    | `/cadastro-relacionamento/{id}`       | Atualizar Relacionamento      |
+| DELETE | `/cadastro-relacionamento/{id}`       | Deletar Relacionamento        |
+
+## Procedures
+
+| Método | URL                          | Descrição                     |
+|--------|------------------------------|-------------------------------|
+| | POST   | `/paciente/procedure`         | Inserir Odonto Paciente       |
+| PUT    | `/paciente/procedure/{id}`    | Update Odonto Paciente        |
+| DELETE | `/paciente/procedure/{id}`    | Delete Odonto Paciente        |
+| POST   | `/clinica/procedure`          | Inserir Odonto Clínica        |
+| PUT    | `/clinica/inserirOdontoClinica/{id}` | Update Odonto Clínica        |
+| DELETE | `/clinica/procedure/{id}`     | Delete Odonto Clínica         |
+
 
 ## Instrução de como rodar a aplicação
 
@@ -31,7 +147,8 @@
 
 ## Imagem dos Diagramas
 
-* **Diagrama de Classes**: ![clique](https://www.plantuml.com/plantuml/png/l5XDR-Cs4xxxL-ZDUzcscw0jq4E3HL35Lh9U-CEG7Q3e1m96OZRiIg90qS5kYptrq1-sVwoaf8SXFR8JNveSJCuCdndECnnH-gdHJEbjMOp-fnzuoQEwOA8QQLb7MaPtKcjPHhbGFDD2LgFcWwXgfbWP5QBY-bFD8wdqWnoDie8rJHHhNkMYv9LP_DSeYhxn9Q--Ee-Cx3GI-NbKoEfzEwcLp7XlSHwjl5chphQDbUToUrVmLf8ppTvAnO3Shfl9Z1KJfld6IBg59aAHiVDet0qwPomJPW4tZhfH3ycRJ1aR0xJMIfZ8FjCDZMMbbImAhiAjXJfi4lvJNij6QAa-8H9F5CJaMoAw7LFsvD6tZeV49Ba1_f2S-9YpkkRAmuUeDMpCPXgj0jmraP5C0eHa4NARGRDAL9ghUvRnuUr5Rzv4JoON5xsNCLEQ2qFX0-lnFOdZXfUYQIpRjc9SITxSJ2VjfDgMN4c_HWjMsUAqFwtWaHKYPpa7md1fVQP1aI8YEXHH00ec0EtHa3q1m6gyApggph3Vm2uKx3f-qWJEQHNGq6WQXgk0uXwgWfOSGBUJftFPJd7GQJ_YZMQv8JjfVn4upYumkzbmHrFiJoRNCXEi2DpmAkUAPnQx7tK1LVKVeLt9H67sg7XZk66L3gEbpIgCaTGOaPCcjURgKMGS7Ghpe_eO35qH-jFT42TogwKV7cGaD0VayZoJI4Ixu3pg5hfdmvKeKrwmJCYAxJuTdD5-Yy58QKgfbYOMUfSIAZmcnTYnRpVPaL3d19KgXlSSda-geIUKeky_ex0Uyd8O_rdaeBZ2gWeBg99bUBJ6wJoShwx88TjJ44ELS0ndUL0fGOaupvIMWtoya0WqenuIKsm0JqExj4jAiWgIX8RQzTc1ThXbeRqiwuAtvuua5yv9Ug7uZovQQDM-AKBOOmhgO1QI5uZ9heO9f1ufXTomO-osvMtttB86l6MCsGkxCMbTdVeshxga6szj4AlBVZ2F-q4ywmV9kX-C4wZ6M3Nj1-aIgbK_k8OaNKCrnweKgaK_c5p1kp4UVhvrAnD0n81urmyk8LcFWRN1u1h6AMnM601mixHfzp9PCz7mvb0cOREJoSiqNazd-xOH-F0lvliy4Kimzxf_7OBVPRfPJfQBpJHsLCHfCdiB7iOpCutdoMApT3miDyawwKELAcFT1TmuSYzRNTwIzIQ-IUDnZAN9pviq_lBFbxyTo_5akhnEuwjfV931sNI-Idw94LEyS6Lc5BDuiR7XkEFILYgEYPsW8Q5jUmLDUuwbnnvkqG3HdVGU4rEajBt8l-xZfRyuYaYvMsu5k5GiM9FXXTJ2kMZfzUub5qFD2tulgt1rLjy7SppGo3v92oKA-fhXxe6hK71i-ppyse9G0p49SqzFXFhPnveb7v1cIAxgOIdXH2Esxeq7w-tO0J0j7WrLTr8Md5N31K_l6hMX5KUB5aRebb07AU7jsVSq63acCF5fW2pqjuy0k3YSVQzh0TGJKJR2DDBMXsW369geK4dofMJEiwC-X_Wnk2GI6OtEgMXaUpDBezYVO7nfwU4nRK7TTxDR_j4W6ZoEojlzn1DytA6CqC96hxl5vn_wxkI2e_nG1G9-uUUam1Hyh8FvqL_AIDW1SO6Ga0RryuHLCkVVVnkn9ZgfMVQ1lUUHlGgVyO_CteVFbhaqKTMAFzw-Ou_ihEbQxrbNW5l5cnEBZBK6T-Jj9lB_JhuxYRu-_VN_F_ne_r-tdtH_Fxs8Jlghyc-LCVYtDND9QY26WUW-fqZb6Aou2aLInG8sK9oA8x3BoOWmPjJMF4f6dbKogNHhMZt-j7kWCLxpg7sqDzXjcYt3-ZUlGRiR0EsCzHTqo3WDFoQHPNoncN38BoaEwANYnvrF_XcWgmD1d7_p1DnV9Q6Ha4cE6y7vuUtfSZQ6ROmShhlZwVhn-7gvjUdwUPglV1kgfEfEHzAeiR1gUL6uQfzqBtnDvs5jFT0mxPF21Sn4rwW2VlvSrq9GRaLxDkbD2L-D0T7rVpXqOIsTbEe1VEaRdoSGgupeUY-MhusfcgOT38GBIsuRJAkqRqcZlM4cPT2-tskmFry8LgHDpEvYRdydZrsVRIGANhKocKTjeUetgFm9GPqWu3CeGNs6eFpy_W-XWtAVoyupX3xk_iOiYtsInp_lbH_gZl2YtfBUUZW6LJCpQ50WOsrnYZoakmXwbSR02tAek2W738fSSpk4Q6Q3CVuGpn3M3dhJ-7fq8BE1wba17wgFPmfvWjfo0HuDZA8EGAF0fCnLM-fcTSgXYR_c8IqvDCWMEUvSXwv9TOK0iDgoul8HmDVx0PZ13oeX-Y6s8Ea7EVfHbJLyJUw8lCJRzpfoVW5DjA2lRjv8NyXWkEJV1D69734EaEgcqWFHEjmk46XMd8WdY1qaLnr8SaenCkdJc3a9G4TM2wxDjUOvDDoLO4KaHV2LoGqnb_Ac-vjKxo_FNm00)
+* **Diagrama de Classes**: ![plantuml_page-0001](https://github.com/user-attachments/assets/8de083c6-a6cd-4fbf-8dd3-749f5405983a)
+  
 * **Diagrama de Sequência**: ![Logica3l](https://github.com/user-attachments/assets/5500ef6b-b64b-414a-814a-a8418b6cc3d3)
 
 
