@@ -26,14 +26,22 @@ Na Sprint 2, realizamos diversas melhorias e implementações para expandir e ot
 
 ## Atividades da Sprint 2
 
+Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que incluem a modelagem do banco de dados, implementação de funcionalidades e documentação. Abaixo estão as atividades realizadas:
+
+## Atividades da Sprint 2
+
 | Atividade                                                                 | Responsável          | Prazo de Entrega |
 |---------------------------------------------------------------------------|----------------------|------------------|
 | Revisar modelagem do banco de dados e identificar melhorias para a aplicação | Diego Costa Silva    | 01/10            |
 | Refatorar o modelo DER do banco para refletir as melhorias e iniciar a implementação em Java | Diego Costa Silva    | 01/10            |
 | Implementação do banco de dados e criação das tabelas/classes (usando JPA e Hibernate) | Diego Costa Silva    | 01/10            |
 | Desenvolvimento dos endpoints RESTful da API para CRUD de Pacientes, Clínicas, Planos, Endereços e tabelas dependentes (Carteirinha, Atendimento, Procedimento, Sinistro e Doutor) | Diego Costa Silva    | 01/10            |
+| Implementação do Lombok para simplificação do código | Diego Costa Silva | 01/10 |
+| Criação de procedures para entrega paralela de Database | Diego Costa Silva | 01/10 |
+| Aplicação de HATEOAS com EntityModel | Diego Costa Silva | 01/10 |
 | Realizar testes iniciais na estrutura desenvolvida para refinamento do projeto | Diego Costa Silva    | 01/10            |
-| Documentar o projeto e preparar os entregáveis  
+| Documentar o projeto e preparar os entregáveis | Diego Costa Silva | 01/10 |
+
 
 # API Endpoints - SPRINT2 - Java
 
