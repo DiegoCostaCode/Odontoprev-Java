@@ -58,7 +58,7 @@ public class CarteirinhaController {
                             linkTo(methodOn(CarteirinhaController.class).readCarteirinhas()).withSelfRel(),
                             linkTo(methodOn(CarteirinhaController.class).createCarteirinha(null)).withRel("create"),
                             linkTo(methodOn(CarteirinhaController.class).readCarteirinhaById(carteirinha.getId())).withRel("get"),
-                                    linkTo(methodOn(CarteirinhaController.class).updateCarteirinha(null, carteirinha.getId(),null)).withRel("update"),
+                                    linkTo(methodOn(CarteirinhaController.class).updateCarteirinha(null,null)).withRel("update"),
                             linkTo(methodOn(CarteirinhaController.class).deletarCarteirinha(carteirinha.getId())).withRel("delete"));
                 })
                 .collect(Collectors.toList());
@@ -95,20 +95,29 @@ public class CarteirinhaController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Carteirinha não encontrada");
     }
 
-    @PutMapping(value = "/paciente/{idPaciente}/carteirinha/{idCarteirinha}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CarteirinhaResponseDTO> updateCarteirinha(@PathVariable Long idPaciente, UUID idCarteirinha, @Valid @RequestBody CarterinhaRequestDTO carterinhaRequestDTO){
+    @PutMapping(value = "/{idCarteirinha}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CarteirinhaResponseDTO> updateCarteirinha(
+            @PathVariable UUID idCarteirinha,
+            @Valid @RequestBody CarterinhaRequestDTO carterinhaRequestDTO) {
+
 
         Carteirinha carteirinha = carteirinhaRepository.findById(idCarteirinha)
-                .orElseThrow(() -> new RuntimeException("Carteirinha não encontrada"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Carteirinha não encontrada"));
 
-        Paciente paciente = pacienteRepository.findById(idPaciente)
-                .orElseThrow(() -> new RuntimeException("Paciente não encontrada"));
 
-        carteirinha.setPaciente(carterinhaRequestDTO.paciente());
-        carteirinha.setPlano(carterinhaRequestDTO.plano());
+        Paciente paciente = pacienteRepository.findById(carterinhaRequestDTO.paciente().getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente não encontrado"));
+
+        Plano plano = planoRepository.findById(carterinhaRequestDTO.plano().getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Plano não encontrado"));
+
+        carteirinha.setPaciente(paciente);
+        carteirinha.setPlano(plano);
 
         Carteirinha carteirinhaAtualizada = carteirinhaRepository.save(carteirinha);
+
         CarteirinhaResponseDTO carteirinhaResponseDTO = carteirinhaMapper.carteirinhaToResponse(carteirinhaAtualizada);
+
         return ResponseEntity.ok(carteirinhaResponseDTO);
     }
 

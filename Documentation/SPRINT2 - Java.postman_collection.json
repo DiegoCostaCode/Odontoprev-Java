@@ -1,0 +1,1257 @@
+{
+	"info": {
+		"_postman_id": "e652e8fa-e939-46fb-8435-94304400305b",
+		"name": "SPRINT2 - Java",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34573297"
+	},
+	"item": [
+		{
+			"name": "paciente",
+			"item": [
+				{
+					"name": "paciente-by-id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/paciente/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "paciente-cadastro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Lucas Minozzo Bronzeri\",\r\n    \"cpf\": \"447.516.570-97\",\r\n    \"dataNascimento\": \"06/10/2004\",\r\n    \"email\": \"lucasminozzo@gmail.com\",\r\n    \"telefone\": \"(011)96409-0604\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/paciente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar-cadastro",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/paciente/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletar-cadastro",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/paciente/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar-pacientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/paciente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "clinica",
+			"item": [
+				{
+					"name": "clinica-cadastro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"razaoSocial\": \"Odontocare Especialidades\",\r\n    \"descricao\": \"Oferecemos serviços de periodontia e cirurgias odontológicas.\",\r\n    \"CNPJ\": \"45.678.901/0001-03\",\r\n    \"emailRepresentante\": \"suporte@odontocare.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/clinica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clinica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "clinica-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/clinica/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clinica",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar-cadastro",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/clinica/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clinica",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletar-cadastro",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/clinica/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clinica",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar-clinicas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/clinica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clinica"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "plano",
+			"item": [
+				{
+					"name": "criarPlano",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Plano Premium\",\r\n  \"descricao\": \"Cobertura total para todos os tratamentos odontológicos, incluindo cirurgias e ortodontia.\",\r\n  \"preco\": 120,\r\n  \"ativo\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/plano",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"plano"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "planos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/plano",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"plano"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "plano-atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id_plano\": 1,\r\n        \"nome\": \"Plano Premium\",\r\n        \"descricao\": \"Cobertura total para todos os tratamentos odontológicos, incluindo cirurgias e ortodontia.\",\r\n        \"preco\": 120.0,\r\n        \"ativo\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/plano/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"plano",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "plano-deletar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/plano/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"plano",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "endereco",
+			"item": [
+				{
+					"name": "paciente",
+					"item": [
+						{
+							"name": "PacienteAddEndereco",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"rua\": \"Rua Nova\",\r\n  \"complemento\": \"De frente sua casa\",\r\n  \"numero\": 706,\r\n  \"cep\": \"65044-280\",\r\n  \"cidade\": {\r\n    \"cidade\": \"São Luís\",\r\n    \"estado\": {\r\n      \"nome\": \"MA\",\r\n      \"pais\": {\r\n        \"nome\": \"BRASIL\"\r\n      }\r\n    }\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/endereco/paciente/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"endereco",
+										"paciente",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PacienteUpdateEndereco",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"rua\": \"Rua Nova\",\r\n  \"complemento\": \"De frente sua casa\",\r\n  \"numero\": 706,\r\n  \"cep\": \"65044-281\",\r\n  \"cidade\": {\r\n    \"cidade\": \"São Luís\",\r\n    \"estado\": {\r\n      \"nome\": \"MA\",\r\n      \"pais\": {\r\n        \"nome\": \"BRASIL\"\r\n      }\r\n    }\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/endereco/paciente/1/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"endereco",
+										"paciente",
+										"1",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "clinica",
+					"item": [
+						{
+							"name": "ClinicaAddEndereco",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"rua\": \"Rua dos Pinheiros\",\r\n  \"complemento\": \"Próximo à praça central\",\r\n  \"numero\": 123,\r\n  \"cep\": \"05422-010\",\r\n  \"cidade\": {\r\n    \"cidade\": \"São Paulo\",\r\n    \"estado\": {\r\n      \"nome\": \"SP\",\r\n      \"pais\": {\r\n        \"nome\": \"BRASIL\"\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/endereco/clinica/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"endereco",
+										"clinica",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ClinicaUpdateEndereco",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"rua\": \"Rua dos Pinheiros\",\r\n  \"complemento\": \"Próximo à praça central\",\r\n  \"numero\": 123,\r\n  \"cep\": \"05422-010\",\r\n  \"cidade\": {\r\n    \"cidade\": \"São Paulo\",\r\n    \"estado\": {\r\n      \"nome\": \"SP\",\r\n      \"pais\": {\r\n        \"nome\": \"BRASIL\"\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/endereco/clinica/1/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"endereco",
+										"clinica",
+										"1",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Listar-enderecos",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "deletarEndereco",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/endereco/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"endereco",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "carteirinha",
+			"item": [
+				{
+					"name": "gerarCarteirinha",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"plano\": {\r\n    \"id\": 2\r\n  },\r\n  \"paciente\": {\r\n    \"id\": 1\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carteirinha",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carteirinha"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarCarteirinhas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carteirinha",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carteirinha"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletarCarteirinha",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carteirinha/9ec46ecd-4502-479b-b7a6-ee3ed1228883",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carteirinha",
+								"9ec46ecd-4502-479b-b7a6-ee3ed1228883"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePlanoCarteirinha",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"paciente\": {\r\n    \"id\": 1\r\n  },\r\n  \"plano\": {\r\n    \"id\": 2\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carteirinha/e1d4ffbc-fabe-445a-b5c5-5f2ff44931c1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carteirinha",
+								"e1d4ffbc-fabe-445a-b5c5-5f2ff44931c1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "atendimento",
+			"item": [
+				{
+					"name": "consultas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\":\"2/10/2024 10:00:00\",\r\n    \"descricao\":\"Rotina, tudo okay com o paciente\",\r\n    \"clinica\": {\r\n    \"id\": 1,\r\n    \"paciente\": {\r\n    \"id\":1\r\n    },\r\n    \"custo\": 20.0,\r\n    \"procedimento\":{\r\n        \"id\":1\r\n    }\r\n    \r\n    \r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/atendimento/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"atendimento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "marcarAtendimento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"diaHoraAtendimento\": \"2023-10-26T14:30:00\",\r\n  \"descricao\": \"Radiografia para aparelho\",\r\n  \"paciente\": {\r\n    \"id\": 1\r\n  },\r\n  \"clinica\": {\r\n    \"id\": 1\r\n  },\r\n  \"custo\": 200.0,\r\n  \"procedimento\": {\r\n    \"id_procedimento\": 2\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/atendimento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"atendimento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizarAtendimento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"diaHoraAtendimento\": \"2023-11-26T14:30:00\",\r\n  \"descricao\": \"Radiografia para aparelho\",\r\n  \"paciente\": {\r\n    \"id\": 1\r\n  },\r\n  \"clinica\": {\r\n    \"id\": 1\r\n  },\r\n  \"custo\": 100.0,\r\n  \"procedimento\": {\r\n    \"id\": 2\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletarAtendimento",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/atendimento/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"atendimento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "procedimento",
+			"item": [
+				{
+					"name": "registrarProcedimento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/procedimento/criar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"procedimento",
+								"criar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "procedimentos",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "atualizarProcedimento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\":\"EXTRAÇÃO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/procedimento/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"procedimento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletarProcedimento",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/procedimento/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"procedimento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sinistro",
+			"item": [
+				{
+					"name": "fraudes",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "deletarFraude",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/sinistro/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sinistro",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registrarFraude",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"data_sinistro\": \"2024-11-04\",\r\n        \"descricao\": \"Descobrimos que este atendimento teve fraude, então estamos reportando manualmente\",\r\n        \"custo_excedente\": 1000.0,\r\n        \"atendimento_id\": {\r\n            \"id\": 2}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/sinistro",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sinistro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizarFraude",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/sinistro/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sinistro",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doutor",
+			"item": [
+				{
+					"name": "doutorCadastrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\":\"Dr. Julio Martins\",\r\n    \"CRM\":\"123456\",\r\n    \"CPF\":\"257.708.370-04\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/doutor/cadastrar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doutor",
+								"cadastrar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "doutores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doutor/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doutor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletarDoutor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doutor/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doutor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizarDoutor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\":\"Dr. Julio Martins\",\r\n    \"CRM\":\"123456\",\r\n    \"CPF\":\"257.708.370-04\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/doutor/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doutor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clinica-doutor-relacionamento",
+			"item": [
+				{
+					"name": "criarRelacionamento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clinicaId\":{\r\n        \"id\":21\r\n    },\r\n    \"doutorId\":{\r\n        \"id\":1\r\n    },\r\n    \"dataRelacionamento\":\"2024-10-24\",\r\n    \"dataFimRelacionamento\":\"\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cadastro-relacionamento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cadastro-relacionamento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarRelações",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cadastro-relacionamento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cadastro-relacionamento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizarRelacionamento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clinicaId\":{\r\n        \"id\":21\r\n    },\r\n    \"doutorId\":{\r\n        \"id\":2\r\n    },\r\n    \"dataRelacionamento\":\"2023-10-25\",\r\n    \"dataFimRelacionamento\":\"\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cadastro-relacionamento/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cadastro-relacionamento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletarRelacionamento",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Procedures",
+			"item": [
+				{
+					"name": "InserirOdontoPaciente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Lucas Minozzo Bronzeri\",\r\n  \"cpf\": \"44751657097\",\r\n  \"dataNascimento\": \"06/10/04\",\r\n  \"email\": \"lucasminozzo@gmail.com\",\r\n  \"telefone\": \"(011)96409-0604\"\r\n}\r\n{\r\n  \"nome\": \"Diego Costa Silva\",\r\n  \"cpf\": \"44751657097\",\r\n  \"dataNascimento\": \"16/02/05\",\r\n  \"email\": \"diegocosta@gmail.com\",\r\n  \"telefone\": \"(011)98822-2082\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/paciente/procedure",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"procedure"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateOdontoPaciente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Lucas Minozzo Bronzeri\",\r\n  \"cpf\": \"44751657097\",\r\n  \"dataNascimento\": \"06/10/04\",\r\n  \"email\": \"lucasminozzo@gmail.com\",\r\n  \"telefone\": \"(011)96409-0604\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/paciente/procedure/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"procedure",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOdontoPaciente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/paciente/procedure/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paciente",
+								"procedure",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InserirOdontoClinica",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"razaoSocial\": \"Odontocare Especialidades\",\r\n    \"descricao\": \"Oferecemos serviços de periodontia e cirurgias odontológicas.\",\r\n    \"CNPJ\": \"45.678.901/0001-03\",\r\n    \"emailRepresentante\": \"suporte@odontocare.com\"\r\n}\r\n// {\r\n//   \"razaoSocial\": \"Clínica Sorriso Saudável\",\r\n//   \"descricao\": \"Especializada em ortodontia e estética dental.\",\r\n//   \"CNPJ\": \"12.345.678/0001-90\",\r\n//   \"emailRepresentante\": \"contato@sorrisosaudavel.com\"\r\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/clinica/procedure/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clinica",
+								"procedure",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateOdontoClinica",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"razaoSocial\": \"Odontocare Especialidades 2\",\r\n    \"descricao\": \"Oferecemos serviços de periodontia e cirurgias odontológicas.\",\r\n    \"CNPJ\": \"45.678.901/0001-03\",\r\n    \"emailRepresentante\": \"suporte@odontocare.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/clinica/inserirOdontoClinica/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clinica",
+								"inserirOdontoClinica",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOdontoClinica",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/clinica/procedure/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clinica",
+								"procedure",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

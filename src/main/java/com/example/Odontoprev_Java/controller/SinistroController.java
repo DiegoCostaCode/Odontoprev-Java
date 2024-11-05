@@ -3,7 +3,9 @@ package com.example.Odontoprev_Java.controller;
 import com.example.Odontoprev_Java.DTO.procedimento.ProcedimentoResponseDTO;
 import com.example.Odontoprev_Java.DTO.sinistro.SinistroRequestDTO;
 import com.example.Odontoprev_Java.DTO.sinistro.SinistroResponseDTO;
+import com.example.Odontoprev_Java.Model.Atendimento;
 import com.example.Odontoprev_Java.Model.Sinistro;
+import com.example.Odontoprev_Java.Repository.AtendimentoRepository;
 import com.example.Odontoprev_Java.Repository.SinistroRepository;
 import com.example.Odontoprev_Java.service.SinistroMapper;
 import jakarta.validation.Valid;
@@ -29,6 +31,8 @@ public class SinistroController {
 
     @Autowired
     private SinistroMapper sinistroMapper;
+    @Autowired
+    private AtendimentoRepository atendimentoRepository;
 
     @GetMapping( produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EntityModel<SinistroResponseDTO>>> readSinistros() {
@@ -59,8 +63,12 @@ public class SinistroController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SinistroResponseDTO> createSinistro(@Valid @RequestBody SinistroRequestDTO sinistroRequestDTO)
     {
+        Atendimento atendimento = atendimentoRepository.findById(sinistroRequestDTO.atendimento_id().getId())
+                .orElseThrow(() -> new RuntimeException("Sinistro não encontrado"));
+
         Sinistro sinistro = sinistroMapper.sinistroRequest(sinistroRequestDTO);
         Sinistro sinistroSalvo = sinistroRepository.save(sinistro);
+        sinistro.setAtendimento(atendimento);
         SinistroResponseDTO sinistroResponseDto = sinistroMapper.sinistroToResponse(sinistroSalvo);
         return new ResponseEntity<>(sinistroResponseDto, HttpStatus.CREATED);
     }

@@ -9,7 +9,7 @@ import org.springframework.hateoas.RepresentationModel;
 @Setter
 @Entity
 @Table(name = "Odonto_Plano")
-public class Plano extends RepresentationModel<Plano> {
+public class Plano{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

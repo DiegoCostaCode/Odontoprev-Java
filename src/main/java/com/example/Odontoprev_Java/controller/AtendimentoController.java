@@ -47,7 +47,6 @@ public class AtendimentoController {
     private SinistroRepository sinistroRepository;
 
 
-
     @GetMapping(value = "/{idAtendimento}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AtendimentoResponseDTO> readAtendimentoById(@PathVariable Long idAtendimento) {
         Optional<Atendimento> atendimentoSalvo = atendimentoRepository.findById(idAtendimento);

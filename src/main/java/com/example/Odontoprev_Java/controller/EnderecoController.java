@@ -6,6 +6,7 @@ import com.example.Odontoprev_Java.DTO.paciente.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 import com.example.Odontoprev_Java.Model.Paciente;
+import com.example.Odontoprev_Java.Model.Sinistro;
 import com.example.Odontoprev_Java.Repository.ClinicaRepository;
 import com.example.Odontoprev_Java.Repository.EnderecoRepository;
 import com.example.Odontoprev_Java.Repository.PacienteRepository;
@@ -79,25 +80,23 @@ public class EnderecoController {
         return new ResponseEntity<>(enderecoResponseDto, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/paciente/{idPaciente}/{idEndereco}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/paciente/{idPaciente}/endereco/{idEndereco}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EnderecoResponseDTO> pacienteUpdateEndereco(
             @Valid @RequestBody EnderecoRequestDTO enderecoRequestDTO,
             @PathVariable Long idPaciente,  @PathVariable Long idEndereco)
     {
-        Optional<Paciente> pacienteSalvo = pacienteRepository.findById(idPaciente);
-        if (pacienteSalvo.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        Optional<Endereco> enderecoSalvo = enderecoRepository.findById(idEndereco);
-        if (enderecoSalvo.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+
+        Paciente paciente = pacienteRepository.findById(idPaciente)
+                .orElseThrow(() -> new RuntimeException("Paciente não encontrado"));
+
+        Endereco endereco = enderecoRepository.findById(idEndereco)
+                .orElseThrow(() -> new RuntimeException("Endereco não encontrado"));
 
         Endereco enderecoConvertida = enderecoMapper.requestToEndereco(enderecoRequestDTO);
-        Endereco enderecoCriada = enderecoRepository.save(enderecoConvertida);
+        endereco.setId(idEndereco);
+        Endereco enderecoCriada = enderecoRepository.save(endereco);
         EnderecoResponseDTO enderecoResponseDto = enderecoMapper.enderecoToResponse(enderecoCriada);
 
-        Paciente paciente = pacienteSalvo.get();
         paciente.setEndereco(enderecoCriada);
         pacienteRepository.save(paciente);
 
@@ -105,25 +104,23 @@ public class EnderecoController {
     }
 
 
-    @PutMapping(value = "/clinica/{clinica_id}/{endereco_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/clinica/{idClinica}/endereco/{idEndereco}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EnderecoResponseDTO> clinicaUpdateEndereco(
             @Valid @RequestBody EnderecoRequestDTO enderecoRequestDTO,
-            @PathVariable Long clinica_id,  @PathVariable Long endereco_id)
+            @PathVariable Long idClinica,  @PathVariable Long idEndereco)
     {
-        Optional<Clinica> clinicaEncontrada = clinicaRepository.findById(clinica_id);
-        if (clinicaEncontrada.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        Optional<Endereco> enderecoSalvo = enderecoRepository.findById(endereco_id);
-        if (enderecoSalvo.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+
+        Clinica clinica = clinicaRepository.findById(idClinica)
+                .orElseThrow(() -> new RuntimeException("Clinica não encontrado"));
+
+        Endereco endereco = enderecoRepository.findById(idEndereco)
+                .orElseThrow(() -> new RuntimeException("Endereco não encontrado"));
 
         Endereco enderecoConvertida = enderecoMapper.requestToEndereco(enderecoRequestDTO);
-        Endereco enderecoCriada = enderecoRepository.save(enderecoConvertida);
+        endereco.setId(idEndereco);
+        Endereco enderecoCriada = enderecoRepository.save(endereco);
         EnderecoResponseDTO enderecoResponseDto = enderecoMapper.enderecoToResponse(enderecoCriada);
 
-        Clinica clinica = clinicaEncontrada.get();
         clinica.setEndereco(enderecoCriada);
         clinicaRepository.save(clinica);
 
