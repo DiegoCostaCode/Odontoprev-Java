@@ -28,8 +28,6 @@ Na Sprint 2, realizamos diversas melhorias e implementações para expandir e ot
 
 Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que incluem a modelagem do banco de dados, implementação de funcionalidades e documentação. Abaixo estão as atividades realizadas:
 
-## Atividades da Sprint 2
-
 | Atividade                                                                 | Responsável          | Prazo de Entrega |
 |---------------------------------------------------------------------------|----------------------|------------------|
 | Revisar modelagem do banco de dados e identificar melhorias para a aplicação | Diego Costa Silva    | 01/10            |
