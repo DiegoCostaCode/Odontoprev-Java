@@ -26,7 +26,6 @@ Na Sprint 2, realizamos diversas melhorias e implementações para expandir e ot
 | **Refatoração do Banco de Dados**            | Revisamos e aprimoramos o modelo de dados, refletindo as atualizações no DER e garantindo um banco mais eficiente e escalável. As tabelas e classes foram criadas com **JPA** e **Hibernate** para integração com o sistema Java.         |
 | **Simplificação de Código com Lombok**       | Implementamos **Lombok** para reduzir o código boilerplate, facilitando a manutenção e deixando o código mais limpo e legível ao eliminar a necessidade de getters e setters manuais.                                                    |
 | **Implementação de HATEOAS com EntityModel** | Usando a biblioteca **Spring HATEOAS**, integramos o padrão HATEOAS aos endpoints da API, utilizando **EntityModel**. Com isso, os endpoints RESTful agora oferecem links dinâmicos, facilitando a navegação e escalabilidade da API.     |
-| **Procedures no Banco de Dados**             | Desenvolvemos procedures no banco de dados para operações específicas de Paciente e Clínica, centralizando a lógica de negócios diretamente no banco e aprimorando o desempenho e eficiência em consultas complexas.                        |
 
 ## Atividades da Sprint 2
 
