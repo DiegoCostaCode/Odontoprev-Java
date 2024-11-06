@@ -11,11 +11,11 @@
 
 ## Descrição da Solução
 
-**Nosso sistema end-to-end conecta o administrador Odontoprev, as clínicas e os pacientes em um ecossistema integrado, projetado para facilitar o rastreamento e a auditoria de informações. Para os pacientes, desenvolvemos um aplicativo em Kotlin que permite acessar informações sobre seu plano e tomar decisões informadas com base em recomendações personalizadas, utilizando inteligência artificial com Deep Learning.
+**Nosso sistema end-to-end conecta o administrador Odontoprev, as clínicas e os pacientes em um ecossistema integrado, projetado para facilitar o rastreamento e a auditoria de informações. Para os pacientes, desenvolvemos um aplicativo em Kotlin que permite acessar informações sobre seu plano e tomar decisões informadas com base em recomendações personalizadas, utilizando inteligência artificial com Deep Learning.**
 
-O backend, implementado em Java, gerencia as APIs e integra todos os módulos. Para clínicas e administradores Odontoprev, utilizamos uma plataforma web construída em .NET que fornece insights de dados para melhorar a gestão. O administrador Odontoprev terá uma visão completa do sistema, incluindo ferramentas para auditoria eficiente e transparência no uso dos planos.
+**O backend, implementado em Java, gerencia as APIs e integra todos os módulos. Para clínicas e administradores Odontoprev, utilizamos uma plataforma web construída em .NET que fornece insights de dados para melhorar a gestão. O administrador Odontoprev terá uma visão completa do sistema, incluindo ferramentas para auditoria eficiente e transparência no uso dos planos.**
 
-Acreditamos que este sistema será o ponto de partida para a Odontoprev solucionar seus desafios atuais, oferecendo uma plataforma de informações centralizada, moderna e intuitiva.**
+**Acreditamos que este sistema será o ponto de partida para a Odontoprev solucionar seus desafios atuais, oferecendo uma plataforma de informações centralizada, moderna e intuitiva.**
 
 ## Progresso na Sprint 2
 
@@ -43,17 +43,16 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 | Realizar testes iniciais na estrutura desenvolvida para refinamento do projeto | Diego Costa Silva    | 01/10            |
 | Documentar o projeto e preparar os entregáveis | Diego Costa Silva | 01/10 |
 
-
 # API Endpoints - SPRINT2 - Java
-**[Testando endpoints](https://youtu.be/XoNUMdeHdU8)**
+**Teste de endpoints em vídeo -> [Testando endpoints](https://youtu.be/XoNUMdeHdU8)**
 
-##O collection do Postman para teste dos endpoints se encontra na pasta documentation
+**O collection do Postman para teste dos endpoints se encontra na pasta `/documentation/`**
 
 ## Paciente
 
 | Método | URL                           | Descrição                      |
 |--------|-------------------------------|--------------------------------|
-| GET    | `/paciente`                   | Listar Pacientes               |
+ | GET    | `/paciente`                   | Listar Pacientes               |
 | GET    | `/paciente/{id}`              | Obter Paciente por ID          |
 | POST   | `/paciente`                   | Cadastrar Paciente             |
 | PUT    | `/paciente/{id}`              | Atualizar Cadastro de Paciente  |
@@ -84,8 +83,8 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 |--------|---------------------------------------|---------------------------------------------|
 | POST   | `/endereco/paciente/{id}`            | Adicionar Endereço a Paciente               |
 | PUT    | `/endereco/paciente/{pacienteId}/{enderecoId}` | Atualizar Endereço de Paciente              |
-| POST   | `/endereco/clinica/{id}`            | Adicionar Endereço a Paciente               |
-| PUT    | `/endereco/clinica/{clinicaId}/{enderecoId}` | Atualizar Endereço de Clinica              |
+| POST   | `/endereco/clinica/{id}`            | Adicionar Endereço a Clínica                |
+| PUT    | `/endereco/clinica/{clinicaId}/{enderecoId}` | Atualizar Endereço de Clínica               |
 | DELETE | `/endereco/{id}`                     | Deletar Endereço de Paciente                |
 
 ## Carteirinha
@@ -94,14 +93,14 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 |--------|---------------------------|-------------------------------|
 | POST   | `/carteirinha`           | Gerar Carteirinha             |
 | GET    | `/carteirinha`           | Listar Carteirinhas          |
-| PUT    | `/carteirinha/{id}`           | Atualizar plano de Carteirinha          |
+| PUT    | `/carteirinha/{id}`      | Atualizar plano de Carteirinha|
 | DELETE | `/carteirinha/{id}`      | Deletar Carteirinha          |
 
 ## Atendimento
 
 | Método | URL                       | Descrição                     |
 |--------|---------------------------|-------------------------------|
-| GET   | `/atendimento`            | Listar Atendimento             |
+| GET    | `/atendimento`            | Listar Atendimento            |
 | POST   | `/atendimento`            | Marcar Atendimento             |
 | PUT    | `/atendimento/{id}`       | Atualizar Atendimento          |
 | DELETE | `/atendimento/{id}`       | Deletar Atendimento            |
@@ -146,13 +145,12 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 
 | Método | URL                          | Descrição                     |
 |--------|------------------------------|-------------------------------|
-| | POST   | `/paciente/procedure`         | Inserir Odonto Paciente       |
+| POST   | `/paciente/procedure`         | Inserir Odonto Paciente       |
 | PUT    | `/paciente/procedure/{id}`    | Update Odonto Paciente        |
 | DELETE | `/paciente/procedure/{id}`    | Delete Odonto Paciente        |
 | POST   | `/clinica/procedure`          | Inserir Odonto Clínica        |
 | PUT    | `/clinica/inserirOdontoClinica/{id}` | Update Odonto Clínica        |
 | DELETE | `/clinica/procedure/{id}`     | Delete Odonto Clínica         |
-
 
 ## Instrução de como rodar a aplicação
 
@@ -168,6 +166,3 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 * **Diagrama de Sequência**: ![Logica3l](https://github.com/user-attachments/assets/5500ef6b-b64b-414a-814a-a8418b6cc3d3)
 
 ## Link para vídeo apresentando a Proposta Tecnológica
-
-
-
