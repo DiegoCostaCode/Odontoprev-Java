@@ -159,6 +159,45 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 3. **Rode o projeto**
 4. **Visite o seguinte URL para testar os ENDPOINTS**:  [Swagger](http://localhost:8080/swagger-ui/index.html#/)
 
+# Odontoprev-Java: Configuração com Docker
+
+Este projeto utiliza o Docker para facilitar a construção e execução da aplicação **Odontoprev-Java** e seus serviços associados, como o banco de dados Oracle. Abaixo, descrevemos a estrutura utilizada e justificamos as escolhas feitas para garantir uma solução eficiente e fácil de gerenciar.
+
+## Estrutura Docker
+
+### Dockerfile
+
+Criamos um Dockerfile que segue a estratégia de *multi-stage build*, dividindo o processo em duas etapas. Na primeira, utilizamos uma imagem do Gradle para compilar o código e gerar o arquivo JAR da aplicação. Na segunda, usamos uma imagem do OpenJDK para criar uma imagem final enxuta, contendo apenas o essencial para a execução da aplicação. Isso resulta em uma imagem mais leve e segura, com um processo de construção mais eficiente.
+
+Principais pontos do Dockerfile:
+
+- **Multi-stage build**: Permite separar a etapa de construção da etapa de execução, garantindo uma imagem final mais limpa e otimizada.
+- **Permissões apropriadas**: O uso de `COPY --chown=gradle:gradle` garante que os arquivos tenham permissões corretas, evitando problemas durante a construção.
+- **Porta exposta**: A aplicação é configurada para escutar na porta `8080`, permitindo o direcionamento adequado do tráfego.
+- **Comando de entrada**: O comando `ENTRYPOINT` é usado para iniciar a aplicação quando o contêiner é executado.
+
+### Docker Compose
+
+Para orquestrar os serviços da aplicação, utilizamos o Docker Compose. Definimos um arquivo `docker-compose.yml` que inclui tanto a aplicação Java quanto o banco de dados Oracle, permitindo que ambos os serviços sejam iniciados e configurados de maneira coordenada.
+
+Principais pontos do Docker Compose:
+
+- **Serviços integrados**: Dois serviços são definidos: `odontoprevjava` (a aplicação Java) e `oracle-db` (o banco de dados). A aplicação depende do banco de dados, garantindo que ele seja iniciado antes.
+- **Configuração dinâmica**: Variáveis de ambiente são usadas para configurar credenciais e URLs, tornando o ambiente flexível e adaptável a diferentes cenários.
+- **Rede e armazenamento**: Uma rede personalizada (“app-network”) conecta ambos os serviços, e um volume (“oracle-data”) é utilizado para armazenar os dados do banco, garantindo persistência.
+- **Limitação de recursos**: Definimos limites de CPU e memória para cada serviço, ajudando a garantir que os recursos do sistema sejam usados de forma controlada.
+
+## Como Executar
+
+Para iniciar os serviços, certifique-se de ter o Docker e o Docker Compose instalados e execute o comando:
+
+```sh
+docker-compose up --build
+```
+## Deploy
+**[Vídeo](https://youtu.be/zt8nd6TeFQM)**
+
+
 ## Imagem dos Diagramas
 
 * **Diagrama de Classes**: ![plantuml_page-0001](https://github.com/user-attachments/assets/8de083c6-a6cd-4fbf-8dd3-749f5405983a)
