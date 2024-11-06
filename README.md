@@ -11,7 +11,11 @@
 
 ## Descrição da Solução
 
-**Um aplicativo que coloca a Odontoprev, o cliente e a clínica no mesmo ambiente, permitindo que os clientes agendem e acompanhem suas atendimentos, contratem planos e avaliem clínicas. A clínica pode lançar informações referentes às atendimentos dos clientes e receber também.**
+**Nosso sistema end-to-end conecta o administrador Odontoprev, as clínicas e os pacientes em um ecossistema integrado, projetado para facilitar o rastreamento e a auditoria de informações. Para os pacientes, desenvolvemos um aplicativo em Kotlin que permite acessar informações sobre seu plano e tomar decisões informadas com base em recomendações personalizadas, utilizando inteligência artificial com Deep Learning.
+
+O backend, implementado em Java, gerencia as APIs e integra todos os módulos. Para clínicas e administradores Odontoprev, utilizamos uma plataforma web construída em .NET que fornece insights de dados para melhorar a gestão. O administrador Odontoprev terá uma visão completa do sistema, incluindo ferramentas para auditoria eficiente e transparência no uso dos planos.
+
+Acreditamos que este sistema será o ponto de partida para a Odontoprev solucionar seus desafios atuais, oferecendo uma plataforma de informações centralizada, moderna e intuitiva.**
 
 ## Progresso na Sprint 2
 
@@ -43,6 +47,8 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 
 # API Endpoints - SPRINT2 - Java
 **[Testando endpoints](https://youtu.be/XoNUMdeHdU8)**
+
+##O collection do Postman para teste dos endpoints se encontra na pasta documentation
 
 ## Paciente
 
@@ -161,8 +167,6 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 * **Diagrama de Classes**: ![plantuml_page-0001](https://github.com/user-attachments/assets/8de083c6-a6cd-4fbf-8dd3-749f5405983a)
   
 * **Diagrama de Sequência**: ![Logica3l](https://github.com/user-attachments/assets/5500ef6b-b64b-414a-814a-a8418b6cc3d3)
-
-
 
 ## Link para vídeo apresentando a Proposta Tecnológica
 
