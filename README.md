@@ -205,3 +205,4 @@ docker-compose up --build
 * **Diagrama de Sequência**: ![Logica3l](https://github.com/user-attachments/assets/5500ef6b-b64b-414a-814a-a8418b6cc3d3)
 
 ## Link para vídeo apresentando a Proposta Tecnológica
+[Pitch](https://youtu.be/SBQ-_mBXdK0)
