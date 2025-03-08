@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clínicas</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+        <main class="main-content">
+
+            <section class="clinicas-section">
+
+                <a th:href="@{/clinica/}" class="cadastrar-href">Nova clínica</a>
+
+                <table class="tabela">
+                    <thead>
+                        <tr>
+                            <th class="id-head">#</th>
+                            <th class="razao-head">Razão Social</th>
+                            <th class="cnpj-head">CNPJ</th>
+                            <th class="email-head">E-mail</th>
+                            <th class="tel-head">Telefone</th>
+                            <th class="acao-head">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="clinica : ${clinicas}">
+                            <td th:text="${clinica.id}" class="id-col"></td>
+                            <td th:text="${clinica.razaosocial}" class="razao-col"></td>
+                            <td th:text="${clinica.cnpj}" class="cnpj-col"></td>
+                            <td th:text="${clinica.email}" class="email-col"></td>
+                            <td th:text="${clinica.telefone}" class="tel-col"></td>
+                            <td class="acao-col">
+                                <a class="editar" th:href="@{/clinica/edit/{id}(id = ${clinica.id})}">Editar</a>
+                                <a class="deletar" th:href="@{/clinica/edit/{id}(id = ${clinica.id})}">Deletar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </section>
+        </main>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

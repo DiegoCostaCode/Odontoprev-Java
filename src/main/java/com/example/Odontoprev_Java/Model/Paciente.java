@@ -1,13 +1,18 @@
 package com.example.Odontoprev_Java.Model;
-import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Odonto_Paciente")
 public class Paciente {
     @Id
@@ -20,29 +25,20 @@ public class Paciente {
     @Column(name = "Data_nascimento")
     private Date dataNascimento;
 
-    @Column(name = "Cpf", unique = true)
+    @Column(name = "CPF", unique = true)
     private String cpf;
 
-    @Column(name = "Email", unique = true)
+    @Column(name = "E-mail", unique = true)
     private String email;
 
     @Column(name = "Telefone", unique = true)
     private String telefone;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Endereco_id")
-    private Endereco endereco;
+    @OneToOne
+    @JoinColumn(name = "Plano_paciente")
+    private Planos plano;
 
-
-    public Paciente() {}
-
-    public Paciente(String nome, Date dataNascimento, String cpf, String email, String telefone, Endereco endereco) {
-        this.nome = nome;
-        this.dataNascimento = dataNascimento;
-        this.cpf = cpf;
-        this.email = email;
-        this.telefone = telefone;
-        this.endereco = endereco;
-    }
+    @Column(name = "Data_cadastro")
+    private LocalDateTime dataCadastro;
 
 }

@@ -7,11 +7,11 @@
 
 ## Descrição do Problema
 
-**Clínicas médicas fraudando atendimentos/exames/cirurgias e clientes que utilizam do plano de forma imprópria/desnecessária, gerando gastos para a Odontoprev.**
+**Clínicas médicas fraudando atendimentos/exames/cirurgias e clientes que utilizam do planos de forma imprópria/desnecessária, gerando gastos para a Odontoprev.**
 
 ## Descrição da Solução
 
-**Nosso sistema end-to-end conecta o administrador Odontoprev, as clínicas e os pacientes em um ecossistema integrado, projetado para facilitar o rastreamento e a auditoria de informações. Para os pacientes, desenvolvemos um aplicativo em Kotlin que permite acessar informações sobre seu plano e tomar decisões informadas com base em recomendações personalizadas, utilizando inteligência artificial com Deep Learning.**
+**Nosso sistema end-to-end conecta o administrador Odontoprev, as clínicas e os pacientes em um ecossistema integrado, projetado para facilitar o rastreamento e a auditoria de informações. Para os pacientes, desenvolvemos um aplicativo em Kotlin que permite acessar informações sobre seu planos e tomar decisões informadas com base em recomendações personalizadas, utilizando inteligência artificial com Deep Learning.**
 
 **O backend, implementado em Java, gerencia as APIs e integra todos os módulos. Para clínicas e administradores Odontoprev, utilizamos uma plataforma web construída em .NET que fornece insights de dados para melhorar a gestão. O administrador Odontoprev terá uma visão completa do sistema, incluindo ferramentas para auditoria eficiente e transparência no uso dos planos.**
 
@@ -72,10 +72,10 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 
 | Método | URL                           | Descrição                      |
 |--------|-------------------------------|--------------------------------|
-| GET    | `/plano`                      | Listar Planos                  |
-| POST   | `/plano`                      | Cadastrar Plano                |
-| PUT    | `/plano/{id}`                 | Atualizar Plano                |
-| DELETE | `/plano/{id}`                 | Deletar Plano                  |
+| GET    | `/planos`                      | Listar Planos                  |
+| POST   | `/planos`                      | Cadastrar Plano                |
+| PUT    | `/planos/{id}`                 | Atualizar Plano                |
+| DELETE | `/planos/{id}`                 | Deletar Plano                  |
 
 ## Endereço
 
@@ -93,17 +93,17 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 |--------|---------------------------|-------------------------------|
 | POST   | `/carteirinha`           | Gerar Carteirinha             |
 | GET    | `/carteirinha`           | Listar Carteirinhas          |
-| PUT    | `/carteirinha/{id}`      | Atualizar plano de Carteirinha|
+| PUT    | `/carteirinha/{id}`      | Atualizar planos de Carteirinha|
 | DELETE | `/carteirinha/{id}`      | Deletar Carteirinha          |
 
 ## Atendimento
 
 | Método | URL                       | Descrição                     |
 |--------|---------------------------|-------------------------------|
-| GET    | `/atendimento`            | Listar Atendimento            |
-| POST   | `/atendimento`            | Marcar Atendimento             |
-| PUT    | `/atendimento/{id}`       | Atualizar Atendimento          |
-| DELETE | `/atendimento/{id}`       | Deletar Atendimento            |
+| GET    | `/agendamento`            | Listar Atendimento            |
+| POST   | `/agendamento`            | Marcar Atendimento             |
+| PUT    | `/agendamento/{id}`       | Atualizar Atendimento          |
+| DELETE | `/agendamento/{id}`       | Deletar Atendimento            |
 
 ## Procedimento
 
@@ -127,10 +127,10 @@ Nesta Sprint, focamos em diversas atividades para aprimorar a aplicação, que i
 
 | Método | URL                          | Descrição                     |
 |--------|------------------------------|-------------------------------|
-| POST   | `/doutor/cadastrar`          | Cadastrar Doutor              |
-| GET    | `/doutor/{id}`               | Obter Doutor por ID          |
-| PUT    | `/doutor/{id}`               | Atualizar Doutor              |
-| DELETE | `/doutor/{id}`               | Deletar Doutor                |
+| POST   | `/dentista/cadastrar`          | Cadastrar Doutor              |
+| GET    | `/dentista/{id}`               | Obter Doutor por ID          |
+| PUT    | `/dentista/{id}`               | Atualizar Doutor              |
+| DELETE | `/dentista/{id}`               | Deletar Doutor                |
 
 ## Clinica-Doutor-Relacionamento
 

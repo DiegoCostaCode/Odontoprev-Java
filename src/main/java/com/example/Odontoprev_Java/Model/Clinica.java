@@ -1,37 +1,37 @@
 package com.example.Odontoprev_Java.Model;
 
-import com.example.Odontoprev_Java.Model.Endereco.Endereco;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "Odonto_Clinica")
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "Odonto_Clinicas")
 public class Clinica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "Razao_social")
-    private String razaoSocial;
-
-    @Column(name = "Descricao")
-    private String descricao;
+    @Column(name = "razao_social")
+    private String razaosocial;
 
     @Column(name = "CNPJ")
     private String cnpj;
 
-    @Column(name = "Email_representante")
-    private String emailRepresentante;
+    @Column(name = "E-mail")
+    private String email;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Endereco_id")
-    private Endereco endereco;
+    @Column(name = "Telefone")
+    private String telefone;
 
+    @Column(name = "Senha")
+    private String senha;
 
 }
