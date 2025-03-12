@@ -6,6 +6,7 @@ import com.example.Odontoprev_Java.service.ClinicaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,35 +20,24 @@ public class ClinicaController {
     @Autowired
     private ClinicaService clinicaService;
 
-    @GetMapping(value = "/")
-    public ModelAndView clinicaCadasterView()
-    {
-        ModelAndView mv = new ModelAndView("cadasterClinica");
-
-        mv.addObject("clinicaDTO", new ClinicaRequestDTO());
-
-        return mv;
-    }
-
     @PostMapping("/register")
-    public ModelAndView saveClinica(@Valid @ModelAttribute ClinicaRequestDTO clinicaRequestDTO)
+    public String saveClinica(@Valid @ModelAttribute ClinicaRequestDTO clinicaRequestDTO, Model model)
     {
         Clinica clinica = clinicaService.saveClinica(clinicaRequestDTO);
 
         ModelAndView mv = new ModelAndView("cadasterClinica");
 
-        mv.addObject("clinicaDTO", clinicaRequestDTO);
+        model.addAttribute("clinicaDTO", clinicaRequestDTO);
 
-        return clinicaGetAll();
+        return clinicaGetAll(model);
     }
 
-    @GetMapping(value = "/clinicas")
-    public ModelAndView clinicaGetAll(){
-        ModelAndView mv = new ModelAndView("allClinicas");
+    @GetMapping(value = "/all/clinicas")
+    public String clinicaGetAll(Model model){
 
-        mv.addObject("clinicas", clinicaService.findAll());
+        model.addAttribute("clinicas", clinicaService.findAll());
 
-        return mv;
+        return "clinicas";
     }
 
 }

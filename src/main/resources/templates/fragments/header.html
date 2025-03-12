@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,7 +9,9 @@
         <nav>
             <ul>
                 <li>
-                    <a th:href="@{/}">Home</a>
+                    <a th:href="@{/}">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
                 </li>
                 <li>
                     <a th:href="@{/clinica/clinicas}">Clinica</a>

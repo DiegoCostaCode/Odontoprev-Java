@@ -1,12 +1,22 @@
 /*----------- Header -----------*/
 #main-header
 {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    position: fixed;
+    margin: 10px;
+    width: 100%;
+}
+
+#main-header nav
+{
+    padding: 15px;
+    height: 100%;
     background-color: #007bff;
     color: white;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    width: 100%;
+    border-radius: 16px;
 }
 
 #main-header nav ul
@@ -15,14 +25,17 @@
     list-style: none;
 }
 
-#main-header nav ul li
-{
-    margin: 0 10px;
-}
-
 #main-header nav ul li a
 {
     color: white;
     font-weight: bold;
     text-decoration: none;
+    padding: 10px;
+    margin: 0 5px;
+}
+
+#main-header nav ul li a:hover
+{
+    background-color: #0056b3;
+    border-radius: 8px;
 }

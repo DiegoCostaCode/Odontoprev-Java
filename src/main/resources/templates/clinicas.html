@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Clínicas</title>
-    <link th:href="@{/css/style.css}" rel="stylesheet" />
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link th:href="@{/css/tables.css}" rel="stylesheet" />
+    <link th:href="@{/css/header.css}" rel="stylesheet" />
+    <link th:href="@{/css/footer.css}" rel="stylesheet" />
+    </head>
 <body>
     <div th:replace="~{fragments/header :: header}"></div>
 
         <main class="main-content">
 
-            <section class="clinicas-section">
+            <section class="table-section">
 
-                <a th:href="@{/clinica/}" class="cadastrar-href">Nova clínica</a>
+                <a th:href="@{/clinica/}" class="cadastrar-href">
+                    <i class="fa-solid fa-plus"></i>
+                </a>
 
                 <table class="tabela">
+
                     <thead>
                         <tr>
                             <th class="id-head">#</th>
@@ -22,7 +28,9 @@
                             <th class="cnpj-head">CNPJ</th>
                             <th class="email-head">E-mail</th>
                             <th class="tel-head">Telefone</th>
-                            <th class="acao-head">Ações</th>
+                            <th class="acao-head">
+                                <i class="fa-solid fa-gear"></i>
+                            </th>
                         </tr>
                     </thead>
 
@@ -34,8 +42,14 @@
                             <td th:text="${clinica.email}" class="email-col"></td>
                             <td th:text="${clinica.telefone}" class="tel-col"></td>
                             <td class="acao-col">
-                                <a class="editar" th:href="@{/clinica/edit/{id}(id = ${clinica.id})}">Editar</a>
-                                <a class="deletar" th:href="@{/clinica/edit/{id}(id = ${clinica.id})}">Deletar</a>
+                                <div>
+                                    <a class="editar" th:href="@{/clinica/edit/{id}(id = ${clinica.id})}">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <a class="deletar" th:href="@{/clinica/delete/{id}(id = ${clinica.id})}">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
