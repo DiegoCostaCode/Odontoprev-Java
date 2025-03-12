@@ -23,16 +23,13 @@ public class Clinica {
     @Column(name = "razao_social")
     private String razaosocial;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "CNPJ")
     private String cnpj;
 
     @Column(name = "telefone")
     private String telefone;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
 }

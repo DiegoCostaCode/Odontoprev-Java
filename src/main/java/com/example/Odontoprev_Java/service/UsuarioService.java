@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -25,4 +26,26 @@ public class UsuarioService {
 
         return usuarioRepository.save(usuario);
     }
+
+    public Usuario updateUsuarioFromClinica(ClinicaRequestDTO clinicaRequestDTO, Long id) {
+        Usuario usuario = findById(id);
+
+        if (usuario == null) {
+            return null;
+        }
+
+        usuario.setEmail(clinicaRequestDTO.getEmail());
+        usuario.setSenha(clinicaRequestDTO.getSenha());
+        usuario.setTipo(Enum_tipo_usuario.CLINICA);
+
+        return usuarioRepository.save(usuario);
+    }
+
+    public Usuario findById(long id)
+    {
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+
+        return usuario.orElse(null);
+    }
+
 }

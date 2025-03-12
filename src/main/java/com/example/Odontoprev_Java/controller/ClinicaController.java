@@ -7,10 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -19,6 +16,29 @@ public class ClinicaController {
 
     @Autowired
     private ClinicaService clinicaService;
+
+    @GetMapping(value = "/all/clinicas")
+    public String clinicaGetAllView(Model model){
+
+        model.addAttribute("clinicas", clinicaService.findAll());
+
+        return "clinicas";
+    }
+
+    @GetMapping(value = "/update/{id}")
+    public String clinicaUpdateView(@PathVariable Long id, Model model){
+
+        Clinica clinica = clinicaService.findById(id);
+
+        if(clinica == null)
+        {
+            return clinicaGetAllView(model);
+        }
+
+        model.addAttribute("clinicaInfos", clinica);
+
+        return "updateProfile";
+    }
 
     @PostMapping("/register")
     public String saveClinica(@Valid @ModelAttribute ClinicaRequestDTO clinicaRequestDTO, Model model)
@@ -29,15 +49,19 @@ public class ClinicaController {
 
         model.addAttribute("clinicaDTO", clinicaRequestDTO);
 
-        return clinicaGetAll(model);
+        return clinicaGetAllView(model);
     }
 
-    @GetMapping(value = "/all/clinicas")
-    public String clinicaGetAll(Model model){
+    @PostMapping(value = "/edit/{id}")
+    public String clinicaUpdate(@PathVariable Long id, @Valid ClinicaRequestDTO clinicaRequestDTO, Model model){
+        Clinica clinica = clinicaService.updateClinica(clinicaRequestDTO,id);
+        return clinicaGetAllView(model);
+    }
 
-        model.addAttribute("clinicas", clinicaService.findAll());
-
-        return "clinicas";
+    @GetMapping(value = "/delete/{id}")
+    public String clinicaDelete(@PathVariable Long id, Model model){
+        clinicaService.deletarClinica(id);
+        return clinicaGetAllView(model);
     }
 
 }

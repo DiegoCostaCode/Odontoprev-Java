@@ -7,8 +7,10 @@ import com.example.Odontoprev_Java.repository.ClinicaRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClinicaService {
@@ -28,15 +30,7 @@ public class ClinicaService {
         return clinica;
     }
 
-    public ClinicaRequestDTO clinicaToRequest(Clinica clinica)
-    {
-        ClinicaRequestDTO clinicaRequestDTO = new ClinicaRequestDTO();
-
-        BeanUtils.copyProperties(clinica, clinicaRequestDTO);
-
-        return clinicaRequestDTO;
-    }
-
+    @Transactional
     public Clinica saveClinica(ClinicaRequestDTO clinicaRequestDTO)
     {
         Usuario usuario = usuarioService.saveUsuarioFromClinica(clinicaRequestDTO);
@@ -47,10 +41,36 @@ public class ClinicaService {
         return clinicaRepository.save(clinica);
     }
 
+    @Transactional
+    public Clinica updateClinica(ClinicaRequestDTO clinicaRequestDTO, Long id) {
+        Clinica clinica = findById(id);
+
+        if (clinica == null) {
+            return null;
+        }
+
+        BeanUtils.copyProperties(clinicaRequestDTO, clinica);
+
+        Usuario usuario = usuarioService.updateUsuarioFromClinica(clinicaRequestDTO, clinica.getUsuario().getId());
+        clinica.setUsuario(usuario);
+
+        return clinicaRepository.save(clinica);
+    }
+
+    public Clinica findById(long id)
+    {
+        Optional<Clinica> clinica = clinicaRepository.findById(id);
+
+        return clinica.orElse(null);
+    }
+
     public List<Clinica> findAll()
     {
         return clinicaRepository.findAll();
     }
 
-
+    public void deletarClinica(long id)
+    {
+        clinicaRepository.deleteById(id);
+    }
 }
