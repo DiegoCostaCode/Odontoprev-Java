@@ -1,0 +1,167 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100vh;
+    background-color: #002353;
+    font-family: 'Roboto', sans-serif;
+}
+
+.main-content
+{
+    width: 50%;
+    height: 85%;
+    background: #007bff;
+    border-radius: 20px 0px 0px 20px;
+    padding: 20px;
+}
+
+.container-tipo-cadastro {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: #f5f5f5;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.container-tipo-cadastro h2
+{
+    font-size: 2rem;
+    color: #f5f5f5;
+    font-weight: bold;
+}
+
+.container-tipo-cadastro section
+{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.radio-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding-left: 30px;
+    user-select: none;
+}
+
+.radio-container input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkmark {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: #002353;
+    border-radius: 50%;
+}
+
+.radio-container:hover .checkmark {
+    outline: 2px solid #f5f5f5;
+}
+
+.checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+    width: 10px;
+    height: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #f5f5f5;
+}
+
+.radio-container input:checked ~ .checkmark::after {
+    display: block;
+}
+
+form
+{
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+}
+
+form .info-section
+{
+    display: flex;
+    flex-direction: column;
+}
+
+
+form section div
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: start;
+    font-weight: bold;
+    flex: auto;
+    color: #f5f5f5;
+}
+
+
+form label
+{
+    font-size: 0.9rem;
+}
+
+form input
+{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0px;
+}
+
+form input:focus
+{
+    outline: 2px solid #002353;
+}
+
+
+form .button-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+form .button-div button
+{
+    background-color: #002353;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    height: 35px;
+    width: 150px;
+}
+
+form button:hover
+{
+    outline: 2px solid #f5f5f5;
+}

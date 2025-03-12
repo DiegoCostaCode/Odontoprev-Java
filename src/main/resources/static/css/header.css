@@ -1,0 +1,28 @@
+/*----------- Header -----------*/
+#main-header
+{
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+}
+
+#main-header nav ul
+{
+    display: flex;
+    list-style: none;
+}
+
+#main-header nav ul li
+{
+    margin: 0 10px;
+}
+
+#main-header nav ul li a
+{
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}

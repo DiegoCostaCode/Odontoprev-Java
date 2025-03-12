@@ -1,7 +1,9 @@
 package com.example.Odontoprev_Java.Model.procedimento;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -9,6 +11,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Odonto_Procedimento")
 public class Procedimento {
     @Id
@@ -16,21 +20,12 @@ public class Procedimento {
     private long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "Procedimento")
+    @Column(name = "procedimento", unique = true)
     private Enum_procedimento procedimento;
 
-    @Column(name = "Preco")
+    @Column(name = "preco")
     private double preco;
 
-    @Column(name = "Data_atualizacao")
+    @Column(name = "data_atualizacao")
     private LocalDateTime dataAtualizacao;
-
-    public Procedimento() {}
-
-    public Procedimento(long id, Enum_procedimento procedimento, double preco, LocalDateTime dataAtualizacao) {
-        this.id = id;
-        this.procedimento = procedimento;
-        this.preco = preco;
-        this.dataAtualizacao = dataAtualizacao;
-    }
 }

@@ -37,8 +37,4 @@ public class Paciente {
     @OneToOne
     @JoinColumn(name = "Plano_paciente")
     private Planos plano;
-
-    @Column(name = "Data_cadastro")
-    private LocalDateTime dataCadastro;
-
 }

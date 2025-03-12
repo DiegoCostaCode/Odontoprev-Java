@@ -1,6 +1,7 @@
 package com.example.Odontoprev_Java.Model;
 
 
+import com.example.Odontoprev_Java.Model.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,16 +23,16 @@ public class Clinica {
     @Column(name = "razao_social")
     private String razaosocial;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "CNPJ")
     private String cnpj;
 
-    @Column(name = "E-mail")
-    private String email;
-
-    @Column(name = "Telefone")
+    @Column(name = "telefone")
     private String telefone;
 
-    @Column(name = "Senha")
-    private String senha;
-
+    @OneToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
 }

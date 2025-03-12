@@ -1,15 +1,29 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Cadastro</title>
-    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <link th:href="@{/css/cadaster.css}" rel="stylesheet" />
 </head>
 <body>
     <main class="main-content">
-        <form method="post" th:action="@{/clinica/register}" th:object="${clinicaDTO}">
 
-            <h2>Cadastro de clínica</h2>
+        <div class="container-tipo-cadastro">
+            <h2>Cadastro</h2>
+
+            <section>
+                <label class="radio-container">
+                    <input type="radio" name="tipoCadastro" value="clinica" checked="checked"/>
+                    <span class="checkmark"></span> Clínica
+                </label>
+                <label class="radio-container">
+                    <input type="radio" name="tipoCadastro" value="paciente"/>
+                    <span class="checkmark"></span> Paciente
+                </label>
+            </section>
+        </div>
+
+        <form method="post" th:action="@{/clinica/register}" th:object="${clinicaDTO}">
 
             <section class="info-section">
                 <div>
@@ -31,14 +45,16 @@
                     <label for="telefone">Telefone</label>
                     <input type="tel" id="telefone" maxLength="15" placeholder="Fixo ou móvel" required th:field="*{telefone}">
                 </div>
+
+                <div>
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" placeholder="Senha super secreta" required th:field="*{senha}">
+                </div>
             </section>
-
-
 
             <div class="button-div">
                 <button type="submit" value="cadastrar">Cadastrar</button>
             </div>
-
         </form>
     </main>
 
