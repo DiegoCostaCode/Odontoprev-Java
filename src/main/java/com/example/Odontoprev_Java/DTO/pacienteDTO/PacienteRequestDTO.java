@@ -1,5 +1,6 @@
 package com.example.Odontoprev_Java.DTO.pacienteDTO;
 
+import com.example.Odontoprev_Java.Model.Planos;
 import com.example.Odontoprev_Java.Model.usuario.Usuario;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -32,7 +33,12 @@ public class PacienteRequestDTO {
     @NotBlank(message = "Data de nascimento é obrigatória")
     @Past(message = "Data de nascimento inválida")
     private String dataNascimento;
-    @OneToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usuario;
+    @NotBlank(message = "Não foi definido uma senha para a clínica")
+    @Pattern(
+            regexp = "^(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{6,}$",
+            message = "A senha deve ter pelo menos 6 caracteres, incluindo pelo menos uma letra minúscula e um caractere especial."
+    )
+    private String senha;
+    @NotNull(message = "Você deve escolher um plano!")
+    private Planos id_plano;
 }

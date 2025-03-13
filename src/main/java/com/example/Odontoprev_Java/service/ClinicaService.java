@@ -57,7 +57,7 @@ public class ClinicaService {
         return clinicaRepository.save(clinica);
     }
 
-    public Clinica findById(long id)
+    public Clinica findById(Long id)
     {
         Optional<Clinica> clinica = clinicaRepository.findById(id);
 
@@ -69,7 +69,7 @@ public class ClinicaService {
         return clinicaRepository.findAll();
     }
 
-    public void deletarClinica(long id)
+    public void deletarClinica(Long id)
     {
         clinicaRepository.deleteById(id);
     }

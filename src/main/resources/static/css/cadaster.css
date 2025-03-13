@@ -64,6 +64,8 @@ body {
     height: 0;
 }
 
+
+
 .checkmark {
     position: absolute;
     left: 0;
@@ -119,15 +121,15 @@ form section div
     font-weight: bold;
     flex: auto;
     color: #f5f5f5;
+    width: 100%;
 }
-
 
 form label
 {
     font-size: 0.9rem;
 }
 
-form input
+form input, select
 {
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -135,11 +137,21 @@ form input
     margin: 10px 0px;
 }
 
+form select
+{
+    color: #757575;
+    height: 37px;
+}
+
+form input[type='date']
+{
+    color: #757575;
+}
+
 form input:focus
 {
     outline: 2px solid #002353;
 }
-
 
 form .button-div {
     display: flex;
@@ -165,3 +177,25 @@ form button:hover
 {
     outline: 2px solid #f5f5f5;
 }
+
+#clinicaForm
+{
+    display: block;
+}
+
+#pacienteForm
+{
+    display: none;
+}
+
+#pacienteForm .info-section section
+{
+    height: 75px;
+    display:flex;
+    gap: 15px;
+}
+
+#pacienteForm .info-section section div {
+    width: 210px;
+}
+

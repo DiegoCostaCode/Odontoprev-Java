@@ -4,59 +4,121 @@
     <meta charset="UTF-8">
     <title>Cadastro</title>
     <link th:href="@{/css/cadaster.css}" rel="stylesheet" />
+    <script th:src="@{/js/script.js}" defer></script>
 </head>
 <body>
-    <main class="main-content">
+<main class="main-content">
 
-        <div class="container-tipo-cadastro">
-            <h2>Cadastro</h2>
+    <div class="container-tipo-cadastro">
+        <h2>Cadastro</h2>
+
+        <section>
+            <label class="radio-container">
+                <input class="clinicaCheck" type="radio" name="tipoCadastro" value="clinica" checked="checked" onchange="toggleForms('clinica')"/>
+                <span class="checkmark"></span> Clínica
+            </label>
+            <label class="radio-container">
+                <input class="pacienteCheck" type="radio" name="tipoCadastro" value="paciente" onchange="toggleForms('paciente')"/>
+                <span class="checkmark"></span> Paciente
+            </label>
+        </section>
+    </div>
+
+    <form id="clinicaForm" method="post" th:action="@{/clinica/register}" th:object="${clinicaDTO}">
+
+        <section class="info-section">
+            <div>
+                <label for="razaoSocial">Razão social</label>
+                <input type="text" id="razaoSocial" maxLength="30" placeholder="Clinica123 Ltda" required th:field="*{razaosocial}">
+            </div>
+
+            <div>
+                <label for="cnpj">CNPJ</label>
+                <input type="text" id="cnpj" minLength="14" maxLength="18" placeholder="12.345.678/9000-01" required th:field="*{cnpj}">
+            </div>
+
+            <div>
+                <label for="emailClinica">E-mail</label>
+                <input type="email" id="emailClinica" maxLength="100" placeholder="exemplo@gmail.com" required th:field="*{email}">
+            </div>
+
+            <div>
+                <label for="telefoneClinica">Telefone</label>
+                <input type="tel" id="telefoneClinica" maxLength="15" placeholder="Fixo ou móvel" required th:field="*{telefone}">
+            </div>
+
+            <div>
+                <label for="senhaClinica">Senha</label>
+                <input type="password" id="senhaClinica" placeholder="Senha super secreta" required th:field="*{senha}">
+            </div>
+        </section>
+
+        <div class="button-div">
+            <button type="submit" value="cadastrar">Cadastrar</button>
+        </div>
+    </form>
+
+    <form id="pacienteForm" method="post" th:action="@{/paciente/register}" th:object="${pacienteDTO}">
+
+        <section class="info-section">
+            <div>
+                <label for="nomeCompleto">Nome completo</label>
+                <input type="text" id="nomeCompleto" maxLength="30" placeholder="Diego Costa Silva" required th:field="*{nome}">
+            </div>
 
             <section>
-                <label class="radio-container">
-                    <input type="radio" name="tipoCadastro" value="clinica" checked="checked"/>
-                    <span class="checkmark"></span> Clínica
-                </label>
-                <label class="radio-container">
-                    <input type="radio" name="tipoCadastro" value="paciente"/>
-                    <span class="checkmark"></span> Paciente
-                </label>
-            </section>
-        </div>
 
-        <form method="post" th:action="@{/clinica/register}" th:object="${clinicaDTO}">
-
-            <section class="info-section">
                 <div>
-                    <label for="razaoSocial">Razão social</label>
-                    <input type="text" id="razaoSocial" maxLength="30" placeholder="Clinica123 Ltda" required th:field="*{razaosocial}">
+                    <label for="cpf">CPF</label>
+                    <input type="text" id="cpf" minLength="11" maxLength="11" placeholder="657.489.410-74" required th:field="*{cpf}">
                 </div>
 
                 <div>
-                    <label for="cnpj">CNPJ</label>
-                    <input type="text" id="cnpj" minLength="14" maxLength="18" placeholder="12.345.678/9000-01" required th:field="*{cnpj}">
+                    <label for="dataNascimento">Data de nascimento</label>
+                    <input type="date" id="dataNascimento" required th:field="*{dataNascimento}">
                 </div>
 
-                <div>
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" maxLength="100" placeholder="exemplo@gmail.com" required th:field="*{email}">
-                </div>
-
-                <div>
-                    <label for="telefone">Telefone</label>
-                    <input type="tel" id="telefone" maxLength="15" placeholder="Fixo ou móvel" required th:field="*{telefone}">
-                </div>
-
-                <div>
-                    <label for="senha">Senha</label>
-                    <input type="password" id="senha" placeholder="Senha super secreta" required th:field="*{senha}">
-                </div>
             </section>
 
-            <div class="button-div">
-                <button type="submit" value="cadastrar">Cadastrar</button>
+            <section>
+
+                <div>
+                    <label for="emailPaciente">E-mail</label>
+                    <input type="email" id="emailPaciente" maxLength="100" placeholder="exemplo@gmail.com" required th:field="*{email}">
+                </div>
+
+                <div>
+                    <label for="telefonePaciente">Telefone</label>
+                    <input type="tel" id="telefonePaciente" maxLength="15" placeholder="Fixo ou móvel" required th:field="*{telefone}">
+                </div>
+
+            </section>
+
+            <div>
+                <label for="senhaPaciente">Senha</label>
+                <input type="password" id="senhaPaciente" placeholder="Senha super secreta" required th:field="*{senha}">
             </div>
-        </form>
-    </main>
+
+            <div>
+                <label for="plano">Plano</label>
+                <select id="plano" name="planos">
+                    <option selected hidden value="">Selecione uma opção</option>
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">C</option>
+                    <option value="4">D</option>
+                    <option value="5">E</option>
+                </select>
+            </div>
+
+        </section>
+
+        <div class="button-div">
+            <button type="submit" value="cadastrar">Cadastrar</button>
+        </div>
+    </form>
+
+</main>
 
 </body>
 </html>

@@ -1,4 +1,5 @@
 package com.example.Odontoprev_Java.Model;
+import com.example.Odontoprev_Java.Model.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,6 +36,10 @@ public class Paciente {
     private String telefone;
 
     @OneToOne
-    @JoinColumn(name = "Plano_paciente")
+    @JoinColumn(name = "plano_id", referencedColumnName = "id")
     private Planos plano;
+
+    @OneToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
 }

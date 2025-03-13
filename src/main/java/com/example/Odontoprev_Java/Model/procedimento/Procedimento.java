@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class Procedimento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "procedimento", unique = true)

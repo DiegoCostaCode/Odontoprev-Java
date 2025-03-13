@@ -59,7 +59,7 @@ public class ClinicaController {
     }
 
     @GetMapping(value = "/delete/{id}")
-    public String clinicaDelete(@PathVariable Long id, Model model){
+    public String clinicaDelete(@PathVariable long id, Model model){
         clinicaService.deletarClinica(id);
         return clinicaGetAllView(model);
     }
