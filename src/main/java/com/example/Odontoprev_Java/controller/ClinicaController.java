@@ -49,7 +49,7 @@ public class ClinicaController {
 
         model.addAttribute("clinicaDTO", clinicaRequestDTO);
 
-        return clinicaGetAllView(model);
+        return "redirect:/clinica/all/clinicas";
     }
 
     @PostMapping(value = "/edit/{id}")
