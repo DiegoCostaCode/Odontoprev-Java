@@ -40,7 +40,7 @@ public class ClinicaController {
         model.addAttribute("clinicaRequest", clinicaRequestDTO);
         model.addAttribute("idClinica", clinica.getId());
 
-        return "updateClinicaCadaster";
+        return "updateProfileClinica";
     }
 
     @PostMapping("/register")

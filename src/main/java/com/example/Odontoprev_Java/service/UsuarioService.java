@@ -2,7 +2,6 @@ package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaRequestDTO;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
-import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.usuario.Enum_tipo_usuario;
 import com.example.Odontoprev_Java.Model.usuario.Usuario;
 import com.example.Odontoprev_Java.repository.UsuarioRepository;
@@ -18,7 +17,7 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Usuario saveUsuarioFromClinica(ClinicaRequestDTO clinicaRequestDTO) {
+    public Usuario saveUsuarioOfClinica(ClinicaRequestDTO clinicaRequestDTO) {
         Usuario usuario = new Usuario();
         usuario.setEmail(clinicaRequestDTO.getEmail());
         usuario.setSenha(clinicaRequestDTO.getSenha());
@@ -28,7 +27,7 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario saveUsuarioFromPaciente(PacienteRequestDTO pacienteRequestDTO) {
+    public Usuario saveUsuarioOfPaciente(PacienteRequestDTO pacienteRequestDTO) {
         Usuario usuario = new Usuario();
 
         usuario.setEmail(pacienteRequestDTO.getEmail());
@@ -53,7 +52,7 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario updateUsuarioFromClinica(ClinicaRequestDTO clinicaRequestDTO, Long id) {
+    public Usuario updateUsuarioOfClinica(ClinicaRequestDTO clinicaRequestDTO, Long id) {
         Usuario usuario = findById(id);
 
         if (usuario == null) {

@@ -1,8 +1,6 @@
 package com.example.Odontoprev_Java.service;
 
-import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaRequestDTO;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
-import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Paciente;
 import com.example.Odontoprev_Java.Model.Planos;
 import com.example.Odontoprev_Java.Model.usuario.Usuario;
@@ -37,14 +35,11 @@ public class PacienteService {
 
         BeanUtils.copyProperties(pacienteRequestDTO, paciente);
 
-
-
         return paciente;
     }
 
     public PacienteRequestDTO pacienteToRequest(Paciente paciente)
     {
-        System.out.println(paciente.getDataNascimento());
 
         PacienteRequestDTO pacienteRequest = new PacienteRequestDTO();
 
@@ -55,7 +50,6 @@ public class PacienteService {
         pacienteRequest.setEmail(paciente.getUsuario().getEmail());
         pacienteRequest.setSenha(paciente.getUsuario().getSenha());
         pacienteRequest.setId_plano(paciente.getPlano().getId());
-
 
         return pacienteRequest;
     }
@@ -69,7 +63,7 @@ public class PacienteService {
             throw new IllegalArgumentException("Plano não encontrado");
         }
 
-        Usuario usuario = usuarioService.saveUsuarioFromPaciente(pacienteRequestDTO);
+        Usuario usuario = usuarioService.saveUsuarioOfPaciente(pacienteRequestDTO);
 
         Paciente paciente = requestToPaciente(pacienteRequestDTO);
         paciente.setUsuario(usuario);

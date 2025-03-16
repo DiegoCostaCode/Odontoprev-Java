@@ -7,12 +7,29 @@
 
 body {
     display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+
+    background: url("../images/photo-1-overlay.png");
+    background-size: cover;
+}
+
+.logo-section
+{
+    display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-end;
-    height: 100vh;
-    background-color: #002353;
-    font-family: 'Roboto', sans-serif;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+
+.logo-section .logo
+{
+    width: 350px;
 }
 
 .main-content

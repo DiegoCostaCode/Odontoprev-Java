@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/paciente")
@@ -41,13 +40,12 @@ public class PacienteController {
 
         PacienteRequestDTO pacienteRequestDTO = pacienteService.pacienteToRequest(paciente);
 
-        System.out.println(pacienteRequestDTO.getSenha());
 
         model.addAttribute("pacienteRequest", pacienteRequestDTO);
         model.addAttribute("idPaciente", paciente.getId());
         model.addAttribute("planos", planoService.findAll());
 
-        return "updatePacienteCadaster";
+        return "updateProfilePaciente";
     }
 
     @PostMapping("/register")

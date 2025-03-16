@@ -46,7 +46,7 @@ public class ClinicaService {
     @Transactional
     public Clinica saveClinica(ClinicaRequestDTO clinicaRequestDTO)
     {
-        Usuario usuario = usuarioService.saveUsuarioFromClinica(clinicaRequestDTO);
+        Usuario usuario = usuarioService.saveUsuarioOfClinica(clinicaRequestDTO);
 
         Clinica clinica = requestToClinica(clinicaRequestDTO);
         clinica.setUsuario(usuario);
@@ -64,7 +64,7 @@ public class ClinicaService {
 
         BeanUtils.copyProperties(clinicaRequestDTO, clinica);
 
-        Usuario usuario = usuarioService.updateUsuarioFromClinica(clinicaRequestDTO, clinica.getUsuario().getId());
+        Usuario usuario = usuarioService.updateUsuarioOfClinica(clinicaRequestDTO, clinica.getUsuario().getId());
         clinica.setUsuario(usuario);
 
         return clinicaRepository.save(clinica);
