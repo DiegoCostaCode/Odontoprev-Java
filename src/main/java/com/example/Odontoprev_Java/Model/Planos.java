@@ -27,7 +27,6 @@ public class Planos {
     @Column(name = "Preco")
     private double preco;
 
-    @Column(name = "Status")
-    private boolean ativo = false;
-
+    @Column(name = "Status", length = 1)
+    private String ativo = "F";
 }

@@ -30,6 +30,19 @@ public class ClinicaService {
         return clinica;
     }
 
+    public ClinicaRequestDTO clinicaToRequest(Clinica clinica)
+    {
+        ClinicaRequestDTO clinicaRequest = new ClinicaRequestDTO();
+
+        clinicaRequest.setRazaosocial(clinica.getRazaosocial());
+        clinicaRequest.setCnpj(clinica.getCnpj());
+        clinicaRequest.setTelefone(clinica.getTelefone());
+        clinicaRequest.setEmail(clinica.getUsuario().getEmail());
+        clinicaRequest.setSenha(clinica.getUsuario().getSenha());
+
+        return clinicaRequest;
+    }
+
     @Transactional
     public Clinica saveClinica(ClinicaRequestDTO clinicaRequestDTO)
     {

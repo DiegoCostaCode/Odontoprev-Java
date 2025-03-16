@@ -25,7 +25,7 @@ public class ClinicaController {
         return "clinicas";
     }
 
-    @GetMapping(value = "/update/{id}")
+    @GetMapping(value = "/edit/{id}")
     public String clinicaUpdateView(@PathVariable Long id, Model model){
 
         Clinica clinica = clinicaService.findById(id);
@@ -35,9 +35,12 @@ public class ClinicaController {
             return clinicaGetAllView(model);
         }
 
-        model.addAttribute("clinicaInfos", clinica);
+        ClinicaRequestDTO clinicaRequestDTO = clinicaService.clinicaToRequest(clinica);
 
-        return "updateProfile";
+        model.addAttribute("clinicaRequest", clinicaRequestDTO);
+        model.addAttribute("idClinica", clinica.getId());
+
+        return "updateClinicaCadaster";
     }
 
     @PostMapping("/register")
@@ -45,14 +48,12 @@ public class ClinicaController {
     {
         Clinica clinica = clinicaService.saveClinica(clinicaRequestDTO);
 
-        ModelAndView mv = new ModelAndView("cadasterClinica");
-
         model.addAttribute("clinicaDTO", clinicaRequestDTO);
 
         return "redirect:/clinica/all/clinicas";
     }
 
-    @PostMapping(value = "/edit/{id}")
+    @PostMapping(value = "/update/{id}")
     public String clinicaUpdate(@PathVariable Long id, @Valid ClinicaRequestDTO clinicaRequestDTO, Model model){
         Clinica clinica = clinicaService.updateClinica(clinicaRequestDTO,id);
         return clinicaGetAllView(model);

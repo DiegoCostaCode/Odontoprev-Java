@@ -46,7 +46,7 @@
                             <td th:text="${clinica.telefone}" class="tel-col"></td>
                             <td class="acao-col">
                                 <div>
-                                    <a class="editar" th:href="@{/clinica/update/{id}(id = ${clinica.id})}">
+                                    <a class="editar" th:href="@{/clinica/edit/{id}(id = ${clinica.id})}">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
                                     <a class="deletar" th:href="@{/clinica/delete/{id}(id = ${clinica.id})}">

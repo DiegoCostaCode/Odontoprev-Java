@@ -22,7 +22,7 @@ public class Usuario {
     @Column(name="email", unique = true)
     private String email;
 
-    @Column(name="senha", unique = true)
+    @Column(name="senha")
     private String senha;
 
     @Enumerated(EnumType.STRING)

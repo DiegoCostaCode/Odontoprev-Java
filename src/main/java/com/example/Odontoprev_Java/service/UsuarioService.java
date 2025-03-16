@@ -1,6 +1,7 @@
 package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaRequestDTO;
+import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
 import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.usuario.Enum_tipo_usuario;
 import com.example.Odontoprev_Java.Model.usuario.Usuario;
@@ -23,6 +24,31 @@ public class UsuarioService {
         usuario.setSenha(clinicaRequestDTO.getSenha());
         usuario.setTipo(Enum_tipo_usuario.CLINICA);
         usuario.setDataCadastramento(LocalDateTime.now());
+
+        return usuarioRepository.save(usuario);
+    }
+
+    public Usuario saveUsuarioFromPaciente(PacienteRequestDTO pacienteRequestDTO) {
+        Usuario usuario = new Usuario();
+
+        usuario.setEmail(pacienteRequestDTO.getEmail());
+        usuario.setSenha(pacienteRequestDTO.getSenha());
+        usuario.setTipo(Enum_tipo_usuario.PACIENTE);
+        usuario.setDataCadastramento(LocalDateTime.now());
+
+        return usuarioRepository.save(usuario);
+    }
+
+    public Usuario updateUsuarioOfPaciente(PacienteRequestDTO pacienteRequestDTO, Long id) {
+        Usuario usuario = findById(id);
+
+        if (usuario == null) {
+            return null;
+        }
+
+        usuario.setEmail(pacienteRequestDTO.getEmail());
+        usuario.setSenha(pacienteRequestDTO.getSenha());
+        usuario.setTipo(Enum_tipo_usuario.PACIENTE);
 
         return usuarioRepository.save(usuario);
     }
