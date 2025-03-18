@@ -24,6 +24,8 @@
 
         <form method="post" th:action="@{/paciente/update/{id}(id = ${idPaciente})}" th:object="${pacienteRequest}">
 
+            <input type="text" hidden="" readonly th:field="*{senha}" id="senha">
+
             <div>
                 <label>Nome</label>
                 <input type="text" readonly th:field="*{nome}">
@@ -59,11 +61,7 @@
                 </select>
             </div>
 
-            <div>
-                <label>Sua senha </label>
-                    <input type="text" th:field="*{senha}" id="senha">
-                </div>
-            </div>
+
 
             <div class="button-div">
                 <button type="submit" value="atualizar">

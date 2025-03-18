@@ -1,6 +1,9 @@
 package com.example.Odontoprev_Java.service;
 
+import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaResponseDTO;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
+import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteResponseDTO;
+import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Paciente;
 import com.example.Odontoprev_Java.Model.Planos;
 import com.example.Odontoprev_Java.Model.usuario.Usuario;
@@ -24,36 +27,7 @@ public class PacienteService {
     @Autowired
     private PlanoService planoService;
 
-    public List<Paciente> findAll()
-    {
-        return pacienteRepository.findAll();
-    }
-
-    public Paciente requestToPaciente(PacienteRequestDTO pacienteRequestDTO)
-    {
-        Paciente paciente = new Paciente();
-
-        BeanUtils.copyProperties(pacienteRequestDTO, paciente);
-
-        return paciente;
-    }
-
-    public PacienteRequestDTO pacienteToRequest(Paciente paciente)
-    {
-
-        PacienteRequestDTO pacienteRequest = new PacienteRequestDTO();
-
-        pacienteRequest.setNome(paciente.getNome());
-        pacienteRequest.setCpf(paciente.getCpf());
-        pacienteRequest.setTelefone(paciente.getTelefone());
-        pacienteRequest.setDataNascimento(paciente.getDataNascimento());
-        pacienteRequest.setEmail(paciente.getUsuario().getEmail());
-        pacienteRequest.setSenha(paciente.getUsuario().getSenha());
-        pacienteRequest.setId_plano(paciente.getPlano().getId());
-
-        return pacienteRequest;
-    }
-
+    //Métodos de CRUD
     @Transactional
     public Paciente savePaciente(PacienteRequestDTO pacienteRequestDTO)
     {
@@ -96,9 +70,21 @@ public class PacienteService {
         return pacienteRepository.save(paciente);
     }
 
-    public Paciente findById(Long id)
+
+    public PacienteResponseDTO pacienteResponse(Paciente paciente)
     {
-        return pacienteRepository.findById(id).orElse(null);
+        PacienteResponseDTO pacienteResponseDTO = new PacienteResponseDTO(
+                paciente.getId(),
+                paciente.getNome(),
+                paciente.getCpf(),
+                paciente.getDataNascimento(),
+                paciente.getUsuario().getEmail(),
+                paciente.getTelefone(),
+                paciente.getPlano(),
+                paciente.getUsuario().getId()
+        );
+
+        return pacienteResponseDTO;
     }
 
     public void deletarPaciente(Long id)
@@ -106,7 +92,42 @@ public class PacienteService {
         pacienteRepository.deleteById(id);
     }
 
+    //Métodos de busca
+    public List<Paciente> findAll()
+    {
+        return pacienteRepository.findAll();
+    }
 
+    public Paciente findById(Long id)
+    {
+        return pacienteRepository.findById(id).orElse(null);
+    }
+
+    //Mappers
+    public Paciente requestToPaciente(PacienteRequestDTO pacienteRequestDTO)
+    {
+        Paciente paciente = new Paciente();
+
+        BeanUtils.copyProperties(pacienteRequestDTO, paciente);
+
+        return paciente;
+    }
+
+    public PacienteRequestDTO pacienteToRequest(Paciente paciente)
+    {
+
+        PacienteRequestDTO pacienteRequest = new PacienteRequestDTO();
+
+        pacienteRequest.setNome(paciente.getNome());
+        pacienteRequest.setCpf(paciente.getCpf());
+        pacienteRequest.setTelefone(paciente.getTelefone());
+        pacienteRequest.setDataNascimento(paciente.getDataNascimento());
+        pacienteRequest.setEmail(paciente.getUsuario().getEmail());
+        pacienteRequest.setSenha(paciente.getUsuario().getSenha());
+        pacienteRequest.setId_plano(paciente.getPlano().getId());
+
+        return pacienteRequest;
+    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.example.Odontoprev_Java.service;
 
+import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaResponseDTO;
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaRequestDTO;
 import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.usuario.Usuario;
@@ -43,6 +44,19 @@ public class ClinicaService {
         return clinicaRequest;
     }
 
+    public ClinicaResponseDTO clinicaResponse(Clinica clinica)
+    {
+        ClinicaResponseDTO clinicaResponseDTO = new ClinicaResponseDTO(
+                clinica.getId(),
+                clinica.getRazaosocial(),
+                clinica.getCnpj(),
+                clinica.getUsuario().getEmail(),
+                clinica.getTelefone(),
+                clinica.getUsuario().getId()
+        );
+        return clinicaResponseDTO;
+    }
+
     @Transactional
     public Clinica saveClinica(ClinicaRequestDTO clinicaRequestDTO)
     {
@@ -53,7 +67,6 @@ public class ClinicaService {
 
         return clinicaRepository.save(clinica);
     }
-
     @Transactional
     public Clinica updateClinica(ClinicaRequestDTO clinicaRequestDTO, Long id) {
         Clinica clinica = findById(id);

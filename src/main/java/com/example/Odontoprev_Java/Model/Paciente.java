@@ -30,9 +30,6 @@ public class Paciente {
     @Column(name = "CPF", unique = true)
     private String cpf;
 
-    @Column(name = "E-mail", unique = true)
-    private String email;
-
     @Column(name = "Telefone", unique = true)
     private String telefone;
 

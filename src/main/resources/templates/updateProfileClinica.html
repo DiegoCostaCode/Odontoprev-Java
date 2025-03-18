@@ -23,6 +23,7 @@
     <section>
 
         <form method="post" th:action="@{/clinica/update/{id}(id = ${idClinica})}" th:object="${clinicaRequest}">
+            <input type="text" hidden="" readonly th:field="*{senha}" id="senha">
 
             <div>
                 <label>Nome</label>
@@ -42,11 +43,6 @@
             <div>
                 <label>Telefone</label>
                 <input type="tel" required th:field="*{telefone}">
-            </div>
-
-            <div>
-                <label>Sua senha </label>
-                <input type="text" th:field="*{senha}"  id="senha">
             </div>
 
             <div class="button-div">

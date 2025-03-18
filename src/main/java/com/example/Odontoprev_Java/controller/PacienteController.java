@@ -1,11 +1,18 @@
 package com.example.Odontoprev_Java.controller;
 
+import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaRequestDTO;
+import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaResponseDTO;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
+import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteResponseDTO;
+import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Paciente;
 import com.example.Odontoprev_Java.service.PacienteService;
 import com.example.Odontoprev_Java.service.PlanoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +26,27 @@ public class PacienteController {
 
     @Autowired
     private PlanoService planoService;
+
+
+    @PostMapping(value = "/api/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PacienteResponseDTO> createPaciente(@Valid @RequestBody PacienteRequestDTO pacienteRequestDTO) {
+
+        Paciente paciente = pacienteService.savePaciente(pacienteRequestDTO);
+
+        PacienteResponseDTO pacienteResponseDTO = pacienteService.pacienteResponse(paciente);
+
+        return new ResponseEntity<>(pacienteResponseDTO, HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/api/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PacienteResponseDTO> createPaciente(@PathVariable Long id, @Valid @RequestBody PacienteRequestDTO pacienteRequestDTO) {
+
+        Paciente paciente = pacienteService.findById(id);
+
+        PacienteResponseDTO pacienteResponseDTO = pacienteService.pacienteResponse(paciente);
+
+        return new ResponseEntity<>(pacienteResponseDTO, HttpStatus.CREATED);
+    }
 
     @GetMapping(value = "/all/pacientes")
     public String pacienteGetAllView(Model model){
@@ -58,7 +86,6 @@ public class PacienteController {
 
         return "redirect:/paciente/all/pacientes";
     }
-
     @PostMapping(value = "/update/{id}")
     public String pacienteUpdate(@PathVariable Long id, @Valid PacienteRequestDTO pacienteRequestDTO, Model model){
         Paciente paciente = pacienteService.updatePaciente(pacienteRequestDTO,id);

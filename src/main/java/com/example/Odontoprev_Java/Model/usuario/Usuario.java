@@ -31,5 +31,4 @@ public class Usuario {
 
     @Column(name="data_cadastramento")
     private LocalDateTime dataCadastramento;
-
 }
