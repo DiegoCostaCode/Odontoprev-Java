@@ -43,6 +43,11 @@ Durante a Sprint 2, realizamos diversas melhorias para otimizar a estrutura do s
 ---
 ## 📌 Estrutura de Dados e Camadas do Projeto
 
+### Modelo banco de dados
+
+![enginer](https://github.com/user-attachments/assets/b5ba3a39-fe39-40ea-b470-3c6737b0c54b)
+
+
 ### **Clínica**
 - **id**: Identificador único da clínica.
 - **nome**: Nome da clínica.
