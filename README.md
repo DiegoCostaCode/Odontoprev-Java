@@ -43,11 +43,12 @@ Durante a Sprint 2, realizamos diversas melhorias para otimizar a estrutura do s
 ---
 ## 📌 Estrutura de Dados e Camadas do Projeto
 
-### Modelo banco de dados
+### **Modelo Banco de Dados**
 
-![enginer](https://github.com/user-attachments/assets/b5ba3a39-fe39-40ea-b470-3c6737b0c54b)
+![database_diagram.png](Documentation/database_diagram.png)
 
-### **Clínica**
+### **Entidades**
+#### **Clínica**
 - **id**: Identificador único da clínica.
 - **nome**: Nome da clínica.
 - **cnpj**: CNPJ da clínica.
@@ -61,7 +62,7 @@ Durante a Sprint 2, realizamos diversas melhorias para otimizar a estrutura do s
 - 📁 `/dto/ClinicaDTO.java`
 
 ---
-### **Usuário**
+#### **Usuário**
 - **id**: Identificador único do usuário.
 - **email**: E-mail do usuário.
 - **senha**: Senha de acesso.
@@ -75,7 +76,7 @@ Durante a Sprint 2, realizamos diversas melhorias para otimizar a estrutura do s
 - 📁 `/dto/UsuarioDTO.java`
 
 ---
-### **Paciente**
+#### **Paciente**
 - **id**: Identificador único do paciente.
 - **nome**: Nome completo.
 - **cpf**: CPF do paciente.
@@ -132,13 +133,6 @@ Remove o usuário do sistema.
 
 ### Dependências do Projeto
 ```gradle
-
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
-}
-
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.3'
