@@ -27,8 +27,8 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.36'
 	annotationProcessor 'org.projectlombok:lombok:1.18.36'
 //	runtimeOnly 'com.h2database:h2'
-//	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc:12.2.0.jre11'
-	runtimeOnly 'com.oracle.database.jdbc:ojdbc11:21.7.0.0'
+	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc:12.2.0.jre11'
+//	runtimeOnly 'com.oracle.database.jdbc:ojdbc11:21.7.0.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

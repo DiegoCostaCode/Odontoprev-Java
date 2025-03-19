@@ -31,7 +31,7 @@ public class ClinicaController {
         return new ResponseEntity<>(clinicaResponseDTO, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/all/clinicas")
+    @GetMapping(value = "/all")
     public String clinicaGetAllView(Model model){
 
         model.addAttribute("clinicas", clinicaService.findAll());
@@ -64,7 +64,7 @@ public class ClinicaController {
 
         model.addAttribute("clinicaDTO", clinicaRequestDTO);
 
-        return "redirect:/clinica/all/clinicas";
+        return "redirect:/clinica/all";
     }
 
     @PostMapping(value = "/update/{id}")

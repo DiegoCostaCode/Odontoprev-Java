@@ -47,7 +47,7 @@ public class PacienteController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/all/pacientes")
+    @GetMapping(value = "/all")
     public String pacienteGetAllView(Model model){
 
         model.addAttribute("pacientes", pacienteService.findAll());
@@ -83,7 +83,7 @@ public class PacienteController {
 
         model.addAttribute("pacienteDTO", pacienteRequestDTO);
 
-        return "redirect:/paciente/all/pacientes";
+        return "redirect:/paciente/all";
     }
     @PostMapping(value = "/update/{id}")
     public String pacienteUpdate(@PathVariable Long id, @Valid PacienteRequestDTO pacienteRequestDTO, Model model){
