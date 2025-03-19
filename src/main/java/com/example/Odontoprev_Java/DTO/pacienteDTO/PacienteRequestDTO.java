@@ -1,5 +1,6 @@
 package com.example.Odontoprev_Java.DTO.pacienteDTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +37,7 @@ public class PacienteRequestDTO {
 
     @NotNull(message = "Data de nascimento é obrigatória")
     @Past(message = "Data de nascimento inválida")
-    @DateTimeFormat(pattern = "yyyy-MM-dd") // Adicione esta anotação
+    @JsonFormat(pattern = "dd/MM/yyyy") // Adicione esta anotação
     private LocalDate dataNascimento;
 
     @NotBlank(message = "Não foi definido uma senha para a clínica")
