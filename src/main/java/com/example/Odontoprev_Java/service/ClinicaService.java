@@ -2,9 +2,14 @@ package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaResponseDTO;
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaRequestDTO;
+import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
+import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.Clinica;
+import com.example.Odontoprev_Java.Model.Paciente;
 import com.example.Odontoprev_Java.Model.usuario.Usuario;
 import com.example.Odontoprev_Java.repository.ClinicaRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +72,7 @@ public class ClinicaService {
 
         return clinicaRepository.save(clinica);
     }
+
     @Transactional
     public Clinica updateClinica(ClinicaRequestDTO clinicaRequestDTO, Long id) {
         Clinica clinica = findById(id);
@@ -99,4 +105,5 @@ public class ClinicaService {
     {
         clinicaRepository.deleteById(id);
     }
+
 }

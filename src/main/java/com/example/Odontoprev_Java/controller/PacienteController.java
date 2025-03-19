@@ -4,7 +4,6 @@ import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaRequestDTO;
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaResponseDTO;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteResponseDTO;
-import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Paciente;
 import com.example.Odontoprev_Java.service.PacienteService;
 import com.example.Odontoprev_Java.service.PlanoService;
@@ -27,25 +26,25 @@ public class PacienteController {
     @Autowired
     private PlanoService planoService;
 
-
     @PostMapping(value = "/api/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PacienteResponseDTO> createPaciente(@Valid @RequestBody PacienteRequestDTO pacienteRequestDTO) {
 
-        Paciente paciente = pacienteService.savePaciente(pacienteRequestDTO);
-
-        PacienteResponseDTO pacienteResponseDTO = pacienteService.pacienteResponse(paciente);
-
+        PacienteResponseDTO pacienteResponseDTO = pacienteService.inserirOdontoPaciente(pacienteRequestDTO);
         return new ResponseEntity<>(pacienteResponseDTO, HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "/api/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PacienteResponseDTO> createPaciente(@PathVariable Long id, @Valid @RequestBody PacienteRequestDTO pacienteRequestDTO) {
+    @PutMapping(value = "/api/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PacienteResponseDTO> updatePaciente(@PathVariable Long id, @Valid @RequestBody PacienteRequestDTO pacienteRequestDTO) {
 
-        Paciente paciente = pacienteService.findById(id);
+        PacienteResponseDTO pacienteResponseDTO = pacienteService.updateOdontoPaciente(pacienteRequestDTO, id);
+        return new ResponseEntity<>(pacienteResponseDTO, HttpStatus.OK);
+    }
 
-        PacienteResponseDTO pacienteResponseDTO = pacienteService.pacienteResponse(paciente);
+    @DeleteMapping(value = "/api/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PacienteResponseDTO> deletePaciente(@PathVariable Long id) {
 
-        return new ResponseEntity<>(pacienteResponseDTO, HttpStatus.CREATED);
+        pacienteService.deleteOdontoPaciente(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/all/pacientes")

@@ -1,13 +1,14 @@
 package com.example.Odontoprev_Java.service;
 
-import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaResponseDTO;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteResponseDTO;
-import com.example.Odontoprev_Java.Model.Clinica;
 import com.example.Odontoprev_Java.Model.Paciente;
 import com.example.Odontoprev_Java.Model.Planos;
+import com.example.Odontoprev_Java.Model.usuario.Enum_tipo_usuario;
+import jakarta.persistence.EntityManager;
 import com.example.Odontoprev_Java.Model.usuario.Usuario;
 import com.example.Odontoprev_Java.repository.PacienteRepository;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ import java.util.List;
 
 @Service
 public class PacienteService {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     private PacienteRepository pacienteRepository;
@@ -129,5 +133,54 @@ public class PacienteService {
         return pacienteRequest;
     }
 
+    @Transactional
+    public PacienteResponseDTO inserirOdontoPaciente(PacienteRequestDTO pacienteRequestDTO) {
 
+        entityManager.createNativeQuery("CALL inserir_paciente(:p_nome, :p_cpf, :p_data_nascimento, :p_telefone, :p_planos_id, :p_email, :p_senha, :p_tipo_usuario)")
+                .setParameter("p_nome", pacienteRequestDTO.getNome())
+                .setParameter("p_cpf", pacienteRequestDTO.getCpf())
+                .setParameter("p_data_nascimento", pacienteRequestDTO.getDataNascimento())
+                .setParameter("p_telefone", pacienteRequestDTO.getTelefone())
+                .setParameter("p_planos_id", pacienteRequestDTO.getId_plano())
+                .setParameter("p_email", pacienteRequestDTO.getEmail())
+                .setParameter("p_senha", pacienteRequestDTO.getSenha())
+                .setParameter("p_tipo_usuario", Enum_tipo_usuario.PACIENTE.toString())
+                .executeUpdate();
+
+        System.out.println("Paciente inserido com sucesso!");
+
+        Paciente pacienteInserido = (Paciente) entityManager.createQuery("SELECT p FROM Paciente p WHERE p.cpf = :cpf")
+                .setParameter("cpf", pacienteRequestDTO.getCpf())
+                .getSingleResult();
+
+        return pacienteResponse(pacienteInserido);
+    }
+
+    @Transactional
+    public PacienteResponseDTO updateOdontoPaciente(PacienteRequestDTO pacienteRequestDTO, Long idPaciente) {
+
+        entityManager.createNativeQuery("CALL atualizar_paciente(:p_paciente_id, :p_nome, :p_cpf, :p_data_nascimento, :p_telefone, :p_planos_id, :p_email, :p_senha)")
+                .setParameter("p_paciente_id", idPaciente)
+                .setParameter("p_nome", pacienteRequestDTO.getNome())
+                .setParameter("p_cpf", pacienteRequestDTO.getCpf())
+                .setParameter("p_data_nascimento", pacienteRequestDTO.getDataNascimento())
+                .setParameter("p_telefone", pacienteRequestDTO.getTelefone())
+                .setParameter("p_planos_id", pacienteRequestDTO.getId_plano())
+                .setParameter("p_email", pacienteRequestDTO.getEmail())
+                .setParameter("p_senha", pacienteRequestDTO.getSenha())
+                .executeUpdate();
+
+        Paciente pacienteInserido = (Paciente) entityManager.createQuery("SELECT p FROM Paciente p WHERE p.cpf = :cpf")
+                .setParameter("cpf", pacienteRequestDTO.getCpf())
+                .getSingleResult();
+
+        return pacienteResponse(pacienteInserido);
+    }
+
+    @Transactional
+    public void deleteOdontoPaciente(Long idPaciente) {
+        entityManager.createNativeQuery("CALL deletar_paciente(:p_id)")
+                .setParameter("p_id", idPaciente)
+                .executeUpdate();
+    }
 }
