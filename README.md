@@ -133,6 +133,13 @@ Remove o usuário do sistema.
 
 ### Dependências do Projeto
 ```gradle
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.3'
