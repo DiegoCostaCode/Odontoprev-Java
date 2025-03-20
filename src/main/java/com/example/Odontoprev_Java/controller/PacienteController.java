@@ -43,7 +43,7 @@ public class PacienteController {
     @PostMapping(value = "/api/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PacienteResponseDTO> createPaciente(@Valid @RequestBody PacienteRequestDTO pacienteRequestDTO) {
 
-//      PacienteResponseDTO pacienteResponseDTO = pacienteService.inserirOdontoPaciente(pacienteRequestDTO);
+//        PacienteResponseDTO pacienteResponseDTO = pacienteService.inserirOdontoPaciente(pacienteRequestDTO);
 
         Paciente paciente = pacienteService.savePaciente(pacienteRequestDTO);
 
@@ -73,7 +73,6 @@ public class PacienteController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
     @GetMapping(value = "/all")
     public String pacienteGetAllView(Model model){

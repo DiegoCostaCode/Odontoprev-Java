@@ -9,11 +9,14 @@ import jakarta.persistence.EntityManager;
 import com.example.Odontoprev_Java.Model.usuario.Usuario;
 import com.example.Odontoprev_Java.repository.PacienteRepository;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -158,29 +161,51 @@ public class PacienteService {
 
     @Transactional
     public PacienteResponseDTO updateOdontoPaciente(PacienteRequestDTO pacienteRequestDTO, Long idPaciente) {
+        try {
+            entityManager.createNativeQuery("CALL atualizar_paciente(:p_paciente_id, :p_nome, :p_cpf, :p_data_nascimento, :p_telefone, :p_planos_id, :p_email, :p_senha)")
+                    .setParameter("p_paciente_id", idPaciente)
+                    .setParameter("p_nome", pacienteRequestDTO.getNome())
+                    .setParameter("p_cpf", pacienteRequestDTO.getCpf())
+                    .setParameter("p_data_nascimento", pacienteRequestDTO.getDataNascimento())
+                    .setParameter("p_telefone", pacienteRequestDTO.getTelefone())
+                    .setParameter("p_planos_id", pacienteRequestDTO.getId_plano())
+                    .setParameter("p_email", pacienteRequestDTO.getEmail())
+                    .setParameter("p_senha", pacienteRequestDTO.getSenha())
+                    .executeUpdate();
 
-        entityManager.createNativeQuery("CALL atualizar_paciente(:p_paciente_id, :p_nome, :p_cpf, :p_data_nascimento, :p_telefone, :p_planos_id, :p_email, :p_senha)")
-                .setParameter("p_paciente_id", idPaciente)
-                .setParameter("p_nome", pacienteRequestDTO.getNome())
-                .setParameter("p_cpf", pacienteRequestDTO.getCpf())
-                .setParameter("p_data_nascimento", pacienteRequestDTO.getDataNascimento())
-                .setParameter("p_telefone", pacienteRequestDTO.getTelefone())
-                .setParameter("p_planos_id", pacienteRequestDTO.getId_plano())
-                .setParameter("p_email", pacienteRequestDTO.getEmail())
-                .setParameter("p_senha", pacienteRequestDTO.getSenha())
-                .executeUpdate();
+            Paciente pacienteInserido = (Paciente) entityManager.createQuery("SELECT p FROM Paciente p WHERE p.cpf = :cpf")
+                    .setParameter("cpf", pacienteRequestDTO.getCpf())
+                    .getSingleResult();
 
-        Paciente pacienteInserido = (Paciente) entityManager.createQuery("SELECT p FROM Paciente p WHERE p.cpf = :cpf")
-                .setParameter("cpf", pacienteRequestDTO.getCpf())
-                .getSingleResult();
+            return pacienteResponse(pacienteInserido);
 
-        return pacienteResponse(pacienteInserido);
+        } catch (PersistenceException e) {
+
+            Throwable cause = e.getCause();
+
+            if (cause instanceof SQLException) {
+                throw new RuntimeException("Erro do banco: " + cause.getMessage());
+            }
+
+            throw new RuntimeException("Erro inesperado: " + e.getMessage());
+        }
     }
 
     @Transactional
     public void deleteOdontoPaciente(Long idPaciente) {
-        entityManager.createNativeQuery("CALL deletar_paciente(:p_id)")
-                .setParameter("p_id", idPaciente)
-                .executeUpdate();
+        try {
+            entityManager.createNativeQuery("CALL deletar_paciente(:p_id)")
+                    .setParameter("p_id", idPaciente)
+                    .executeUpdate();
+
+        } catch (PersistenceException e) {
+            Throwable cause = e.getCause();
+            if (cause instanceof SQLException) {
+                throw new RuntimeException("Erro do banco: " + cause.getMessage());
+            }
+            throw new RuntimeException("Erro inesperado: " + e.getMessage());
+        }
     }
 }
+
+
