@@ -37,7 +37,8 @@ public class PacienteRequestDTO {
 
     @NotNull(message = "Data de nascimento é obrigatória")
     @Past(message = "Data de nascimento inválida")
-    @JsonFormat(pattern = "dd/MM/yyyy") // Adicione esta anotação
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
 
     @NotBlank(message = "Não foi definido uma senha para a clínica")

@@ -94,7 +94,6 @@ public class PacienteController {
 
         PacienteRequestDTO pacienteRequestDTO = pacienteService.pacienteToRequest(paciente);
 
-
         model.addAttribute("pacienteRequest", pacienteRequestDTO);
         model.addAttribute("idPaciente", paciente.getId());
         model.addAttribute("planos", planoService.findAll());

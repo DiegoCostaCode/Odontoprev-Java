@@ -24,21 +24,19 @@
 
         <form method="post" th:action="@{/paciente/update/{id}(id = ${idPaciente})}" th:object="${pacienteRequest}">
 
-            <input type="text" hidden="" readonly th:field="*{senha}" id="senha">
-
             <div>
                 <label>Nome</label>
                 <input type="text" readonly th:field="*{nome}">
             </div>
 
             <div>
-                <label>Data Nascimento</label>
-                <input type="date" readonly th:value="*{dataNascimento}" th:field="*{dataNascimento}">
+                <label>CPF</label>
+                <input type="text" readonly th:field="*{cpf}">
             </div>
 
             <div>
-                <label>CPF</label>
-                <input type="text" readonly th:field="*{cpf}">
+                <label>Data Nascimento</label>
+                <input type="date" readonly th:value="*{dataNascimento}" th:field="*{dataNascimento}">
             </div>
 
             <div>
@@ -61,13 +59,13 @@
                 </select>
             </div>
 
-
-
             <div class="button-div">
                 <button type="submit" value="atualizar">
                      Atualizar <i class="fas fa-save"></i>
                 </button>
             </div>
+
+            <input type="text" hidden="" readonly th:field="*{senha}" id="senha">
 
         </form>
 
