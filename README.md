@@ -10,7 +10,6 @@
 ---
 ## 📹 Apresentações
 
-- **Pitch da Proposta Tecnológica:** [Assista aqui](https://youtu.be/SBQ-_mBXdK0)
 - **Demonstração da aplicação MVC:** [[Sprint 3] - Odontoprev](https://youtu.be/c4VNrUSmI-U)
 
 ---
