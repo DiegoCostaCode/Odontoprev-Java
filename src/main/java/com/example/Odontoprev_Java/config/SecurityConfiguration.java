@@ -39,6 +39,10 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions().disable())
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll()
+                )
                 .formLogin(Customizer.withDefaults());
 
         return http.build();

@@ -26,4 +26,9 @@ public class CadastroController {
         return "cadastrar_usuario";
     }
 
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
+
 }

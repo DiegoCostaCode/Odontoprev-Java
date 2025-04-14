@@ -11,93 +11,93 @@
   <link rel="stylesheet" href="../static/css/updateProfile.css">
 </head>
 <body>
-<div th:replace="~{fragments/header :: header}"></div>
+  <div th:replace="~{fragments/header :: header}"></div>
 
-<main class="main-content">
-  <header>
-    <div>
-      <h2 th:text="${tipo == 'clinica'} ? 'Cadastros de Clínicas' : 'Cadastros de Pacientes'"></h2>
-      <p>Confira, atualize cadastro, e ou remova cadastros se aplicável.</p>
-    </div>
-  </header>
+  <main class="main-content">
+    <header>
+      <div>
+        <h2 th:text="${tipo == 'clinica'} ? 'Cadastros de Clínicas' : 'Cadastros de Pacientes'"></h2>
+        <p>Confira, atualize cadastro, e ou remova cadastros se aplicável.</p>
+      </div>
+    </header>
 
-  <section class="table-section">
-    <a th:href="@{/}" class="cadastrar-href">
-      <i class="fa-solid fa-plus"></i>
-    </a>
+    <section class="table-section">
+      <a th:href="@{/}" class="cadastrar-href">
+        <i class="fa-solid fa-plus"></i>
+      </a>
 
-    <!-- TABELA DE CLÍNICAS -->
-    <table class="tabela" th:if="${tipo == 'clinica'}">
-      <thead>
-      <tr>
-        <th class="id-head">#</th>
-        <th class="razao-head">Razão Social</th>
-        <th class="cnpj-head">CNPJ</th>
-        <th class="email-head">E-mail</th>
-        <th class="tel-head">Telefone</th>
-        <th class="acao-head"><i class="fa-solid fa-gear"></i></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="clinica : ${clinicas}">
-        <td th:text="${clinica.id}" class="id-col"></td>
-        <td th:text="${clinica.razaosocial}" class="razao-col"></td>
-        <td th:text="${clinica.cnpj}" class="cnpj-col"></td>
-        <td th:text="${clinica.usuario.email}" class="email-col"></td>
-        <td th:text="${clinica.telefone}" class="tel-col"></td>
-        <td class="acao-col">
-          <div>
-            <a class="editar" th:href="@{/clinica/edit/{id}(id=${clinica.id})}">
-              <i class="fa-solid fa-pen-to-square"></i>
-            </a>
-            <a class="deletar" th:href="@{/clinica/delete/{id}(id=${clinica.id})}">
-              <i class="fa-solid fa-trash"></i>
-            </a>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+      <!-- TABELA DE CLÍNICAS -->
+      <table class="tabela" th:if="${tipo == 'clinica'}">
+        <thead>
+        <tr>
+          <th class="id-head">#</th>
+          <th class="razao-head">Razão Social</th>
+          <th class="cnpj-head">CNPJ</th>
+          <th class="email-head">E-mail</th>
+          <th class="tel-head">Telefone</th>
+          <th class="acao-head"><i class="fa-solid fa-gear"></i></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="clinica : ${clinicas}">
+          <td th:text="${clinica.id}" class="id-col"></td>
+          <td th:text="${clinica.razaosocial}" class="razao-col"></td>
+          <td th:text="${clinica.cnpj}" class="cnpj-col"></td>
+          <td th:text="${clinica.usuario.email}" class="email-col"></td>
+          <td th:text="${clinica.telefone}" class="tel-col"></td>
+          <td class="acao-col">
+            <div>
+              <a class="editar" th:href="@{/clinica/edit/{id}(id=${clinica.id})}">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </a>
+              <a class="deletar" th:href="@{/clinica/delete/{id}(id=${clinica.id})}">
+                <i class="fa-solid fa-trash"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
 
-    <!-- TABELA DE PACIENTES -->
-    <table class="tabela" th:if="${tipo == 'paciente'}">
-      <thead>
-      <tr>
-        <th class="id-head">#</th>
-        <th class="nome-head">Nome</th>
-        <th class="data-nascimento">Data Nascimento</th>
-        <th class="cpf-head">CPF</th>
-        <th class="email-head">E-mail</th>
-        <th class="tel-head">Telefone</th>
-        <th class="plano-head">Plano</th>
-        <th class="acao-head"><i class="fa-solid fa-gear"></i></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="paciente : ${pacientes}">
-        <td th:text="${paciente.id}" class="id-col"></td>
-        <td th:text="${paciente.nome}"></td>
-        <td th:text="${paciente.dataNascimento}" class="dataNascimento-col"></td>
-        <td th:text="${paciente.cpf}" class="cpf-col"></td>
-        <td th:text="${paciente.usuario.email}" class="email-col"></td>
-        <td th:text="${paciente.telefone}" class="tel-col"></td>
-        <td th:text="${paciente.plano.nome}" class="plan-col"></td>
-        <td class="acao-col">
-          <div>
-            <a class="editar" th:href="@{/paciente/edit/{id}(id=${paciente.id})}">
-              <i class="fa-solid fa-pen-to-square"></i>
-            </a>
-            <a class="deletar" th:href="@{/paciente/delete/{id}(id=${paciente.id})}">
-              <i class="fa-solid fa-trash"></i>
-            </a>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </section>
-</main>
+      <!-- TABELA DE PACIENTES -->
+      <table class="tabela" th:if="${tipo == 'paciente'}">
+        <thead>
+        <tr>
+          <th class="id-head">#</th>
+          <th class="nome-head">Nome</th>
+          <th class="data-nascimento">Data Nascimento</th>
+          <th class="cpf-head">CPF</th>
+          <th class="email-head">E-mail</th>
+          <th class="tel-head">Telefone</th>
+          <th class="plano-head">Plano</th>
+          <th class="acao-head"><i class="fa-solid fa-gear"></i></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="paciente : ${pacientes}">
+          <td th:text="${paciente.id}" class="id-col"></td>
+          <td th:text="${paciente.nome}"></td>
+          <td th:text="${paciente.dataNascimento}" class="dataNascimento-col"></td>
+          <td th:text="${paciente.cpf}" class="cpf-col"></td>
+          <td th:text="${paciente.usuario.email}" class="email-col"></td>
+          <td th:text="${paciente.telefone}" class="tel-col"></td>
+          <td th:text="${paciente.plano.nome}" class="plan-col"></td>
+          <td class="acao-col">
+            <div>
+              <a class="editar" th:href="@{/paciente/edit/{id}(id=${paciente.id})}">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </a>
+              <a class="deletar" th:href="@{/paciente/delete/{id}(id=${paciente.id})}">
+                <i class="fa-solid fa-trash"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
 
-<div th:replace="~{fragments/footer :: footer}"></div>
+  <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
