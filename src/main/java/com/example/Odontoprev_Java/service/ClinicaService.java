@@ -2,14 +2,10 @@ package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaResponseDTO;
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaRequestDTO;
-import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
-import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.Clinica;
-import com.example.Odontoprev_Java.Model.Paciente;
 import com.example.Odontoprev_Java.Model.usuario.Usuario;
 import com.example.Odontoprev_Java.repository.ClinicaRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,7 +61,11 @@ public class ClinicaService {
     @Transactional
     public Clinica saveClinica(ClinicaRequestDTO clinicaRequestDTO)
     {
-        Usuario usuario = usuarioService.saveUsuarioOfClinica(clinicaRequestDTO);
+        Usuario usuario = usuarioService.save(
+                clinicaRequestDTO.getEmail(),
+                clinicaRequestDTO.getSenha(),
+                clinicaRequestDTO.getTipo()
+                );
 
         Clinica clinica = requestToClinica(clinicaRequestDTO);
         clinica.setUsuario(usuario);
@@ -83,7 +83,13 @@ public class ClinicaService {
 
         BeanUtils.copyProperties(clinicaRequestDTO, clinica);
 
-        Usuario usuario = usuarioService.updateUsuarioOfClinica(clinicaRequestDTO, clinica.getUsuario().getId());
+        Usuario usuario = usuarioService.update(
+                clinica.getUsuario().getId(),
+                clinicaRequestDTO.getEmail(),
+                clinicaRequestDTO.getSenha(),
+                clinicaRequestDTO.getTipo()
+        );
+
         clinica.setUsuario(usuario);
 
         return clinicaRepository.save(clinica);

@@ -12,6 +12,7 @@ import com.example.Odontoprev_Java.repository.ClinicaRepository;
 import com.example.Odontoprev_Java.repository.PacienteRepository;
 import com.example.Odontoprev_Java.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,55 +26,33 @@ public class UsuarioService {
 
     @Autowired
     private ClinicaRepository clinicaRepository;
+
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    public Usuario saveUsuarioOfClinica(ClinicaRequestDTO clinicaRequestDTO) {
+    public Usuario save(String email, String senha, Enum_tipo_usuario tipo) {
         Usuario usuario = new Usuario();
-        usuario.setEmail(clinicaRequestDTO.getEmail());
-        usuario.setSenha(clinicaRequestDTO.getSenha());
-        usuario.setTipo(Enum_tipo_usuario.CLINICA);
+        usuario.setEmail(email);
+        usuario.setSenha(passwordEncoder.encode(senha));
+        usuario.setTipo(tipo);
         usuario.setDataCadastramento(LocalDateTime.now());
 
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario saveUsuarioOfPaciente(PacienteRequestDTO pacienteRequestDTO) {
-        Usuario usuario = new Usuario();
-
-        usuario.setEmail(pacienteRequestDTO.getEmail());
-        usuario.setSenha(pacienteRequestDTO.getSenha());
-        usuario.setTipo(Enum_tipo_usuario.PACIENTE);
-        usuario.setDataCadastramento(LocalDateTime.now());
-
-        return usuarioRepository.save(usuario);
-    }
-
-    public Usuario updateUsuarioOfPaciente(PacienteRequestDTO pacienteRequestDTO, Long id) {
+    public Usuario update(Long id, String email, String senha, Enum_tipo_usuario tipo) {
         Usuario usuario = findById(id);
 
         if (usuario == null) {
             return null;
         }
 
-        usuario.setEmail(pacienteRequestDTO.getEmail());
-        usuario.setSenha(pacienteRequestDTO.getSenha());
-        usuario.setTipo(Enum_tipo_usuario.PACIENTE);
-
-        return usuarioRepository.save(usuario);
-    }
-
-    public Usuario updateUsuarioOfClinica(ClinicaRequestDTO clinicaRequestDTO, Long id) {
-        Usuario usuario = findById(id);
-
-        if (usuario == null) {
-            return null;
-        }
-
-        usuario.setEmail(clinicaRequestDTO.getEmail());
-        usuario.setSenha(clinicaRequestDTO.getSenha());
-        usuario.setTipo(Enum_tipo_usuario.CLINICA);
+        usuario.setEmail(email);
+        usuario.setSenha(passwordEncoder.encode(senha));
+        usuario.setTipo(tipo);
 
         return usuarioRepository.save(usuario);
     }
@@ -85,14 +64,18 @@ public class UsuarioService {
         return usuario.orElse(null);
     }
 
+    public Usuario findByEmail(String email)
+    {
+        Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
 
-
+        return usuario.orElse(null);
+    }
 
     public UsuarioAuthResponseDTO login(UsuarioAuthDTO usuarioAuthDTO) {
 
         Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioAuthDTO.getEmail());
 
-        if(usuario.isPresent() && usuario.get().getSenha().equals(usuarioAuthDTO.getSenha())) {
+        if (usuario.isPresent() && passwordEncoder.matches(usuarioAuthDTO.getSenha(), usuario.get().getSenha())) {
 
             Optional<Clinica> clinica = clinicaRepository.findByUsuario(usuario.get());
             if (clinica.isPresent()) {

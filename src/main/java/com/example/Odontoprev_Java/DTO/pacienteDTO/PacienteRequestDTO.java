@@ -1,5 +1,6 @@
 package com.example.Odontoprev_Java.DTO.pacienteDTO;
 
+import com.example.Odontoprev_Java.Model.usuario.Enum_tipo_usuario;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -50,4 +51,6 @@ public class PacienteRequestDTO {
 
     @NotNull(message = "Você deve escolher um plano!")
     private Long id_plano;
+
+    private final Enum_tipo_usuario tipo = Enum_tipo_usuario.PACIENTE;
 }

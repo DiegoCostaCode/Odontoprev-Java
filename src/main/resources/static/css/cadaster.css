@@ -8,11 +8,10 @@
 body {
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: center;
     align-items: center;
     height: 100vh;
     font-family: 'Roboto', sans-serif;
-
     background: url("../images/photo-1-overlay.png");
     background-size: cover;
 }
@@ -34,11 +33,12 @@ body {
 
 .main-content
 {
-    width: 50%;
-    height: 85%;
+    width: 600px;
+    height: auto;
     background: #007bff;
-    border-radius: 20px 0px 0px 20px;
+    border-radius: 20px;
     padding: 20px;
+    box-shadow: 0 0 100px 0 #002353;
 }
 
 .container-tipo-cadastro {
@@ -81,8 +81,6 @@ body {
     height: 0;
 }
 
-
-
 .checkmark {
     position: absolute;
     left: 0;
@@ -115,21 +113,25 @@ body {
     display: block;
 }
 
-form
+.form-div-layout
 {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 450px;
+    height: 100%;
 }
 
-form .info-section
+.form-div-layout .info-section
 {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 
-form section div
+.form-div-layout section div
 {
     display: flex;
     flex-direction: column;
@@ -141,44 +143,53 @@ form section div
     width: 100%;
 }
 
-form label
+.form-div-layout label
 {
     font-size: 0.9rem;
 }
 
-form input, select
+.form-div-layout input, select
 {
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 5px;
     padding: 10px;
     margin: 10px 0px;
 }
 
-form select
+.form-div-layout select
 {
-    color: #757575;
+    color: #0D214562;
     height: 37px;
 }
 
-form input[type='date']
+.form-div-layout input[type='date']
 {
-    color: #757575;
+    font-weight: bold;
+    color: #0D214562;
 }
 
-form input:focus
+.form-div-layout input::placeholder
 {
+    color: #0D214562;
+}
+
+.form-div-layout input:focus
+{
+    font-weight: bold;
     outline: 2px solid #002353;
 }
 
-form .button-div {
+.form-div-layout .button-div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: 50px;
+    margin: 20px 0px 20px 0px
 }
 
-form .button-div button
+.form-div-layout .button-div button
 {
     background-color: #002353;
     color: white;
@@ -188,11 +199,31 @@ form .button-div button
     cursor: pointer;
     height: 35px;
     width: 150px;
+    margin: 10px;
+    transition: all 0.3s ease;
 }
 
-form button:hover
+.form-div-layout button:hover
 {
     outline: 2px solid #f5f5f5;
+    transform: scale(1.1);
+}
+
+.form-div-layout .login-redr-button
+{
+    text-decoration: none;
+    color: #f5f5f5;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-div-layout .login-redr-button:hover
+{
+    text-decoration: underline;
+    transform: translateX(10px);
 }
 
 #clinicaForm
@@ -205,14 +236,26 @@ form button:hover
     display: none;
 }
 
+#clinicaForm, #pacienteForm
+{
+    width: 100%;
+    height: 100%;
+}
+
+.info-section div
+{
+    height: 73px;
+}
+
 #pacienteForm .info-section section
 {
-    height: 75px;
+    height: 73px;
     display:flex;
     gap: 15px;
 }
 
 #pacienteForm .info-section section div {
+    height: 73px;
     width: 210px;
 }
 

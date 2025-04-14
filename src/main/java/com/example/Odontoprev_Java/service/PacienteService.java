@@ -13,6 +13,7 @@ import jakarta.persistence.PersistenceException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,7 +45,10 @@ public class PacienteService {
             throw new IllegalArgumentException("Plano não encontrado");
         }
 
-        Usuario usuario = usuarioService.saveUsuarioOfPaciente(pacienteRequestDTO);
+        Usuario usuario = usuarioService.save(
+                pacienteRequestDTO.getEmail(),
+                pacienteRequestDTO.getSenha(),
+                pacienteRequestDTO.getTipo());
 
         Paciente paciente = requestToPaciente(pacienteRequestDTO);
         paciente.setUsuario(usuario);
@@ -70,13 +74,18 @@ public class PacienteService {
 
         BeanUtils.copyProperties(pacienteRequestDTO, paciente);
 
-        Usuario usuario = usuarioService.updateUsuarioOfPaciente(pacienteRequestDTO, paciente.getUsuario().getId());
+        Usuario usuario = usuarioService.update(
+                paciente.getUsuario().getId(),
+                pacienteRequestDTO.getEmail(),
+                pacienteRequestDTO.getSenha(),
+                pacienteRequestDTO.getTipo());
+
+
         paciente.setUsuario(usuario);
         paciente.setPlano(plano);
 
         return pacienteRepository.save(paciente);
     }
-
 
     public PacienteResponseDTO pacienteResponse(Paciente paciente)
     {
@@ -99,6 +108,7 @@ public class PacienteService {
         pacienteRepository.deleteById(id);
     }
 
+
     //Métodos de busca
     public List<Paciente> findAll()
     {
@@ -109,6 +119,7 @@ public class PacienteService {
     {
         return pacienteRepository.findById(id).orElse(null);
     }
+
 
     //Mappers
     public Paciente requestToPaciente(PacienteRequestDTO pacienteRequestDTO)

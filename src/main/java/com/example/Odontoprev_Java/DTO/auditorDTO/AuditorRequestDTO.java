@@ -1,4 +1,4 @@
-package com.example.Odontoprev_Java.DTO.clinicaDTO;
+package com.example.Odontoprev_Java.DTO.auditorDTO;
 
 import com.example.Odontoprev_Java.Model.usuario.Enum_tipo_usuario;
 import jakarta.validation.constraints.Email;
@@ -14,17 +14,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClinicaRequestDTO {
-
-    @NotBlank(message = "A razão social deve ser preenchida!")
+public class AuditorRequestDTO {
+    @NotBlank(message = "O nome de auditor é obrigatório!")
     @Size(min = 3, max=30, message="A razão social deve ter entre 3 e 30 caracteres")
-    private String razaosocial;
-
-    @NotBlank(message = "O CNPJ da clínica deve ser preenchido!")
-    @Size(min = 14, message="O CPNJ contém menos de 14 digitos")
-    @Pattern(regexp = "^(\\d{2}\\.?\\d{3}\\.?\\d{3}/?\\d{4}-?\\d{2})",
-            message = "Formato de CNPJ inválido. Utilize o padrão: 12.345.678/9000-01.")
-    private String cnpj;
+    private String nome;
 
     @NotBlank(message = "Email do representante é obrigatório")
     @Email(message = "Email em inválido, siga o formato: exemplo@email.com.")
@@ -42,6 +35,5 @@ public class ClinicaRequestDTO {
     )
     private String senha;
 
-    private final Enum_tipo_usuario tipo = Enum_tipo_usuario.CLINICA;
-
+    private final Enum_tipo_usuario tipo = Enum_tipo_usuario.AUDITOR;
 }
