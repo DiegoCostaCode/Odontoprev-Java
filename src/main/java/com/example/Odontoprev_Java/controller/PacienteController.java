@@ -1,7 +1,5 @@
 package com.example.Odontoprev_Java.controller;
 
-import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaRequestDTO;
-import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaResponseDTO;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.Paciente;
@@ -78,8 +76,9 @@ public class PacienteController {
     public String pacienteGetAllView(Model model){
 
         model.addAttribute("pacientes", pacienteService.findAll());
+        model.addAttribute("tipo", "paciente");
 
-        return "pacientes";
+        return "cadastros";
     }
 
     @GetMapping(value = "/edit/{id}")
@@ -98,7 +97,7 @@ public class PacienteController {
         model.addAttribute("idPaciente", paciente.getId());
         model.addAttribute("planos", planoService.findAll());
 
-        return "updateProfilePaciente";
+        return "update";
     }
 
     @PostMapping("/register")

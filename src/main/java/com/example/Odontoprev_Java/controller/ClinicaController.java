@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/clinica")
@@ -35,8 +34,9 @@ public class ClinicaController {
     public String clinicaGetAllView(Model model){
 
         model.addAttribute("clinicas", clinicaService.findAll());
+        model.addAttribute("tipo", "clinica");
 
-        return "clinicas";
+        return "cadastros";
     }
 
     @GetMapping(value = "/edit/{id}")
@@ -54,7 +54,7 @@ public class ClinicaController {
         model.addAttribute("clinicaRequest", clinicaRequestDTO);
         model.addAttribute("idClinica", clinica.getId());
 
-        return "updateProfileClinica";
+        return "update";
     }
 
     @PostMapping("/register")
