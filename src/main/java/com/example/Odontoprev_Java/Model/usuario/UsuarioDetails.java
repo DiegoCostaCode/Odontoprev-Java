@@ -19,7 +19,6 @@ public class UsuarioDetails implements UserDetails {
 
     private Usuario usuario;
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + usuario.getTipo().name()));

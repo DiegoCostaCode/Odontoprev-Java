@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum Enum_tipo_usuario {
-    AUDITOR("Auditor"),
-    CLINICA("Cliente"),
-    PACIENTE("Paciente");
+    AUDITOR("auditor"),
+    CLINICA("clinica"),
+    PACIENTE("paciente");
 
     private final String descricao;
 

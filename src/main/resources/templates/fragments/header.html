@@ -24,8 +24,12 @@
         </ul>
     </nav>
     <div class="user-info">
-        <a th:href="@{/}"><i class="fa-solid fa-user"></i></a>
-        <a th:href="@{/}" class="logout-button">Logout</a>
+        <a th:href="@{/{role}/edit/{id}(id=${#authentication.principal.usuario.id}, role=${#authentication.principal.usuario.tipo.getDescricao()})}">
+            <i class="fa-solid fa-user"></i>
+        </a>
+        <a th:href="@{/}" class="logout-button">
+            <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
     </div>
 </header>
 
