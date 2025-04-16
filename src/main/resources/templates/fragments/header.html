@@ -1,26 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <header id="main-header">
-        <nav>
-            <ul>
-                <li>
-                    <a th:href="@{/}">
-                        <i class="fa-solid fa-house"></i>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/clinica/all}">Clinica</a>
-                </li>
-                <li>
-                    <a th:href="@{/paciente/all}">Paciente</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
+<header id="main-header">
+    <nav>
+        <ul>
+            <li>
+                <a th:href="@{/}">
+                    <i class="fa-solid fa-house"></i>
+                </a>
+            </li>
+
+            <li sec:authorize="hasRole('CLINICA') or hasRole('AUDITOR')">
+                <a th:href="@{/clinica/all}">Clinica</a>
+            </li>
+
+            <li sec:authorize="hasRole('PACIENTE') or hasRole('AUDITOR')">
+                <a th:href="@{/paciente/all}">Paciente</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="user-info">
+        <a th:href="@{/}"><i class="fa-solid fa-user"></i></a>
+        <a th:href="@{/}" class="logout-button">Logout</a>
+    </div>
+</header>
+
 </body>
 </html>

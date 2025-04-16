@@ -3,7 +3,7 @@
 {
     display: flex;
     justify-content: center;
-    align-content: center;
+    align-items: center;
     text-align: center;
     position: fixed;
     margin: 10px;
@@ -17,6 +17,31 @@
     background-color: #007bff;
     color: white;
     border-radius: 16px;
+    margin: 0px 15px 0px 0px;
+}
+
+#main-header .user-info
+{
+    background: white;
+    padding: 15px;
+    border-radius: 16px;
+    font-weight: bold;
+}
+
+#main-header .user-info a
+{
+    padding: 10px;
+    color: #002353;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0px 5px 0px 5px;
+    border-radius: 8px;
+}
+
+#main-header .user-info a:hover
+{
+    background-color: #002353;
+    color: white;
 }
 
 #main-header nav ul

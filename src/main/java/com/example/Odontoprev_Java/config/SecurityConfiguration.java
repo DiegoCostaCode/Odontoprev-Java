@@ -42,8 +42,7 @@ public class SecurityConfiguration {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()
-                )
-                .formLogin(Customizer.withDefaults());
+                );
 
         return http.build();
     }
