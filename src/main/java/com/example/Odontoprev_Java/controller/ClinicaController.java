@@ -3,12 +3,15 @@ package com.example.Odontoprev_Java.controller;
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaRequestDTO;
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaResponseDTO;
 import com.example.Odontoprev_Java.Model.Clinica;
+import com.example.Odontoprev_Java.Model.Paciente;
+import com.example.Odontoprev_Java.Model.usuario.UsuarioDetails;
 import com.example.Odontoprev_Java.service.ClinicaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,10 +42,10 @@ public class ClinicaController {
         return "cadastros";
     }
 
-    @GetMapping(value = "/edit/{id}")
-    public String clinicaUpdateView(@PathVariable Long id, Model model){
+    @GetMapping(value = "/edit/")
+    public String clinicaUpdateView(@AuthenticationPrincipal UsuarioDetails usuarioDetails, Model model){
 
-        Clinica clinica = clinicaService.findById(id);
+        Clinica clinica = clinicaService.findByCredenciais(usuarioDetails.getUsuario().getId());
 
         if(clinica == null)
         {

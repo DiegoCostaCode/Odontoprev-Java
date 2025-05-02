@@ -1,5 +1,7 @@
-package com.example.Odontoprev_Java.Model;
+package com.example.Odontoprev_Java.Model.agendamento;
 
+import com.example.Odontoprev_Java.Model.Clinica;
+import com.example.Odontoprev_Java.Model.Paciente;
 import com.example.Odontoprev_Java.Model.procedimento.Procedimento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,8 +25,12 @@ public class Agendamento {
     @Column(name = "Data_agendamento")
     private LocalDateTime dataAgendamento;
 
-    @Column(name = "Data_atendimento")
-    private LocalDateTime dataAtendimento;
+    @Column(name = "Finalizado_em")
+    private LocalDateTime finalizadoEm;
+
+    @Column(name = "Status")
+    @Enumerated(EnumType.STRING)
+    private Enum_status_agendamento status = Enum_status_agendamento.MARCADA;
 
     @ManyToOne()
     @JoinColumn(name = "Paciente_id")
@@ -35,7 +41,10 @@ public class Agendamento {
     private Clinica clinica;
 
     @Column(name = "Preco_atendimento")
-    private double precoAtendimento;
+    private Double precoAtendimento;
+
+    @Column(name = "Descricao_atendimento")
+    private String descricaoAtendimento = "Atendimento marcado!";
 
     @ManyToOne()
     @JoinColumn(name = "Procedimento_id")

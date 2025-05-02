@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="../../static/css/agendamentos.css">
 </head>
 <body>
 <header id="main-header">
@@ -14,20 +15,24 @@
                 </a>
             </li>
 
-            <li sec:authorize="hasRole('CLINICA') or hasRole('AUDITOR')">
+            <li sec:authorize="hasRole('PACIENTE') or hasRole('CLINICA')">
+                <a th:href="@{/agendamentos/}">Agendamentos</a>
+            </li>
+
+            <li sec:authorize="hasRole('AUDITOR')">
                 <a th:href="@{/clinica/all}">Clinica</a>
             </li>
 
-            <li sec:authorize="hasRole('PACIENTE') or hasRole('AUDITOR')">
+            <li sec:authorize="hasRole('AUDITOR')">
                 <a th:href="@{/paciente/all}">Paciente</a>
             </li>
         </ul>
     </nav>
     <div class="user-info">
-        <a th:href="@{/{role}/edit/{id}(id=${#authentication.principal.usuario.id}, role=${#authentication.principal.usuario.tipo.getDescricao()})}">
+        <a th:href="@{/{role}/edit/ (role=${#authentication.principal.usuario.tipo.getDescricao()})}">
             <i class="fa-solid fa-user"></i>
         </a>
-        <a th:href="@{/}" class="logout-button">
+        <a th:href="@{/logout}" class="logout-button">
             <i class="fa-solid fa-right-from-bracket"></i>
         </a>
     </div>

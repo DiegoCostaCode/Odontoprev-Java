@@ -20,12 +20,18 @@ public class Procedimento {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "procedimento", unique = true)
-    private Enum_procedimento procedimento;
+    @Column(name = "Titulo", unique = true)
+    private Enum_procedimento titulo;
 
-    @Column(name = "preco")
-    private double preco;
+    @Column(name = "Descricao")
+    private String descricao;
 
-    @Column(name = "data_atualizacao")
+    @Column(name = "Valor_cobertura")
+    private double valorCobertura;
+
+    @Column(name = "Status", length = 1)
+    private String status = "F";
+
+    @Column(name = "Data_atualizacao")
     private LocalDateTime dataAtualizacao;
 }

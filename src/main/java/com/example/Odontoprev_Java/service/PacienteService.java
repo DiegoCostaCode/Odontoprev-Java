@@ -3,7 +3,7 @@ package com.example.Odontoprev_Java.service;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.Paciente;
-import com.example.Odontoprev_Java.Model.Planos;
+import com.example.Odontoprev_Java.Model.Plano;
 import com.example.Odontoprev_Java.Model.usuario.Enum_tipo_usuario;
 import jakarta.persistence.EntityManager;
 import com.example.Odontoprev_Java.Model.usuario.Usuario;
@@ -12,13 +12,12 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.PersistenceException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PacienteService {
@@ -39,7 +38,7 @@ public class PacienteService {
     @Transactional
     public Paciente savePaciente(PacienteRequestDTO pacienteRequestDTO)
     {
-        Planos plano = planoService.findById(pacienteRequestDTO.getId_plano());
+        Plano plano = planoService.findById(pacienteRequestDTO.getId_plano());
 
         if (plano == null) {
             throw new IllegalArgumentException("Plano não encontrado");
@@ -66,7 +65,7 @@ public class PacienteService {
             throw new IllegalArgumentException("Usuário não encontrado");
         }
 
-        Planos plano = planoService.findById(pacienteRequestDTO.getId_plano());
+        Plano plano = planoService.findById(pacienteRequestDTO.getId_plano());
 
         if (plano == null) {
             throw new IllegalArgumentException("Plano não encontrado");
@@ -87,27 +86,10 @@ public class PacienteService {
         return pacienteRepository.save(paciente);
     }
 
-    public PacienteResponseDTO pacienteResponse(Paciente paciente)
-    {
-        PacienteResponseDTO pacienteResponseDTO = new PacienteResponseDTO(
-                paciente.getId(),
-                paciente.getNome(),
-                paciente.getCpf(),
-                paciente.getDataNascimento(),
-                paciente.getUsuario().getEmail(),
-                paciente.getTelefone(),
-                paciente.getPlano(),
-                paciente.getUsuario().getId()
-        );
-
-        return pacienteResponseDTO;
-    }
-
     public void deletarPaciente(Long id)
     {
         pacienteRepository.deleteById(id);
     }
-
 
     //Métodos de busca
     public List<Paciente> findAll()
@@ -120,6 +102,16 @@ public class PacienteService {
         return pacienteRepository.findById(id).orElse(null);
     }
 
+    public Paciente findByCredenciais(Long id)
+    {
+        Optional<Paciente> paciente = pacienteRepository.findByUsuarioId(id);
+
+        if (paciente.isPresent()) {
+            return paciente.get();
+        } else {
+            return null;
+        }
+    }
 
     //Mappers
     public Paciente requestToPaciente(PacienteRequestDTO pacienteRequestDTO)
@@ -145,6 +137,22 @@ public class PacienteService {
         pacienteRequest.setId_plano(paciente.getPlano().getId());
 
         return pacienteRequest;
+    }
+
+    public PacienteResponseDTO pacienteResponse(Paciente paciente)
+    {
+        PacienteResponseDTO pacienteResponseDTO = new PacienteResponseDTO(
+                paciente.getId(),
+                paciente.getNome(),
+                paciente.getCpf(),
+                paciente.getDataNascimento(),
+                paciente.getUsuario().getEmail(),
+                paciente.getTelefone(),
+                paciente.getPlano(),
+                paciente.getUsuario().getId()
+        );
+
+        return pacienteResponseDTO;
     }
 
     @Transactional

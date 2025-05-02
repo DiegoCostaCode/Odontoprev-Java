@@ -2,11 +2,7 @@ package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.auditorDTO.AuditorRequestDTO;
 import com.example.Odontoprev_Java.DTO.auditorDTO.AuditorResponseDTO;
-import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
-import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.Auditor;
-import com.example.Odontoprev_Java.Model.Paciente;
-import com.example.Odontoprev_Java.Model.Planos;
 import com.example.Odontoprev_Java.Model.usuario.Usuario;
 import com.example.Odontoprev_Java.repository.AuditorRepository;
 import org.springframework.beans.BeanUtils;

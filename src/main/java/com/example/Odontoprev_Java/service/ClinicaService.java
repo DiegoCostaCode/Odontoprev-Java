@@ -2,7 +2,9 @@ package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaResponseDTO;
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaRequestDTO;
+import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.Clinica;
+import com.example.Odontoprev_Java.Model.Paciente;
 import com.example.Odontoprev_Java.Model.usuario.Usuario;
 import com.example.Odontoprev_Java.repository.ClinicaRepository;
 
@@ -43,6 +45,17 @@ public class ClinicaService {
         clinicaRequest.setSenha(clinica.getUsuario().getSenha());
 
         return clinicaRequest;
+    }
+
+    public Clinica findByCredenciais(Long id)
+    {
+        Optional<Clinica> clinica = clinicaRepository.findByUsuarioId(id);
+
+        if (clinica.isPresent()) {
+            return clinica.get();
+        } else {
+            return null;
+        }
     }
 
     public ClinicaResponseDTO clinicaResponse(Clinica clinica)

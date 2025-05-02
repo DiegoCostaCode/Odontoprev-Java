@@ -3,6 +3,7 @@ package com.example.Odontoprev_Java.controller;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.Paciente;
+import com.example.Odontoprev_Java.Model.usuario.UsuarioDetails;
 import com.example.Odontoprev_Java.service.PacienteService;
 import com.example.Odontoprev_Java.service.PlanoService;
 import jakarta.validation.Valid;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -81,10 +83,10 @@ public class PacienteController {
         return "cadastros";
     }
 
-    @GetMapping(value = "/edit/{id}")
-    public String clinicaUpdateView(@PathVariable Long id, Model model){
+    @GetMapping(value = "/edit/")
+    public String pacienteUpdateView(@AuthenticationPrincipal UsuarioDetails usuarioDetails, Model model){
 
-        Paciente paciente = pacienteService.findById(id);
+        Paciente paciente = pacienteService.findByCredenciais(usuarioDetails.getUsuario().getId());
 
         if(paciente == null)
         {
@@ -110,6 +112,7 @@ public class PacienteController {
 
         return "redirect:/paciente/all";
     }
+
     @PostMapping(value = "/update/{id}")
     public String pacienteUpdate(@PathVariable Long id, @Valid PacienteRequestDTO pacienteRequestDTO, Model model){
         Paciente paciente = pacienteService.updatePaciente(pacienteRequestDTO,id);

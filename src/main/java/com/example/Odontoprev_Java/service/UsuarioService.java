@@ -33,6 +33,7 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     public Usuario save(String email, String senha, Enum_tipo_usuario tipo) {
         Usuario usuario = new Usuario();
         usuario.setEmail(email);
@@ -55,6 +56,13 @@ public class UsuarioService {
         usuario.setTipo(tipo);
 
         return usuarioRepository.save(usuario);
+    }
+
+    public boolean isUsuarioLogadoIgualAoFormulario(Long idUsuarioLogado, Long idFormulario) {
+        if (idUsuarioLogado == null || idFormulario == null) {
+            return false;
+        }
+        return idUsuarioLogado.equals(idFormulario);
     }
 
     public Usuario findById(long id)

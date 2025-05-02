@@ -1,6 +1,6 @@
 package com.example.Odontoprev_Java.DTO.pacienteDTO;
 
-import com.example.Odontoprev_Java.Model.Planos;
+import com.example.Odontoprev_Java.Model.Plano;
 
 import java.time.LocalDate;
 
@@ -12,7 +12,7 @@ public record PacienteResponseDTO
                 LocalDate dataNascimento,
                 String email,
                 String telefone,
-                Planos plano,
+                Plano plano,
                 Long usuario_id
         ){
 }

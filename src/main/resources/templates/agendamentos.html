@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Novo Agendamento</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link th:href="@{/css/agendamentos.css}" rel="stylesheet" />
+  <link th:href="@{/css/header.css}" rel="stylesheet" />
+  <link th:href="@{/css/footer.css}" rel="stylesheet" />
+  <link rel="stylesheet" href="../static/css/updateProfile.css">
+  <link rel="stylesheet" href="../static/css/agendamentos.css">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="main-content">
+  <header>
+    <h2>Agendamento</h2>
+    <p th:text="${tipo == 'clinica' ? 'Agendamentos clínica' : 'Agende uma consulta'}"></p>
+  </header>
+
+  <section>
+
+    <form
+            style="margin-bottom: 10px;"
+            sec:authorize="hasRole('PACIENTE')" method="get"
+            th:action="@{/agendamentos/register}" th:object="${agendamentoPacienteDTO}">
+
+      <div>
+        <label>Paciente a ser atendido</label>
+        <input type="text" readonly th:value="${pacienteNome}" />
+        <input style="display: none" type="number" readonly th:field="*{pacienteId}"/>
+      </div>
+
+      <div>
+        <label for="clinica">Selecione uma clínica desejada</label>
+        <select id="clinica" name="clinicas" required th:field="*{clinicaId}">
+          <option selected hidden value="">Selecione uma clínica</option>
+          <option th:each="clinica : ${clinicas}" th:value="${clinica.id}" th:text="${clinica.razaosocial}"></option>
+        </select>
+      </div>
+
+      <div>
+        <label for="procedimento">Qual o procedimento?</label>
+        <select id="procedimento" name="procedimentos" required th:field="*{procedimentoId}">
+          <option selected hidden value="">Selecione um procedimento</option>
+          <option th:each="procedimento : ${procedimentos}" th:value="${procedimento.id}" th:text="${procedimento.getTitulo().getDescricao()}"></option>
+        </select>
+      </div>
+
+      <div>
+        <label>Data</label>
+        <input type="datetime-local" th:field="*{dataAgendamento}" />
+      </div>
+
+
+      <div class="button-div">
+        <button type="submit">Agendar <i class="fas fa-save"></i></button>
+      </div>
+
+    </form>
+
+    <div class="meus-agendamentos-section" th:if="${listaAgendamentos.size() > 0}" >
+
+      <div sec:authorize="hasRole('PACIENTE')" th:each="agendamentos : ${listaAgendamentos}" class="card">
+        <p class="agendamento_id_class" th:text="${agendamentos.id}"></p>
+
+        <h3 th:text="${agendamentos.procedimento.getTitulo().getDescricao()}"></h3>
+
+        <div>
+          <p th:text="${#temporals.format(agendamentos.dataAgendamento, 'dd/MM/yyyy HH:mm')}"></p>
+          <p th:text="${#temporals.format(agendamentos.finalizadoEm, 'dd/MM/yyyy HH:mm')}"></p>
+        </div>
+
+        <p th:text="${agendamentos.clinica.razaosocial}"></p>
+
+        <p class="p-class-desc" th:text="${agendamentos.descricaoAtendimento != null ? agendamentos.descricaoAtendimento : 'Ainda não preenchido.'}"
+        ></p>
+      </div>
+
+      <form
+              th:each="agendamentos : ${listaAgendamentos}"
+              sec:authorize="hasRole('CLINICA')" method="get"
+              th:action="@{/agendamentos/update/{id}/clinica/ (id=${agendamentos.id})}"
+              th:object="${agendamentoClinicaDTO}">
+
+        <p class="agendamento_id_class" th:text="${agendamentos.id}"></p>
+
+        <h3 th:text="${agendamentos.procedimento.getTitulo().getDescricao()}"></h3>
+
+        <div sec:authorize="hasRole('CLINICA')" class="inputs-clinica">
+          <p th:text="${#temporals.format(agendamentos.dataAgendamento, 'dd/MM/yyyy HH:mm')}"></p>
+
+          <p th:text="${agendamentos.paciente.nome}"></p>
+        </div>
+
+        <div>
+          <input type="number"
+                 th:if="${agendamentos.status.name() == 'MARCADA'}"
+                 th:field="*{precoAtendimento}"
+                 placeholder="Valor a ser reembolsado" />
+
+          <input type="number"
+                 th:if="${agendamentos.status.name() == 'FINALIZADA'}"
+                 th:value="${agendamentos.precoAtendimento}"
+                 readonly />
+
+          <textarea class="description-input"
+                    th:field="*{descricaoAtendimento}"
+                    th:if="${agendamentos.status.name() == 'MARCADA'}"
+                    placeholder="Descreva o que foi realizado no atendimento."
+                    rows="3">
+          </textarea>
+
+          <p class="p-class-desc" th:if="${agendamentos.status.name() == 'FINALIZADA'}"
+             th:text="${agendamentos.descricaoAtendimento}"></p>
+
+        </div>
+
+        <div style="height: 80px;">
+          <button class="finalizar-button"
+                  type="submit"
+                  th:if="${agendamentos.status.name() == 'MARCADA'}"
+          >
+            Solicitar reembolso
+          </button>
+          <p class="sucess-msg-agend" th:if="${agendamentos.status.name() != 'MARCADA'}">
+            <i class="fas fa-check-circle"></i> Solicitação realizada com sucesso
+          </p>
+        </div>
+
+      </form>
+
+    </div>
+
+  </section>
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

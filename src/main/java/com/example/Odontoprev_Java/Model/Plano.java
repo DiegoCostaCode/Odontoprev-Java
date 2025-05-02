@@ -6,13 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Odonto_Planos")
-public class Planos {
+public class Plano {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,5 +30,8 @@ public class Planos {
     private double preco;
 
     @Column(name = "Status", length = 1)
-    private String ativo = "F";
+    private String status = "F";
+
+    @Column(name = "Data_atualizacao")
+    private LocalDateTime dataAtualizacao;
 }

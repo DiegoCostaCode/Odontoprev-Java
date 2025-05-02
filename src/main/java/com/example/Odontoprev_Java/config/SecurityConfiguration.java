@@ -4,6 +4,7 @@ import com.example.Odontoprev_Java.service.UsuarioDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,39 +17,59 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
+    @Autowired
+    private UsuarioDetailsService usuarioDetailsService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        HttpSecurity httpSecurity = http
-                .csrf(csrf -> csrf.disable())
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        //Acessos para os arquivos estáticos
                         .requestMatchers("/css/**", "/images/**", "/js/**").permitAll()
-                        //Acessos para registros
                         .requestMatchers(
                                 "/",
                                 "/usuario/api/",
+                                "/paciente/api/",
+                                "/procedimento/**",
                                 "/auditor/api/",
                                 "/clinica/register",
-                                "/paciente/register",
-                                "/actuator/**"
+                                "/paciente/register"
                         ).permitAll()
+                        .requestMatchers("/agendamentos/**").hasAnyRole("CLINICA", "PACIENTE")
+                        .requestMatchers("/clinica/all").hasRole("AUDITOR")
+                        .requestMatchers("/paciente/all").hasRole("AUDITOR")
                         .requestMatchers("/clinica/**").hasRole("CLINICA")
                         .requestMatchers("/paciente/**").hasRole("PACIENTE")
                         .requestMatchers("/auditor/**").hasRole("AUDITOR")
+                        .requestMatchers("/actuator/**", "/procedimento/**", "/plano/**").hasRole("AUDITOR")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .defaultSuccessUrl("/agendamentos/", true)
                         .permitAll()
-                );
-
-        return http.build();
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
+                )
+                .authenticationProvider(authenticationProvider())
+                .build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(usuarioDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder);
+        return authProvider;
     }
+
 }
 

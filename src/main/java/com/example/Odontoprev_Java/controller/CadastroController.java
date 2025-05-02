@@ -21,7 +21,7 @@ public class CadastroController {
 
         model.addAttribute("pacienteDTO", new PacienteRequestDTO());
 
-        model.addAttribute("planos", planoService.findAll());
+        model.addAttribute("planos", planoService.findPlanosAtivos());
 
         return "cadastrar_usuario";
     }
