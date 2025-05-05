@@ -73,13 +73,13 @@ public class ClinicaController {
     @PostMapping(value = "/update/{id}")
     public String clinicaUpdate(@PathVariable Long id, @Valid ClinicaRequestDTO clinicaRequestDTO, Model model){
         Clinica clinica = clinicaService.updateClinica(clinicaRequestDTO,id);
-        return clinicaGetAllView(model);
+        return "redirect:/agendamentos/";
     }
 
     @GetMapping(value = "/delete/{id}")
     public String clinicaDelete(@PathVariable long id, Model model){
         clinicaService.deletarClinica(id);
-        return clinicaGetAllView(model);
+        return "redirect:/agendamentos/";
     }
 
 }

@@ -20,15 +20,16 @@
     margin: 0px 15px 0px 0px;
 }
 
-#main-header .user-info
+#main-header .user-info, #main-header .lang-change
 {
     background: white;
     padding: 15px;
     border-radius: 16px;
     font-weight: bold;
+    margin: 0px 15px 0px 0px;
 }
 
-#main-header .user-info a
+#main-header .user-info a, #main-header .lang-change a
 {
     padding: 10px;
     color: #002353;
@@ -38,7 +39,7 @@
     border-radius: 8px;
 }
 
-#main-header .user-info a:hover
+#main-header .user-info a:hover, #main-header .lang-change a:hover
 {
     background-color: #002353;
     color: white;

@@ -8,21 +8,21 @@
 <body>
 <div class="login-container">
     <div class="logo-section">
-        <h2>Entrar na minha conta</h2>
+        <h2 th:text="#{page.title}"></h2>
     </div>
 
     <form class="form-login" th:action="@{/login}" method="post">
         <div>
             <label for="username">E-mail</label>
-            <input type="email" required placeholder="Seu e-mail" id="username" name="username" />
+            <input type="email" required th:placeholder="#{placeholder.email}" id="username" name="username" />
         </div>
         <div>
-            <label for="password">Senha</label>
-            <input type="password" placeholder="Sua senha super secreta" id="password" name="password" />
+            <label for="password" th:text="#{label.senha}"></label>
+            <input type="password" th:placeholder="#{placeholder.senha}" id="password" name="password" />
         </div>
         <div class="button-div">
-            <button type="submit" value="entrar">Entrar</button>
-            <a class="login-redr-button" th:href="@{/}">Me cadastrar</a>
+            <button type="submit" value="entrar" th:text="#{button.entrar}"></button>
+            <a class="login-redr-button" th:href="@{/}" th:text="#{page.title.cadastro}"></a>
         </div>
     </form>
 </div>

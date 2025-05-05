@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt_BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Perfil</title>
@@ -15,8 +15,8 @@
 
 <main class="main-content">
     <header>
-        <h2>Configurações</h2>
-        <p>Confira ou altere as configurações e preferências de sua conta</p>
+        <h2 th:text="#{page.title.update}"></h2>
+        <p th:text="#{page.subtitle.update}"></p>
     </header>
 
     <section>
@@ -27,7 +27,7 @@
             <input type="hidden" readonly th:field="*{senha}" id="senha" />
 
             <div>
-                <label>Nome</label>
+                <label th:text="#{label.razaoSocial}"></label>
                 <input type="text" readonly th:field="*{razaosocial}" />
             </div>
 
@@ -42,13 +42,18 @@
             </div>
 
             <div>
-                <label>Telefone</label>
+                <label th:text="#{label.cellphone}"></label>
                 <input type="tel" required th:field="*{telefone}" />
             </div>
 
             <div class="button-div">
-                <button type="submit">Atualizar <i class="fas fa-save"></i></button>
+                <button type="submit" >
+                    <span th:text="#{button.atualizar}"></span>
+                    <i class="fas fa-save"></i>
+                </button>
             </div>
+
+
         </form>
 
         <!-- Formulário do Paciente -->
@@ -58,7 +63,7 @@
             <input type="hidden" readonly th:field="*{senha}" id="senha" />
 
             <div>
-                <label>Nome</label>
+                <label th:text="#{label.nome}"></label>
                 <input type="text" readonly th:field="*{nome}" />
             </div>
 
@@ -68,7 +73,7 @@
             </div>
 
             <div>
-                <label>Data Nascimento</label>
+                <label th:text="#{label.date}">Data Nascimento</label>
                 <input type="date" readonly th:value="*{dataNascimento}" th:field="*{dataNascimento}" />
             </div>
 
@@ -78,12 +83,12 @@
             </div>
 
             <div>
-                <label>Telefone</label>
+                <label th:text="#{label.cellphone}">Telefone</label>
                 <input type="tel" required th:field="*{telefone}" />
             </div>
 
             <div>
-                <label for="plano">Plano</label>
+                <label for="plano" th:text="#{label.plano}"></label>
                 <select id="plano" name="planos" required th:field="*{id_plano}">
                     <option th:each="plano : ${planos}"
                             th:value="${plano.id}"
@@ -93,7 +98,9 @@
             </div>
 
             <div class="button-div">
-                <button type="submit">Atualizar <i class="fas fa-save"></i></button>
+                <button type="submit">
+                    <span th:text="#{button.atualizar}"></span>
+                    <i class="fas fa-save"></i></button>
             </div>
         </form>
     </section>

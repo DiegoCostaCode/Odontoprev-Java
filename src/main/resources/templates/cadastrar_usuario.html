@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt_BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Cadastro</title>
@@ -14,16 +14,16 @@
     <main class="main-content">
 
         <div class="container-tipo-cadastro">
-            <h2>Criar sua contra</h2>
+            <h2 th:text="#{page.title.cadastro}"></h2>
 
             <section>
                 <label class="radio-container">
                     <input class="clinicaCheck" type="radio" name="tipoCadastro" value="clinica" checked="checked" onchange="toggleForms('clinica')"/>
-                    <span class="checkmark"></span> Clínica
+                    <span class="checkmark"></span> <a th:text="#{cadastro.clinica}"></a>
                 </label>
                 <label class="radio-container">
                     <input class="pacienteCheck" type="radio" name="tipoCadastro" value="paciente" onchange="toggleForms('paciente')"/>
-                    <span class="checkmark"></span> Paciente
+                    <span class="checkmark"></span> <a th:text="#{cadastro.paciente}"></a>
                 </label>
             </section>
         </div>
@@ -32,7 +32,7 @@
             <div class="form-div-layout">
                 <section class="info-section">
                     <div>
-                        <label for="razaoSocial">Razão social</label>
+                        <label for="razaoSocial" th:text="#{label.razaoSocial}"></label>
                         <input type="text" id="razaoSocial" maxLength="30" placeholder="Clinica123 Ltda" required th:field="*{razaosocial}">
                     </div>
 
@@ -47,19 +47,19 @@
                     </div>
 
                     <div>
-                        <label for="telefoneClinica">Telefone</label>
-                        <input type="tel" id="telefoneClinica" maxLength="15" placeholder="Fixo ou móvel" required th:field="*{telefone}">
+                        <label for="telefoneClinica" th:text="#{label.cellphone}"></label>
+                        <input type="tel" id="telefoneClinica" maxLength="15" th:placeholder="#{label.tipoTelefone}" required th:field="*{telefone}">
                     </div>
 
                     <div>
-                        <label for="senhaClinica">Senha</label>
-                        <input type="password" id="senhaClinica" placeholder="Senha super secreta" required th:field="*{senha}">
+                        <label for="senhaClinica" th:text="#{label.senha}"></label>
+                        <input type="password" id="senhaClinica" th:placeholder="#{placeholder.senha}" required th:field="*{senha}">
                     </div>
                 </section>
 
                 <div class="button-div">
-                    <button type="submit" value="cadastrar">Cadastrar</button>
-                    <a class="login-redr-button" th:href="@{/login}">Já tenho cadastro</a>
+                    <button type="submit" value="cadastrar" th:text="#{button.cadastrar}"></button>
+                    <a class="login-redr-button" th:href="@{/login}" th:text="#{link.login}"></a>
                 </div>
             </div>
         </form>
@@ -68,7 +68,7 @@
             <div class="form-div-layout">
                 <section class="info-section">
                     <div>
-                        <label for="nomeCompleto">Nome completo</label>
+                        <label for="nomeCompleto" th:text="#{label.nomeCompleto}">Nome completo</label>
                         <input type="text" id="nomeCompleto" maxLength="30" placeholder="Gabriel Toledo de Alcântara Sguario" required th:field="*{nome}">
                     </div>
 
@@ -80,7 +80,7 @@
                         </div>
 
                         <div>
-                            <label for="dataNascimento">Data de nascimento</label>
+                            <label for="dataNascimento" th:text="#{label.date}">Data de nascimento</label>
                             <input type="date" id="dataNascimento" required th:field="*{dataNascimento}">
                         </div>
 
@@ -94,21 +94,21 @@
                         </div>
 
                         <div>
-                            <label for="telefonePaciente">Telefone</label>
-                            <input type="tel" id="telefonePaciente" maxLength="15" placeholder="Fixo ou móvel" required th:field="*{telefone}">
+                            <label for="telefonePaciente" th:text="#{label.cellphone}"></label>
+                            <input type="tel" id="telefonePaciente" maxLength="15" th:placeholder="#{label.tipoTelefone}" required th:field="*{telefone}">
                         </div>
 
                     </section>
 
                     <div>
-                        <label for="senhaPaciente">Senha</label>
-                        <input type="password" id="senhaPaciente" placeholder="Senha super secreta" required th:field="*{senha}">
+                        <label for="senhaPaciente" th:text="#{label.senha}"></label>
+                        <input type="password" id="senhaPaciente" th:placeholder="#{placeholder.senha}" required th:field="*{senha}">
                     </div>
 
                     <div>
-                        <label for="plano">Plano</label>
+                        <label for="plano" th:text="#{label.plano}"></label>
                         <select id="plano" name="planos" required th:field="*{id_plano}">
-                            <option selected hidden value="">Selecione uma opção</option>
+                            <option selected hidden value="" th:text="#{option.selecionePlano}"></option>
                             <option th:each="plano : ${planos}" th:value="${plano.id}" th:text="${plano.nome}"></option>
                         </select>
                     </div>
@@ -116,8 +116,8 @@
                 </section>
 
                 <div class="button-div">
-                    <button type="submit" value="cadastrar">Cadastrar</button>
-                    <a class="login-redr-button" th:href="@{/login}">Já tenho cadastro</a>
+                    <button type="submit" value="cadastrar" th:text="#{button.cadastrar}"></button>
+                    <a class="login-redr-button" th:href="@{/login}" th:text="#{link.login}"></a>
                 </div>
             </div>
         </form>

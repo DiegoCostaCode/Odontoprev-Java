@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="pt_BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>Novo Agendamento</title>
@@ -16,8 +16,9 @@
 
 <main class="main-content">
   <header>
-    <h2>Agendamento</h2>
-    <p th:text="${tipo == 'clinica' ? 'Agendamentos clínica' : 'Agende uma consulta'}"></p>
+    <h2 th:text="#{page.title.novoAgendamento}"></h2>
+    <p th:if="${tipo == 'clinica'}" th:text="#{agendamento.clinica.titulo}"></p>
+    <p th:if="${tipo != 'clinica'}" th:text="#{agendamento.consulta.titulo}"></p>
   </header>
 
   <section>
@@ -28,35 +29,34 @@
             th:action="@{/agendamentos/register}" th:object="${agendamentoPacienteDTO}">
 
       <div>
-        <label>Paciente a ser atendido</label>
+        <label th:text="#{label.pacienteAtendido}"></label>
         <input type="text" readonly th:value="${pacienteNome}" />
         <input style="display: none" type="number" readonly th:field="*{pacienteId}"/>
       </div>
 
       <div>
-        <label for="clinica">Selecione uma clínica desejada</label>
+        <label for="clinica" th:text="#{label.selecioneClinica}"></label>
         <select id="clinica" name="clinicas" required th:field="*{clinicaId}">
-          <option selected hidden value="">Selecione uma clínica</option>
+          <option selected hidden value="" th:text="#{option.selecioneClinica}"></option>
           <option th:each="clinica : ${clinicas}" th:value="${clinica.id}" th:text="${clinica.razaosocial}"></option>
         </select>
       </div>
 
       <div>
-        <label for="procedimento">Qual o procedimento?</label>
+        <label for="procedimento" th:text="#{label.qualProcedimento}"></label>
         <select id="procedimento" name="procedimentos" required th:field="*{procedimentoId}">
-          <option selected hidden value="">Selecione um procedimento</option>
+          <option selected hidden value="" th:text="#{option.selecioneProcedimento}"></option>
           <option th:each="procedimento : ${procedimentos}" th:value="${procedimento.id}" th:text="${procedimento.getTitulo().getDescricao()}"></option>
         </select>
       </div>
 
       <div>
-        <label>Data</label>
+        <label th:text="#{label.data}"></label>
         <input type="datetime-local" th:field="*{dataAgendamento}" />
       </div>
 
-
       <div class="button-div">
-        <button type="submit">Agendar <i class="fas fa-save"></i></button>
+        <button type="submit" th:text="#{button.agendar}"> <i class="fas fa-save"></i></button>
       </div>
 
     </form>
@@ -99,7 +99,7 @@
           <input type="number"
                  th:if="${agendamentos.status.name() == 'MARCADA'}"
                  th:field="*{precoAtendimento}"
-                 placeholder="Valor a ser reembolsado" />
+                 th:placeholder="#{placeholder.reembolso}" />
 
           <input type="number"
                  th:if="${agendamentos.status.name() == 'FINALIZADA'}"
@@ -109,7 +109,7 @@
           <textarea class="description-input"
                     th:field="*{descricaoAtendimento}"
                     th:if="${agendamentos.status.name() == 'MARCADA'}"
-                    placeholder="Descreva o que foi realizado no atendimento."
+                    th:placeholder="#{agendamento.desc.naoPreenchido}"
                     rows="3">
           </textarea>
 
@@ -122,11 +122,11 @@
           <button class="finalizar-button"
                   type="submit"
                   th:if="${agendamentos.status.name() == 'MARCADA'}"
-          >
-            Solicitar reembolso
+                    th:text="#{button.reembolso}">
           </button>
-          <p class="sucess-msg-agend" th:if="${agendamentos.status.name() != 'MARCADA'}">
-            <i class="fas fa-check-circle"></i> Solicitação realizada com sucesso
+          <p class="sucess-msg-agend" th:if="${agendamentos.status.name() != 'MARCADA'}" >
+            <i class="fas fa-check-circle"></i>
+            <span th:text="#{msg.sucessoReembolso}"></span>
           </p>
         </div>
 

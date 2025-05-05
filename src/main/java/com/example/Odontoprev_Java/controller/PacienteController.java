@@ -106,7 +106,7 @@ public class PacienteController {
     public String savePaciente(@Valid @ModelAttribute PacienteRequestDTO pacienteRequestDTO, Model model)
     {
 
-        Paciente paciente = pacienteService.savePaciente(pacienteRequestDTO);
+        pacienteService.savePaciente(pacienteRequestDTO);
 
         model.addAttribute("pacienteDTO", pacienteRequestDTO);
 
@@ -115,14 +115,18 @@ public class PacienteController {
 
     @PostMapping(value = "/update/{id}")
     public String pacienteUpdate(@PathVariable Long id, @Valid PacienteRequestDTO pacienteRequestDTO, Model model){
-        Paciente paciente = pacienteService.updatePaciente(pacienteRequestDTO,id);
-        return pacienteGetAllView(model);
+
+        pacienteService.updatePaciente(pacienteRequestDTO,id);
+
+        return "redirect:/agendamentos/";
     }
 
     @GetMapping(value = "/delete/{id}")
     public String pacienteDelete(@PathVariable long id, Model model){
+
         pacienteService.deletarPaciente(id);
-        return pacienteGetAllView(model);
+
+        return "redirect:/agendamentos/";
     }
 
 }

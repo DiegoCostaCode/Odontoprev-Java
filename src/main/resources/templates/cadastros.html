@@ -16,8 +16,9 @@
   <main class="main-content">
     <header>
       <div>
-        <h2 th:text="${tipo == 'clinica'} ? 'Cadastros de Clínicas' : 'Cadastros de Pacientes'"></h2>
-        <p>Confira, atualize cadastro, e ou remova cadastros se aplicável.</p>
+        <h2 th:if="${tipo == 'clinica'}" th:text="#{page.title.cadastros.clinica}"></h2>
+        <h2 th:if="${tipo != 'clinica'}" th:text="#{page.title.cadastros.paciente}"></h2>
+        <p th:text="#{page.cadastros.subtitle}"></p>
       </div>
     </header>
 
@@ -31,10 +32,10 @@
         <thead>
         <tr>
           <th class="id-head">#</th>
-          <th class="razao-head">Razão Social</th>
+          <th class="razao-head" th:text="#{label.razaoSocial}"></th>
           <th class="cnpj-head">CNPJ</th>
           <th class="email-head">E-mail</th>
-          <th class="tel-head">Telefone</th>
+          <th class="tel-head" th:text="#{label.cellphone}"></th>
           <th class="acao-head"><i class="fa-solid fa-gear"></i></th>
         </tr>
         </thead>
@@ -64,12 +65,12 @@
         <thead>
         <tr>
           <th class="id-head">#</th>
-          <th class="nome-head">Nome</th>
-          <th class="data-nascimento">Data Nascimento</th>
+          <th class="nome-head" th:text="#{label.nome}"></th>
+          <th class="data-nascimento" th:text="#{label.date}"></th>
           <th class="cpf-head">CPF</th>
           <th class="email-head">E-mail</th>
-          <th class="tel-head">Telefone</th>
-          <th class="plano-head">Plano</th>
+          <th class="tel-head" th:text="#{label.cellphone}"></th>
+          <th class="plano-head" th:text="#{label.plano}"></th>
           <th class="acao-head"><i class="fa-solid fa-gear"></i></th>
         </tr>
         </thead>
