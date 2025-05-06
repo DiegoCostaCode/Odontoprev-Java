@@ -1,6 +1,7 @@
 package com.example.Odontoprev_Java.config;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.TopicExchange;
@@ -13,9 +14,15 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMqConfig {
-    public static final String QUEUE = "agendamento.queue";
-    public static final String EXCHANGE = "agendamento.exchange";
-    public static final String ROUTING_KEY = "agendamento.routingkey";
+
+    @Value("${app.rabbitmq.queue}")
+    private String QUEUE;
+
+    @Value("${app.rabbitmq.exchange}")
+    private String EXCHANGE;
+
+    @Value("${app.rabbitmq.routingkey}")
+    private String ROUTING_KEY;
 
     @Bean
     public Queue queue() {
