@@ -2,15 +2,14 @@ package com.example.Odontoprev_Java.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
-public class ConfigFilter {
+public class CorsConfig {
 
     @Bean
-    public CorsFilter corsFilter() {
+    public org.springframework.web.filter.CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("*");
         config.addAllowedMethod("*");
@@ -19,6 +18,6 @@ public class ConfigFilter {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
 
-        return new CorsFilter(source);
+        return new org.springframework.web.filter.CorsFilter(source);
     }
 }

@@ -30,6 +30,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/images/**", "/js/**").permitAll()
                         .requestMatchers(
+                                "/actuator/prometheus",
                                 "/",
                                 "/usuario/api/",
                                 "/paciente/api/",
