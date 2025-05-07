@@ -28,16 +28,19 @@ Nosso sistema end-to-end conecta a Odontoprev, clínicas e pacientes em um ecoss
 Essa solução oferece um ambiente centralizado, moderno e intuitivo para controle eficiente da Odontoprev.
 
 ---
-## 🚀 Progresso na Sprint 3
+## 🚀 Progresso na Sprint 4
 
-Durante a Sprint 2, realizamos diversas melhorias para otimizar a estrutura do sistema:
+Nesta última Sprint, realizamos diversas melhorias para otimizar a estrutura do sistema:
 
 | Implementação                          | Descrição                                                                                                                                                    |
 |----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Refatoração do Banco de Dados**      | Criamos uma tabela de usuário para gerenciamento de credenciais de acesso e solicitação de pagamentos, melhorando o controle e segurança dos dados.           |
-| **Maior utilização de Lombok**         | Implementamos **Lombok** para melhorar a legibilidade, padronização e qualidade do código, evitando uso de anotações genéricas como `@Data`.                  |
-| **Adoção do padrão MVC**               | Implementamos `Thymeleaf` para estruturar as views, alinhado com nossos estudos e boas práticas de desenvolvimento.                                          |
-| **Encapsulamento de métodos**          | Métodos foram isolados nos serviços, removendo lógica dos controllers e garantindo melhor organização do código.                                              |
+| **Nova classe**      | Classe de Agendamento (fundamental para o MVP)          |
+| **Security**         | 	Foi implementado um FilterChain para controle de acesso baseado em roles nos endpoints. Além disso, foi utilizado o [Thymeleaf Extra](https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity6) para ocultar elementos da interface conforme o perfil do usuário. Alguns endpoints, como de atualização, foram refatorados para não receber o id diretamente na URL, utilizando o UserDetails da aplicação para identificar o usuário autenticado, aumentando assim a segurança. |
+| **Internacionalização**         |   	Textos como títulos (h2), labels, placeholders, botões e outros elementos agora podem ser alternados entre Português e Inglês.           |
+| **Páginas de agendamento**               | Criadas páginas no frontend para o agendamento de consultas.                                         |
+| **Utilização de IA**          | 	Integração com o modelo [Ollama Mistral](https://ollama.com/library/mistral) para análise dos agendamentos finalizados pelas clínicas.                                              |
+| **RabbitMQ**          | Implementada uma fila que envia os dados do agendamento para análise pelo modelo de IA assim que o agendamento é submetido.                                            |
+| **Actuator & Prometheus**          | Adicionadas as dependências do Spring Actuator e Prometheus para monitoramento e observabilidade da aplicação.                                          |
 
 ---
 ## 📌 Estrutura de Dados e Camadas do Projeto
@@ -58,7 +61,7 @@ Durante a Sprint 2, realizamos diversas melhorias para otimizar a estrutura do s
 - 📁 `/controller/ClinicaController.java`
 - 📁 `/service/ClinicaService.java`
 - 📁 `/repository/ClinicaRepository.java`
-- 📁 `/dto/ClinicaDTO.java`
+- 📁 `/dto/clinicaDTO/`
 
 ---
 #### **Usuário**
@@ -72,7 +75,7 @@ Durante a Sprint 2, realizamos diversas melhorias para otimizar a estrutura do s
 - 📁 `/controller/UsuarioController.java`
 - 📁 `/service/UsuarioService.java`
 - 📁 `/repository/UsuarioRepository.java`
-- 📁 `/dto/UsuarioDTO.java`
+- 📁 `/dto/usuarioDTO/`
 
 ---
 #### **Paciente**
@@ -88,7 +91,54 @@ Durante a Sprint 2, realizamos diversas melhorias para otimizar a estrutura do s
 - 📁 `/controller/PacienteController.java`
 - 📁 `/service/PacienteService.java`
 - 📁 `/repository/PacienteRepository.java`
-- 📁 `/dto/PacienteDTO.java`
+- 📁 `/dto/pacienteDTO/`
+
+---
+#### **Agendamento**
+- **id**: Identificador único do agendamento.
+- **dataAgendamento**: Data do agendamento.
+- **finalizadoEm**: Data atualizada quando a clínica finalizar atendimento.
+- **status**: Uma enum com 2 status disponíveis: Marcada, Finalizada.
+- **paciente**: Paciente atrelado ao agendamento.
+- **clininca**: Clinica atrelada ao agendamento, escolhida pelo paciente.
+- **precoAtendimento**: Valor preenchido pela clínica, referente ao custo gerado para o atendimento.
+- **procedimento**: Procedimento marcado no agendamento.
+
+📂 **Arquitetura:**
+- 📁 `/controller/AgendamentoController.java`
+- 📁 `/service/AgendamentoService.java`
+- 📁 `/repository/AgendamentoService.java`
+- 📁 `/dto/agendamentoDTO/`
+
+---
+#### **Procedimento**
+- **id**: Identificador único do agendamento.
+- **titulo**: Nome do procedimento. Uma Enum.
+- **descricao**: Uma descrição do procedimento. Este campo será consultado pela IA posteriormente na análise de agendamento.
+- **valorCobertura**: Um teto de reembolso para aquele procedimento. Um valor que a Odontoprev entenderia como o suficiente para realizar o procedimento.
+- **status**: Um char de T(Ativo) ou F(Não-ativo).
+- **dataAtualizacao**: Data de atualização de algum campo da classe.
+
+📂 **Arquitetura:**
+- 📁 `/controller/ProcedimentoController.java`
+- 📁 `/service/ProcedimentoService.java`
+- 📁 `/repository/ProcedimentoService.java`
+- 📁 `/dto/procedimentoDTO/`
+
+---
+#### **Plano**
+- **id**: Identificador único do agendamento.
+- **nome**: Nome do plano.
+- **descricao**: Uma descrição do plano.
+- **preco**: Preço mensal do plano.
+- **status**: Um char de T(Ativo) ou F(Não-ativo).
+- **dataAtualizacao**: Data de atualização de algum campo da classe.
+
+📂 **Arquitetura:**
+- 📁 `/controller/PlanoController.java`
+- 📁 `/service/PlanoService.java`
+- 📁 `/repository/PlanoService.java`
+- 📁 `/dto/planoDTO/`
 
 ---
 ## 🖥️ Views e Endpoints
@@ -139,18 +189,25 @@ plugins {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-amqp' // (NEW)
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' 
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6' // (NEW)
+	implementation 'dev.langchain4j:langchain4j:0.36.2' // (NEW)
+	implementation 'dev.langchain4j:langchain4j-ollama:0.36.2' // (NEW)
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator' // (NEW)
+	implementation 'io.micrometer:micrometer-registry-prometheus' // (NEW)
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
-	implementation 'org.webjars:bootstrap:5.3.3'
+	implementation 'org.springframework.boot:spring-boot-starter-security' // (NEW)
 	compileOnly 'org.projectlombok:lombok:1.18.36'
 	annotationProcessor 'org.projectlombok:lombok:1.18.36'
 	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc:12.2.0.jre11'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+
 ```
 
 ### Passos para executar
@@ -166,9 +223,21 @@ dependencies {
    ```sh
    ./gradlew build
    ```
-4. **Execute a aplicação:**
+4. **Rode o RabbitMQ para testar mensageria:**
+   
+   No ```aplication.properties```  na variável ```spring.rabbitmq.host``` coloque o ip da sua máquina. Ou, crie uma variável de ambiente com a id  ```rabbitService```.
+   
+   Depois,
+   ```
+   docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4-management
+   ```
+6. **Instale o [Ollama](https://ollama.com), e ao rodar, faça pull do modelo Mistral**
+   ```
+   ollama pull mistral
+   ```
+8. **Execute a aplicação:**
    ```sh
    ./gradlew bootRun
    ```
-5. **Acesse no navegador:** [http://localhost:8080](http://localhost:8080)
+9. **Acesse no navegador:** [http://localhost:8080](http://localhost:8080)
 
