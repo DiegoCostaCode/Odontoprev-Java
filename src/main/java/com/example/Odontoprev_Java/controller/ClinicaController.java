@@ -70,15 +70,25 @@ public class ClinicaController {
         return "redirect:/clinica/all";
     }
 
-    @PostMapping(value = "/update/{id}")
-    public String clinicaUpdate(@PathVariable Long id, @Valid ClinicaRequestDTO clinicaRequestDTO, Model model){
-        Clinica clinica = clinicaService.updateClinica(clinicaRequestDTO,id);
+    @PostMapping(value = "/update/")
+    public String clinicaUpdate(@AuthenticationPrincipal UsuarioDetails usuarioDetails, @Valid ClinicaRequestDTO clinicaRequestDTO, Model model){
+
+        Clinica clinica = clinicaService.findByCredenciais(usuarioDetails.getUsuario().getId());
+
+        clinicaService.updateClinica(clinicaRequestDTO,clinica.getId());
+
         return "redirect:/agendamentos/";
     }
 
     @GetMapping(value = "/delete/{id}")
-    public String clinicaDelete(@PathVariable long id, Model model){
+    public String clinicaDelete(@AuthenticationPrincipal UsuarioDetails usuarioDetails, @PathVariable long id, Model model){
         clinicaService.deletarClinica(id);
+
+        if(usuarioDetails.getUsuario().getTipo().getDescricao().equals("auditor"))
+        {
+            return "redirect:/clinica/all";
+        }
+
         return "redirect:/agendamentos/";
     }
 

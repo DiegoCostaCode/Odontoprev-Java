@@ -22,7 +22,7 @@
     <section>
         <!-- Formulário da Clínica -->
         <form th:if="${clinicaRequest != null}" method="post"
-              th:action="@{/clinica/update/{id}(id = ${idClinica})}" th:object="${clinicaRequest}">
+              th:action="@{/clinica/update/}" th:object="${clinicaRequest}">
 
             <input type="hidden" readonly th:field="*{senha}" id="senha" />
 
@@ -58,7 +58,7 @@
 
         <!-- Formulário do Paciente -->
         <form th:if="${pacienteRequest != null}" method="post"
-              th:action="@{/paciente/update/{id}(id = ${idPaciente})}" th:object="${pacienteRequest}">
+              th:action="@{/paciente/update/}" th:object="${pacienteRequest}">
 
             <input type="hidden" readonly th:field="*{senha}" id="senha" />
 

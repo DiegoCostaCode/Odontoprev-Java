@@ -113,18 +113,25 @@ public class PacienteController {
         return "redirect:/paciente/all";
     }
 
-    @PostMapping(value = "/update/{id}")
-    public String pacienteUpdate(@PathVariable Long id, @Valid PacienteRequestDTO pacienteRequestDTO, Model model){
+    @PostMapping(value = "/update/")
+    public String pacienteUpdate(@AuthenticationPrincipal UsuarioDetails usuarioDetails, @Valid PacienteRequestDTO pacienteRequestDTO, Model model){
 
-        pacienteService.updatePaciente(pacienteRequestDTO,id);
+        Paciente paciente = pacienteService.findByCredenciais(usuarioDetails.getUsuario().getId());
+
+        pacienteService.updatePaciente(pacienteRequestDTO,paciente.getId());
 
         return "redirect:/agendamentos/";
     }
 
     @GetMapping(value = "/delete/{id}")
-    public String pacienteDelete(@PathVariable long id, Model model){
+    public String pacienteDelete(@AuthenticationPrincipal UsuarioDetails usuarioDetails,@PathVariable long id, Model model){
 
         pacienteService.deletarPaciente(id);
+
+        if(usuarioDetails.getUsuario().getTipo().getDescricao().equals("auditor"))
+        {
+            return "redirect:/paciente/all";
+        }
 
         return "redirect:/agendamentos/";
     }

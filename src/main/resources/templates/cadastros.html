@@ -48,9 +48,6 @@
           <td th:text="${clinica.telefone}" class="tel-col"></td>
           <td class="acao-col">
             <div>
-              <a class="editar" th:href="@{/clinica/edit/{id}(id=${clinica.id})}">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </a>
               <a class="deletar" th:href="@{/clinica/delete/{id}(id=${clinica.id})}">
                 <i class="fa-solid fa-trash"></i>
               </a>
@@ -85,9 +82,6 @@
           <td th:text="${paciente.plano.nome}" class="plan-col"></td>
           <td class="acao-col">
             <div>
-              <a class="editar" th:href="@{/paciente/edit/{id}(id=${paciente.id})}">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </a>
               <a class="deletar" th:href="@{/paciente/delete/{id}(id=${paciente.id})}">
                 <i class="fa-solid fa-trash"></i>
               </a>

@@ -1,12 +1,15 @@
 package com.example.Odontoprev_Java.Model;
 
 
+import com.example.Odontoprev_Java.Model.agendamento.Agendamento;
 import com.example.Odontoprev_Java.Model.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 
 @Getter
@@ -32,4 +35,7 @@ public class Clinica {
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
+
+    @OneToMany(mappedBy = "clinica", cascade = CascadeType.REMOVE)
+    private List<Agendamento> agendamentos;
 }

@@ -42,6 +42,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/agendamentos/**").hasAnyRole("CLINICA", "PACIENTE")
                         .requestMatchers("/clinica/all").hasRole("AUDITOR")
                         .requestMatchers("/paciente/all").hasRole("AUDITOR")
+                        .requestMatchers("/paciente/delete/**").hasRole("AUDITOR")
+                        .requestMatchers("/clinica/delete/**").hasRole("AUDITOR")
                         .requestMatchers("/clinica/**").hasRole("CLINICA")
                         .requestMatchers("/paciente/**").hasRole("PACIENTE")
                         .requestMatchers("/auditor/**").hasRole("AUDITOR")
@@ -50,7 +52,7 @@ public class SecurityConfiguration {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/agendamentos/", true)
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
