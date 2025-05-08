@@ -141,15 +141,11 @@ Nesta última Sprint, realizamos diversas melhorias para otimizar a estrutura do
 - 📁 `/dto/planoDTO/`
 
 ---
-## 🖥️ Views e Endpoints
+## 🖥️ News Views e Endpoints
 
 ### **Parâmetros**
-- `{tipo}`: Define o tipo de usuário (`clinica`, `paciente`).
+- `{role/tipo}`: Define o tipo de usuário (`clinica`, `paciente`, `auditor`).
 - `{id}`: Identificador único do usuário.
-
-### **Exemplos de Uso**
-- Listar todas as clínicas: `/clinica/all`
-- Listar todos os pacientes: `/paciente/all`
 
 ### **Endpoints**
 
@@ -161,17 +157,24 @@ Retorna a página inicial da aplicação.
 #### **GET View** `/{tipo}/all`
 Retorna uma lista de todos os usuários do tipo especificado (Acesso exclusivo para AUDITORES).
 
-![get_all_view.png](Documentation/get_all_view.png)
+![get_paciente_all.png](Documentation/get_paciente_all.png)
 
-#### **GET View** `/{tipo}/edit/{id}`
-Retorna a página de edição do perfil do usuário (Acesso restrito ao próprio usuário).
+#### **GET View** `/{tipo}/edit/`
+Retorna a página de edição do perfil do usuário (Acesso restrito ao próprio usuário e a auditores).
 
-![update_info.png](Documentation/update_info.png)
+![img.png](Documentation/get_page_edit.png)
+
+#### **GET View** `/agendamentos/`
+Retorna uma página para cadastro e visualização de agendamentos (Acesso restrito a clínicas e pacientes).
+
+**Visão clínica:**
+
+**Visão paciente:**
 
 #### **POST** `/{tipo}/register/`
 Registra um novo usuário no sistema.
 
-#### **POST** `/{tipo}/update/{id}`
+#### **POST** `/{tipo}/update/`
 Atualiza os dados do usuário.
 
 #### **POST** `/{tipo}/delete/{id}`
