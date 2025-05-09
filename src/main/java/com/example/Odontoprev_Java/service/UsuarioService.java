@@ -1,7 +1,5 @@
 package com.example.Odontoprev_Java.service;
 
-import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaRequestDTO;
-import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
 import com.example.Odontoprev_Java.DTO.usuarioDTO.UsuarioAuthDTO;
 import com.example.Odontoprev_Java.DTO.usuarioDTO.UsuarioAuthResponseDTO;
 import com.example.Odontoprev_Java.Model.Clinica;
@@ -56,13 +54,6 @@ public class UsuarioService {
         usuario.setTipo(tipo);
 
         return usuarioRepository.save(usuario);
-    }
-
-    public boolean isUsuarioLogadoIgualAoFormulario(Long idUsuarioLogado, Long idFormulario) {
-        if (idUsuarioLogado == null || idFormulario == null) {
-            return false;
-        }
-        return idUsuarioLogado.equals(idFormulario);
     }
 
     public Usuario findById(long id)

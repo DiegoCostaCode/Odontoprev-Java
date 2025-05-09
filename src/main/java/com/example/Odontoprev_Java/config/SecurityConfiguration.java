@@ -35,6 +35,7 @@ public class SecurityConfiguration {
                                 "/usuario/api/",
                                 "/paciente/api/",
                                 "/procedimento/**",
+                                "/plano/**",
                                 "/auditor/api/",
                                 "/clinica/register",
                                 "/paciente/register"
@@ -47,7 +48,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/clinica/**").hasRole("CLINICA")
                         .requestMatchers("/paciente/**").hasRole("PACIENTE")
                         .requestMatchers("/auditor/**").hasRole("AUDITOR")
-                        .requestMatchers("/actuator/**", "/procedimento/**", "/plano/**").hasRole("AUDITOR")
+                        .requestMatchers("/actuator/**", "/procedimento/**" ).hasRole("AUDITOR")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

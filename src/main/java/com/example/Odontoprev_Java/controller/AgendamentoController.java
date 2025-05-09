@@ -33,8 +33,6 @@ public class AgendamentoController {
     @Autowired
     private ProcedimentoService procedimentoService;
 
-    @Autowired
-    private UsuarioService usuarioService;
 
     @GetMapping(value = "/")
     public String agendar(@AuthenticationPrincipal UsuarioDetails usuarioDetails, Model model) {
@@ -81,7 +79,7 @@ public class AgendamentoController {
         Long usuarioIdLogado = usuarioDetails.getUsuario().getId();
         Long pacienteIdDoForm = agendamentoPacienteRequestDTO.getPacienteId();
 
-        if (!usuarioService.isUsuarioLogadoIgualAoFormulario(usuarioIdLogado, pacienteIdDoForm)) {
+        if (!pacienteService.findByCredenciais(usuarioIdLogado).getId().equals(pacienteIdDoForm)) {
             return "redirect:/erro/403";
         }
 

@@ -2,9 +2,7 @@ package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaResponseDTO;
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaRequestDTO;
-import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteResponseDTO;
 import com.example.Odontoprev_Java.Model.Clinica;
-import com.example.Odontoprev_Java.Model.Paciente;
 import com.example.Odontoprev_Java.Model.usuario.Usuario;
 import com.example.Odontoprev_Java.repository.ClinicaRepository;
 
