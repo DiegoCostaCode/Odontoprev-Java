@@ -94,6 +94,19 @@ Nesta última Sprint, realizamos diversas melhorias para otimizar a estrutura do
 - 📁 `/dto/pacienteDTO/`
 
 ---
+#### **Auditor**
+- **id**: Identificador único do agendamento.
+- **nome**: Nome do plano.
+- **telefone**: Contato do auditor.
+- **usuario_id**: Referência às credenciais do paciente.
+
+  📂 **Arquitetura:**
+- 📁 `/controller/AuditorController.java`
+- 📁 `/service/AuditorService.java`
+- 📁 `/repository/AuditorRepository.java`
+- 📁 `/dto/auditorDTO/`
+
+---
 #### **Agendamento**
 - **id**: Identificador único do agendamento.
 - **dataAgendamento**: Data do agendamento.
@@ -107,7 +120,7 @@ Nesta última Sprint, realizamos diversas melhorias para otimizar a estrutura do
 📂 **Arquitetura:**
 - 📁 `/controller/AgendamentoController.java`
 - 📁 `/service/AgendamentoService.java`
-- 📁 `/repository/AgendamentoService.java`
+- 📁 `/repository/AgendamentoRepository.java`
 - 📁 `/dto/agendamentoDTO/`
 
 ---
@@ -122,7 +135,7 @@ Nesta última Sprint, realizamos diversas melhorias para otimizar a estrutura do
 📂 **Arquitetura:**
 - 📁 `/controller/ProcedimentoController.java`
 - 📁 `/service/ProcedimentoService.java`
-- 📁 `/repository/ProcedimentoService.java`
+- 📁 `/repository/ProcedimentoRepository.java`
 - 📁 `/dto/procedimentoDTO/`
 
 ---
@@ -137,8 +150,10 @@ Nesta última Sprint, realizamos diversas melhorias para otimizar a estrutura do
 📂 **Arquitetura:**
 - 📁 `/controller/PlanoController.java`
 - 📁 `/service/PlanoService.java`
-- 📁 `/repository/PlanoService.java`
+- 📁 `/repository/PlanoRepository.java`
 - 📁 `/dto/planoDTO/`
+
+`
 
 ---
 ## 🖥️ News Views e Endpoints
@@ -162,14 +177,18 @@ Retorna uma lista de todos os usuários do tipo especificado (Acesso exclusivo p
 #### **GET View** `/{tipo}/edit/`
 Retorna a página de edição do perfil do usuário (Acesso restrito ao próprio usuário e a auditores).
 
-![img.png](Documentation/get_page_edit.png)
+![get_page_edit.png](Documentation/get_page_edit.png)
 
 #### **GET View** `/agendamentos/`
 Retorna uma página para cadastro e visualização de agendamentos (Acesso restrito a clínicas e pacientes).
 
 **Visão clínica:**
 
+![agendamentos_get_view_clinica.png](Documentation/agendamentos_get_view_clinica.png)
+
 **Visão paciente:**
+
+![agendamentos_get_view_paciente.png](Documentation/agendamentos_get_view_paciente.png)
 
 #### **POST** `/{tipo}/register/`
 Registra um novo usuário no sistema.
@@ -179,6 +198,9 @@ Atualiza os dados do usuário.
 
 #### **POST** `/{tipo}/delete/{id}`
 Remove o usuário do sistema.
+
+---
+## 📮 Mensageria
 
 ---
 ## 📖 Como Rodar a Aplicação
