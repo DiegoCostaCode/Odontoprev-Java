@@ -47,7 +47,9 @@ Nesta última Sprint, realizamos diversas melhorias para otimizar a estrutura do
 
 ### **Modelo Banco de Dados**
 
-![database_diagram.png](Documentation/database_diagram.png)
+Importante dizer que a aplicação é um MVP, e não reflete totalmente o modelo de banco de dados, que imaginavamos para uma versão final.
+
+![database_diagram.png](Documentation/modelo-db.png)
 
 ### **Entidades**
 #### **Clínica**
@@ -199,8 +201,168 @@ Atualiza os dados do usuário.
 #### **POST** `/{tipo}/delete/{id}`
 Remove o usuário do sistema.
 
+#### **POST** `/update/{idAgendamento}/clinica/`
+Atualiza os dados do agendamento/atendimento.
+
 ---
 ## 📮 Mensageria
+
+Utilizamos a mensageria, para capturar a finalização de um agendamento, e envia para o serviço de IA, que irá analisar o procedimento e o valor cobrado pela clínica.
+
+Informações de fila são passadas no arquivo `application.properties` e recebidas pelas classes como variáveis de ambiente.:
+
+```properties
+app.rabbitmq.queue=agendamento.queue
+app.rabbitmq.exchange=agendamento.exchange
+app.rabbitmq.routingkey=agendamento.routingkey
+```
+
+Como passamos dados dos agendamentos pela mensagem, configuramos a conversão para Json, evitando problemas de serialização.
+
+```java
+    @Bean
+   public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
+      final var rabbitTemplate = new RabbitTemplate(connectionFactory);
+      rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());
+      return rabbitTemplate;
+   }
+   
+   @Bean
+   public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
+      return new Jackson2JsonMessageConverter();
+   }
+```
+
+**💥 Producer/trigger**
+
+```java
+@Service
+public class AgendamentoProducer {
+
+   private static final Logger log = LoggerFactory.getLogger(AgendamentoProducer.class);
+
+   private final RabbitTemplate rabbitTemplate;
+   private final String exchange;
+   private final String routingKey;
+
+
+   public AgendamentoProducer(RabbitTemplate rabbitTemplate,
+                              @Value("${app.rabbitmq.exchange}") String exchange,
+                              @Value("${app.rabbitmq.routingkey}")String routingKey) {
+      this.rabbitTemplate = rabbitTemplate;
+      this.exchange = exchange;
+      this.routingKey = routingKey;
+   }
+
+   public void enviarParaFIladeAnaliseAI(AgendamentoResponseDTO agendamento) {
+      log.info("Enviando agendamento para fila de análise: {}", agendamento);
+      rabbitTemplate.convertAndSend(exchange, routingKey, agendamento);
+      log.info("Agendamento enviado para fila de análise!");
+   }
+
+}
+```
+
+**🚚 Consumer**
+
+```java
+@Component
+public class AgendamentoConsumer {
+
+    private static final Logger log = LoggerFactory.getLogger(AgendamentoConsumer.class);
+
+    @Autowired
+    private MistralService mistralService;
+
+    @RabbitListener(queues = "${app.rabbitmq.queue}")
+    public void processarAgendamento(AgendamentoResponseDTO agendamento) {
+        log.info("Agendamento recebido: {}", agendamento);
+
+        MistralPromptResponseDTO resultado = mistralService.verificarAgendamento(agendamento);
+
+        if (resultado.fraude()) {
+            log.warn("Fraude detectada no agendamento ID: {}", agendamento.id());
+        } else {
+            log.info("Agendamento ID {} verificado como legítimo.", agendamento.id());
+        }
+
+        log.info("Detalhes da IA: {}", resultado.resposta());
+    }
+}
+```
+
+---
+## 🤖 Modelo de IA
+
+Utilizamos o modelo **Mistral**, integrado ao sistema por meio da biblioteca [LangChain4j](https://github.com/langchain4j/langchain4j). A escolha do Mistral foi motivada por sua capacidade de lidar com prompts complexos e fornecer respostas rápidas e precisas, essenciais para a análise de agendamentos e detecção de fraudes.
+
+### **Por que escolhemos o Mistral?**
+- **Desempenho:** O Mistral é otimizado para tarefas de processamento de linguagem natural, garantindo análises rápidas.
+- **Flexibilidade:** Permite a personalização de prompts para atender às necessidades específicas do projeto.
+- **Integração:** Compatível com a biblioteca LangChain4j, facilitando a comunicação com o backend Java.
+
+### **Prompt Utilizado**
+
+Misturamos instruções, regras, e dados do agendamento (sem expor dados sensíveis) para gerar um prompt que guiasse a IA na análise de possíveis fraudes.
+
+Estratégia de RTF [**Role Task Format**](https://www.tiago.cafe/engenharia-de-prompt-inteligencia-artificial-no-gerenciamento-de-projetos/#o-que-é-a-fórmula-rtf).
+
+```java
+public String gerarPromptDeFraude(AgendamentoResponseDTO agendamento) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        return String.format(
+                """
+                Você é um assistente virtual de um auditor de uma empresa de saúde. Sua tarefa é analisar os dados de um agendamento e determinar se ele é suspeito de fraude.
+                
+                As datas estão no formato "dd/MM/yyyy HH:mm". Valores monetários estão em reais (R$).
+                
+                Analise os seguintes pontos com atenção:
+                
+                1. **Duração da consulta**: Verifique se há inconsistência entre a Data do Agendamento e a data de Finalização (tempo muito curto ou longo pode indicar fraude).
+                2. **Descrição do atendimento**: Compare com a descrição esperada do procedimento (ou com palavras-chave esperadas). Caso a descrição esteja fora do escopo do procedimento, indique possível fraude.
+                3. **Procedimentos realizados**: Verifique se houve adição de procedimentos não previstos originalmente. Fique atento a por exemplo: Limpeza, não se pode ter remoção de dentes. 
+                4. **Preço do atendimento**: Compare com o valor de cobertura da empresa para identificar discrepâncias.
+                
+                Aqui estão os detalhes do agendamento para sua análise:
+                
+                ID do Agendamento: %d  
+                Data do Agendamento: %s  
+                Finalizado em: %s  
+                Status do Agendamento: %s  
+                Paciente: %s  
+                Clínica: %s  
+                Procedimento: %s  
+                Cobertura de nossa empresa para o Procedimento: R$ %.2f  
+                Preço do Atendimento: R$ %.2f  
+                Descrição do atendimento (visão clínica): %s  
+                Descrição do procedimento (visão Odontoprev): %s
+                
+                Com base nesses dados, determine se este agendamento apresenta sinais de fraude ou irregularidades. Sua resposta deve estar no formato JSON abaixo:
+                
+                {
+                "fraude": true/false,
+                "descricao_coerente": true/false,
+                "resposta": "Explique claramente o motivo da classificação. Destaque sinais observados como duração atípica, preço fora da cobertura, ou descrição incompatível com o procedimento. Mesmo que não haja fraude, justifique brevemente o porquê."
+                }
+                """,
+                agendamento.id(),
+                agendamento.dataAgendamento().format(formatter),
+                agendamento.finalizadoEm().format(formatter),
+                agendamento.status(),
+                agendamento.paciente(),
+                agendamento.clinica(),
+                agendamento.procedimento(),
+                agendamento.procedimentoCobertura(),
+                agendamento.atendimentoValor(),
+                agendamento.descricaoAtendimento(),
+                agendamento.descricaoProcedimento()
+        );
+
+
+    }
+```
 
 ---
 ## 📖 Como Rodar a Aplicação
@@ -244,21 +406,42 @@ dependencies {
    ```sh
    cd Odontoprev-Java
    ```
-3. **Compile e construa o projeto com Gradle:**
-   ```sh
-   ./gradlew build
+3. **Variáveis no `aplication.properties`**
+      
+   Os valores entro `> <` podem ser declarados hardcoded, ou passados como variáveis de ambiente.
+   
+   ```properties
+   spring.datasource.url= >sua connection string<
+   spring.datasource.username= >username do seu banco<
+   spring.datasource.password= >senha<
+   spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver
+   spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.SQLServerDialect
+
+   #RabbitMQ
+
+   spring.rabbitmq.host= >Localhost ou IP da máquina onde está rodando o RabbitMQ<
+   spring.rabbitmq.port=5672
+   spring.rabbitmq.username=guest
+   spring.rabbitmq.password=guest
+
+   app.rabbitmq.queue=agendamento.queue
+   app.rabbitmq.exchange=agendamento.exchange
+   app.rabbitmq.routingkey=agendamento.routingkey
    ```
-4. **Rode o RabbitMQ para testar mensageria:**
-   
-   No ```aplication.properties```  na variável ```spring.rabbitmq.host``` coloque o ip da sua máquina. Ou, crie uma variável de ambiente com a id  ```rabbitService```.
-   
-   Depois,
+
+5. **Rode o RabbitMQ para testar mensageria:**
+
    ```
    docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4-management
    ```
-6. **Instale o [Ollama](https://ollama.com), e ao rodar, faça pull do modelo Mistral**
+   
+6. **Instale o [Ollama](https://ollama.com), e ao rodar, abra o CMD da sua máquina e faça pull do modelo Mistral**
    ```
    ollama pull mistral
+   ```
+7. **Compile e construa o projeto com Gradle:**
+   ```sh
+   ./gradlew build
    ```
 8. **Execute a aplicação:**
    ```sh
