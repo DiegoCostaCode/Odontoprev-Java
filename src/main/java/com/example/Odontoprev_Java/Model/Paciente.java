@@ -33,7 +33,7 @@ public class Paciente {
     @Column(name = "Telefone", unique = true)
     private String telefone;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "plano_id", referencedColumnName = "id")
     private Plano plano;
 
