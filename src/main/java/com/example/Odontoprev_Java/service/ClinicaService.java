@@ -2,8 +2,8 @@ package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaResponseDTO;
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaRequestDTO;
-import com.example.Odontoprev_Java.Model.Clinica;
-import com.example.Odontoprev_Java.Model.usuario.Usuario;
+import com.example.Odontoprev_Java.model.Clinica;
+import com.example.Odontoprev_Java.model.usuario.Usuario;
 import com.example.Odontoprev_Java.repository.ClinicaRepository;
 
 import org.springframework.beans.BeanUtils;

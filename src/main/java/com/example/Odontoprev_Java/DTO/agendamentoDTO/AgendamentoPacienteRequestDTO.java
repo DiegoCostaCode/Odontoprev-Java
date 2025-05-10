@@ -1,10 +1,9 @@
 package com.example.Odontoprev_Java.DTO.agendamentoDTO;
 
-import com.example.Odontoprev_Java.Model.agendamento.Enum_status_agendamento;
+import com.example.Odontoprev_Java.model.agendamento.Enum_status_agendamento;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -2,11 +2,11 @@ package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteResponseDTO;
-import com.example.Odontoprev_Java.Model.Paciente;
-import com.example.Odontoprev_Java.Model.Plano;
-import com.example.Odontoprev_Java.Model.usuario.Enum_tipo_usuario;
+import com.example.Odontoprev_Java.model.Paciente;
+import com.example.Odontoprev_Java.model.Plano;
+import com.example.Odontoprev_Java.model.usuario.Enum_tipo_usuario;
 import jakarta.persistence.EntityManager;
-import com.example.Odontoprev_Java.Model.usuario.Usuario;
+import com.example.Odontoprev_Java.model.usuario.Usuario;
 import com.example.Odontoprev_Java.repository.PacienteRepository;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.PersistenceException;

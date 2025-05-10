@@ -2,8 +2,8 @@ package com.example.Odontoprev_Java.controller;
 
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteRequestDTO;
 import com.example.Odontoprev_Java.DTO.pacienteDTO.PacienteResponseDTO;
-import com.example.Odontoprev_Java.Model.Paciente;
-import com.example.Odontoprev_Java.Model.usuario.UsuarioDetails;
+import com.example.Odontoprev_Java.model.Paciente;
+import com.example.Odontoprev_Java.model.usuario.UsuarioDetails;
 import com.example.Odontoprev_Java.service.PacienteService;
 import com.example.Odontoprev_Java.service.PlanoService;
 import jakarta.validation.Valid;

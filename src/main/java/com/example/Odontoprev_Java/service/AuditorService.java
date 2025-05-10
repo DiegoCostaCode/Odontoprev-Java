@@ -2,8 +2,8 @@ package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.auditorDTO.AuditorRequestDTO;
 import com.example.Odontoprev_Java.DTO.auditorDTO.AuditorResponseDTO;
-import com.example.Odontoprev_Java.Model.Auditor;
-import com.example.Odontoprev_Java.Model.usuario.Usuario;
+import com.example.Odontoprev_Java.model.Auditor;
+import com.example.Odontoprev_Java.model.usuario.Usuario;
 import com.example.Odontoprev_Java.repository.AuditorRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,8 +2,8 @@ package com.example.Odontoprev_Java.controller;
 
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaRequestDTO;
 import com.example.Odontoprev_Java.DTO.clinicaDTO.ClinicaResponseDTO;
-import com.example.Odontoprev_Java.Model.Clinica;
-import com.example.Odontoprev_Java.Model.usuario.UsuarioDetails;
+import com.example.Odontoprev_Java.model.Clinica;
+import com.example.Odontoprev_Java.model.usuario.UsuarioDetails;
 import com.example.Odontoprev_Java.service.ClinicaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

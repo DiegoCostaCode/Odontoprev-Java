@@ -2,10 +2,10 @@ package com.example.Odontoprev_Java.controller;
 
 import com.example.Odontoprev_Java.DTO.agendamentoDTO.AgendamentoClinicaRequestDTO;
 import com.example.Odontoprev_Java.DTO.agendamentoDTO.AgendamentoPacienteRequestDTO;
-import com.example.Odontoprev_Java.Model.Clinica;
-import com.example.Odontoprev_Java.Model.Paciente;
-import com.example.Odontoprev_Java.Model.usuario.Usuario;
-import com.example.Odontoprev_Java.Model.usuario.UsuarioDetails;
+import com.example.Odontoprev_Java.model.Clinica;
+import com.example.Odontoprev_Java.model.Paciente;
+import com.example.Odontoprev_Java.model.usuario.Usuario;
+import com.example.Odontoprev_Java.model.usuario.UsuarioDetails;
 import com.example.Odontoprev_Java.service.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

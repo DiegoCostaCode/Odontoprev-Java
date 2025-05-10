@@ -2,7 +2,7 @@ package com.example.Odontoprev_Java.controller;
 
 import com.example.Odontoprev_Java.DTO.auditorDTO.AuditorRequestDTO;
 import com.example.Odontoprev_Java.DTO.auditorDTO.AuditorResponseDTO;
-import com.example.Odontoprev_Java.Model.Auditor;
+import com.example.Odontoprev_Java.model.Auditor;
 import com.example.Odontoprev_Java.service.AuditorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

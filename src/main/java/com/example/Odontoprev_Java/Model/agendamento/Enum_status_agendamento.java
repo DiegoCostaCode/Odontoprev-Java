@@ -1,4 +1,4 @@
-package com.example.Odontoprev_Java.Model.agendamento;
+package com.example.Odontoprev_Java.model.agendamento;
 
 import lombok.Getter;
 

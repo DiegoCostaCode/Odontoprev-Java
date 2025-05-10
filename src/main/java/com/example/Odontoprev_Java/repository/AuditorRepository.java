@@ -1,6 +1,6 @@
 package com.example.Odontoprev_Java.repository;
 
-import com.example.Odontoprev_Java.Model.Auditor;
+import com.example.Odontoprev_Java.model.Auditor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

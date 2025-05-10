@@ -1,14 +1,8 @@
 package com.example.Odontoprev_Java.controller;
 
-import com.example.Odontoprev_Java.DTO.auditorDTO.AuditorRequestDTO;
-import com.example.Odontoprev_Java.DTO.auditorDTO.AuditorResponseDTO;
 import com.example.Odontoprev_Java.DTO.planosDTO.PlanoRequestDTO;
 import com.example.Odontoprev_Java.DTO.planosDTO.PlanoResponseDTO;
-import com.example.Odontoprev_Java.DTO.procedimentoDTO.ProcedimentoResponseDTO;
-import com.example.Odontoprev_Java.Model.Auditor;
-import com.example.Odontoprev_Java.Model.Plano;
-import com.example.Odontoprev_Java.Model.procedimento.Procedimento;
-import com.example.Odontoprev_Java.service.AuditorService;
+import com.example.Odontoprev_Java.model.Plano;
 import com.example.Odontoprev_Java.service.PlanoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

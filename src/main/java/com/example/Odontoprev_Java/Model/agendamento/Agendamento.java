@@ -1,8 +1,8 @@
-package com.example.Odontoprev_Java.Model.agendamento;
+package com.example.Odontoprev_Java.model.agendamento;
 
-import com.example.Odontoprev_Java.Model.Clinica;
-import com.example.Odontoprev_Java.Model.Paciente;
-import com.example.Odontoprev_Java.Model.procedimento.Procedimento;
+import com.example.Odontoprev_Java.model.Clinica;
+import com.example.Odontoprev_Java.model.Paciente;
+import com.example.Odontoprev_Java.model.procedimento.Procedimento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

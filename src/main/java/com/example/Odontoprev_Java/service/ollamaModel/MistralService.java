@@ -3,12 +3,10 @@ package com.example.Odontoprev_Java.service.ollamaModel;
 
 import com.example.Odontoprev_Java.DTO.agendamentoDTO.AgendamentoResponseDTO;
 import com.example.Odontoprev_Java.DTO.mistralDTO.MistralPromptResponseDTO;
-import com.example.Odontoprev_Java.Model.agendamento.Agendamento;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import jakarta.annotation.PostConstruct;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;

@@ -1,6 +1,6 @@
 package com.example.Odontoprev_Java.DTO.pacienteDTO;
 
-import com.example.Odontoprev_Java.Model.usuario.Enum_tipo_usuario;
+import com.example.Odontoprev_Java.model.usuario.Enum_tipo_usuario;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,6 @@ import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Setter

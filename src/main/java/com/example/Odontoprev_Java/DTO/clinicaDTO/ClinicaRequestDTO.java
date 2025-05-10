@@ -1,6 +1,6 @@
 package com.example.Odontoprev_Java.DTO.clinicaDTO;
 
-import com.example.Odontoprev_Java.Model.usuario.Enum_tipo_usuario;
+import com.example.Odontoprev_Java.model.usuario.Enum_tipo_usuario;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

@@ -2,7 +2,7 @@ package com.example.Odontoprev_Java.controller;
 
 import com.example.Odontoprev_Java.DTO.procedimentoDTO.ProcedimentoRequestDTO;
 import com.example.Odontoprev_Java.DTO.procedimentoDTO.ProcedimentoResponseDTO;
-import com.example.Odontoprev_Java.Model.procedimento.Procedimento;
+import com.example.Odontoprev_Java.model.procedimento.Procedimento;
 import com.example.Odontoprev_Java.service.ProcedimentoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

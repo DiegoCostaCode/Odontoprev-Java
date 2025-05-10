@@ -1,4 +1,4 @@
-package com.example.Odontoprev_Java.Model.procedimento;
+package com.example.Odontoprev_Java.model.procedimento;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package com.example.Odontoprev_Java.DTO.procedimentoDTO;
 
-import com.example.Odontoprev_Java.Model.procedimento.Enum_procedimento;
+import com.example.Odontoprev_Java.model.procedimento.Enum_procedimento;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

@@ -1,6 +1,6 @@
 package com.example.Odontoprev_Java.repository;
 
-import com.example.Odontoprev_Java.Model.agendamento.Agendamento;
+import com.example.Odontoprev_Java.model.agendamento.Agendamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

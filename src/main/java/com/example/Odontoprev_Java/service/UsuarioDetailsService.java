@@ -1,8 +1,7 @@
 package com.example.Odontoprev_Java.service;
 
-import com.example.Odontoprev_Java.Model.usuario.Usuario;
-import com.example.Odontoprev_Java.Model.usuario.UsuarioDetails;
-import com.example.Odontoprev_Java.repository.UsuarioRepository;
+import com.example.Odontoprev_Java.model.usuario.Usuario;
+import com.example.Odontoprev_Java.model.usuario.UsuarioDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
