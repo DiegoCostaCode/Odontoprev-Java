@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "e652e8fa-e939-46fb-8435-94304400305b",
+		"name": "SPRINT2 - Java",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "34573297"
+	},
+	"item": [
+		{
+			"name": "paciente",
+			"item": [
+				{
+					"name": "paciente-by-id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/paciente/"
+					},
+					"response": []
+				},
+				{
+					"name": "paciente-cadastro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Lucas Minozzo Bronzeri\",\r\n    \"cpf\": \"447.516.570-97\",\r\n    \"dataNascimento\": \"06/10/2004\",\r\n    \"email\": \"lucasminozzo@gmail.com\",\r\n    \"telefone\": \"(011)96409-0604\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/paciente"
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar-cadastro",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:8080/paciente/1"
+					},
+					"response": []
+				},
+				{
+					"name": "deletar-cadastro",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/paciente/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "plano",
+			"item": [
+				{
+					"name": "criarPlano",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Plano Premium\",\r\n  \"descricao\": \"Cobertura total para todos os tratamentos odontológicos, incluindo cirurgias e ortodontia.\",\r\n  \"preco\": 120,\r\n  \"ativo\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/plano"
+					},
+					"response": []
+				},
+				{
+					"name": "planosAtivos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/plano"
+					},
+					"response": []
+				},
+				{
+					"name": "plano-atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id_plano\": 1,\r\n        \"nome\": \"Plano Premium\",\r\n        \"descricao\": \"Cobertura total para todos os tratamentos odontológicos, incluindo cirurgias e ortodontia.\",\r\n        \"preco\": 120.0,\r\n        \"ativo\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/plano/1"
+					},
+					"response": []
+				},
+				{
+					"name": "plano-ativar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:8080/plano/api/ativar/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "procedimento",
+			"item": [
+				{
+					"name": "registrarProcedimento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"RESTAURACAO\",\r\n    \"valorCobertura\": 500.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/procedimento/api/"
+					},
+					"response": []
+				},
+				{
+					"name": "procedimentosAtivos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/procedimento"
+					},
+					"response": []
+				},
+				{
+					"name": "ativarProcedimento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"RESTAURACAO\",\r\n    \"valorCobertura\": 550.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/procedimento/1"
+					},
+					"response": []
+				},
+				{
+					"name": "atualizarProcedimento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"LIMPEZA\",\r\n    \"descricao\": \"Procedimento de limpeza bucal realizado com profilaxia, remoção de placa bacteriana e polimento dentário. Sem intercorrências ou necessidade de procedimentos adicionais. Atendimento concluído conforme o previsto no agendamento.\",\r\n    \"valorCobertura\": 120.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/plano/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auditor",
+			"item": [
+				{
+					"name": "cadastrarAuditor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Diego Costa Silva\",\r\n    \"telefone\": \"(11) 98227-2082\",\r\n    \"email\": \"diegocosta.contato2021@gmail.com\",\r\n    \"senha\": \"diego123@@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/auditor/api/"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "usuario",
+			"item": [
+				{
+					"name": "usuarioLogin(beta)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8080/usuario/api/"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -365,6 +365,19 @@ public String gerarPromptDeFraude(AgendamentoResponseDTO agendamento) {
 ```
 
 ---
+## 🌡️ Prometheus
+
+### Instale o promotheus na sua máquina em [prometheus](https://prometheus.io) e ao rodar o servidor, acesse ```localhost:9090/```.
+
+Sozinho ele irá identificar a aplicação Java.
+
+![img.png](Documentation/prometheus_target.png)
+
+E, você poderá inserir queries e visualizar as métricas de forma gráfica.
+
+![img_1.png](Documentation/example_querie.png)
+
+---
 ## 📖 Como Rodar a Aplicação
 
 ### Dependências do Projeto
