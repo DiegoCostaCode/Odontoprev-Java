@@ -49,7 +49,7 @@ public class PacienteRequestDTO {
     private String senha;
 
     @NotNull(message = "Você deve escolher um plano!")
-    private Long id_plano;
+    private Long idPlano;
 
     private final Enum_tipo_usuario tipo = Enum_tipo_usuario.PACIENTE;
 }

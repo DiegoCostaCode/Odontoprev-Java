@@ -38,7 +38,7 @@ public class PacienteService {
     @Transactional
     public Paciente savePaciente(PacienteRequestDTO pacienteRequestDTO)
     {
-        Plano plano = planoService.findById(pacienteRequestDTO.getId_plano());
+        Plano plano = planoService.findById(pacienteRequestDTO.getIdPlano());
 
         if (plano == null) {
             throw new IllegalArgumentException("Plano não encontrado");
@@ -65,7 +65,7 @@ public class PacienteService {
             throw new IllegalArgumentException("Usuário não encontrado");
         }
 
-        Plano plano = planoService.findById(pacienteRequestDTO.getId_plano());
+        Plano plano = planoService.findById(pacienteRequestDTO.getIdPlano());
 
         if (plano == null) {
             throw new IllegalArgumentException("Plano não encontrado");
@@ -134,7 +134,7 @@ public class PacienteService {
         pacienteRequest.setDataNascimento(paciente.getDataNascimento());
         pacienteRequest.setEmail(paciente.getUsuario().getEmail());
         pacienteRequest.setSenha(paciente.getUsuario().getSenha());
-        pacienteRequest.setId_plano(paciente.getPlano().getId());
+        pacienteRequest.setIdPlano(paciente.getPlano().getId());
 
         return pacienteRequest;
     }
@@ -163,7 +163,7 @@ public class PacienteService {
                 .setParameter("p_cpf", pacienteRequestDTO.getCpf())
                 .setParameter("p_data_nascimento", pacienteRequestDTO.getDataNascimento())
                 .setParameter("p_telefone", pacienteRequestDTO.getTelefone())
-                .setParameter("p_planos_id", pacienteRequestDTO.getId_plano())
+                .setParameter("p_planos_id", pacienteRequestDTO.getIdPlano())
                 .setParameter("p_email", pacienteRequestDTO.getEmail())
                 .setParameter("p_senha", pacienteRequestDTO.getSenha())
                 .setParameter("p_tipo_usuario", Enum_tipo_usuario.PACIENTE.toString())
@@ -187,7 +187,7 @@ public class PacienteService {
                     .setParameter("p_cpf", pacienteRequestDTO.getCpf())
                     .setParameter("p_data_nascimento", pacienteRequestDTO.getDataNascimento())
                     .setParameter("p_telefone", pacienteRequestDTO.getTelefone())
-                    .setParameter("p_planos_id", pacienteRequestDTO.getId_plano())
+                    .setParameter("p_planos_id", pacienteRequestDTO.getIdPlano())
                     .setParameter("p_email", pacienteRequestDTO.getEmail())
                     .setParameter("p_senha", pacienteRequestDTO.getSenha())
                     .executeUpdate();

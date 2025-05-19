@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -34,8 +35,6 @@ public class SecurityConfiguration {
                                 "/",
                                 "/usuario/api/",
                                 "/paciente/api/",
-                                "/procedimento/**",
-                                "/plano/**",
                                 "/auditor/api/",
                                 "/clinica/register",
                                 "/paciente/register"
@@ -48,12 +47,12 @@ public class SecurityConfiguration {
                         .requestMatchers("/clinica/**").hasRole("CLINICA")
                         .requestMatchers("/paciente/**").hasRole("PACIENTE")
                         .requestMatchers("/auditor/**").hasRole("AUDITOR")
-                        .requestMatchers("/actuator/**", "/procedimento/**" ).hasRole("AUDITOR")
+                        .requestMatchers("/actuator/**", "/procedimento/**", "/plano/**" ).hasRole("AUDITOR")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/", true)
+                        .successHandler(customAuthenticationSuccessHandler())
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -74,6 +73,25 @@ public class SecurityConfiguration {
         authProvider.setPasswordEncoder(passwordEncoder);
         return authProvider;
     }
+
+    @Bean
+    public AuthenticationSuccessHandler customAuthenticationSuccessHandler() {
+        return (request, response, authentication) -> {
+            var authorities = authentication.getAuthorities();
+            String redirectUrl = "/";
+
+            if (authorities.stream().anyMatch(a ->
+                    a.getAuthority().equals("ROLE_CLINICA") || a.getAuthority().equals("ROLE_PACIENTE"))) {
+                redirectUrl = "/agendamentos/";
+            } else if (authorities.stream().anyMatch(a ->
+                    a.getAuthority().equals("ROLE_AUDITOR"))) {
+                redirectUrl = "/clinica/all";
+            }
+
+            response.sendRedirect(redirectUrl);
+        };
+    }
+
 
 }
 

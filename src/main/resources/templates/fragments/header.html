@@ -31,7 +31,7 @@
     </nav>
 
     <div class="user-info">
-        <a th:href="@{/{role}/edit/ (role=${#authentication.principal.usuario.tipo.getDescricao()})}">
+        <a sec:authorize="hasRole('PACIENTE') or hasRole('CLINICA')" th:href="@{/{role}/edit/ (role=${#authentication.principal.usuario.tipo.getDescricao()})}">
             <i class="fa-solid fa-user"></i>
         </a>
         <a th:href="@{/logout}" class="logout-button">

@@ -40,9 +40,20 @@ public class ProcedimentoController {
         return new ResponseEntity<>(procedimentoResponse, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/api/ativar/{id}")
-    public ResponseEntity<ProcedimentoResponseDTO> updatStatus(@PathVariable Long id, @Valid @RequestBody ProcedimentoRequestDTO procedimentoRequest) {
+    @PutMapping(value = "/api/{id}")
+    public ResponseEntity<ProcedimentoResponseDTO> updateProc(@PathVariable Long id, @Valid @RequestBody ProcedimentoRequestDTO procedimentoRequest) {
+
         Procedimento procedimento = procedimentoService.update(id, procedimentoRequest);
+
+        ProcedimentoResponseDTO procedimentoResponse = procedimentoService.procedimentoResponse(procedimento);
+
+        return new ResponseEntity<>(procedimentoResponse, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/api/ativar/{id}")
+    public ResponseEntity<ProcedimentoResponseDTO> updateStatus(@PathVariable Long id) {
+
+        Procedimento procedimento = procedimentoService.ativarProc(id);
 
         ProcedimentoResponseDTO procedimentoResponse = procedimentoService.procedimentoResponse(procedimento);
 

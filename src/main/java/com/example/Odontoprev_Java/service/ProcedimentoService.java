@@ -2,6 +2,7 @@ package com.example.Odontoprev_Java.service;
 
 import com.example.Odontoprev_Java.DTO.procedimentoDTO.ProcedimentoRequestDTO;
 import com.example.Odontoprev_Java.DTO.procedimentoDTO.ProcedimentoResponseDTO;
+import com.example.Odontoprev_Java.model.Plano;
 import com.example.Odontoprev_Java.model.procedimento.Procedimento;
 import com.example.Odontoprev_Java.repository.ProcedimentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,18 @@ public class ProcedimentoService {
         procedimento.setStatus("T");
 
         return procedimentoRepository.save(procedimento);
+    }
+
+    public Procedimento ativarProc(Long id)
+    {
+        Procedimento proc = findById(id);
+
+        if (proc != null) {
+            proc.setStatus("T");
+            return procedimentoRepository.save(proc);
+        }
+
+        return null;
     }
 
 }
