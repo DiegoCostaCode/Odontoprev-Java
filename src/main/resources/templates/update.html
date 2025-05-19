@@ -89,7 +89,7 @@
 
             <div>
                 <label for="plano" th:text="#{label.plano}"></label>
-                <select id="plano" name="planos" required th:field="*{id_plano}">
+                <select id="plano" name="planos" required th:field="*{idPlano}">
                     <option th:each="plano : ${planos}"
                             th:value="${plano.id}"
                             th:text="${plano.nome}"

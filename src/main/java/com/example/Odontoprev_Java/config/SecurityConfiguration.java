@@ -34,7 +34,9 @@ public class SecurityConfiguration {
                                 "/actuator/prometheus",
                                 "/",
                                 "/usuario/api/",
-                                "/paciente/api/",
+                                "/paciente/api/**",
+                                "/procedimento/**",
+                                "/plano/**",
                                 "/auditor/api/",
                                 "/clinica/register",
                                 "/paciente/register"
@@ -47,7 +49,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/clinica/**").hasRole("CLINICA")
                         .requestMatchers("/paciente/**").hasRole("PACIENTE")
                         .requestMatchers("/auditor/**").hasRole("AUDITOR")
-                        .requestMatchers("/actuator/**", "/procedimento/**", "/plano/**" ).hasRole("AUDITOR")
+                        .requestMatchers("/actuator/**" ).hasRole("AUDITOR")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

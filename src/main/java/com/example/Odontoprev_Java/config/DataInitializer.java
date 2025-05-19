@@ -31,20 +31,18 @@ public class DataInitializer {
     private final ClinicaRepository clinicaRepository;
     private final PacienteRepository pacienteRepository;
     private final AuditorRepository auditorRepository;
-    private final PasswordEncoder passwordEncoder;
     private final ProcedimentoService procedimentoService;
     private final ClinicaService clinicaService;
     private final PlanoService planoService;
     private final PacienteService pacienteService;
     private final AuditorService auditorService;
 
-    public DataInitializer(PlanosRepository planoRepository, ProcedimentoRepository procedimentoRepository, ClinicaRepository clinicaRepository, PacienteRepository pacienteRepository, AuditorRepository auditorRepository, PasswordEncoder passwordEncoder, ProcedimentoService procedimentoService, ClinicaService clinicaService, PlanoService planoService, PacienteService pacienteService, AuditorService auditorService) {
+    public DataInitializer(PlanosRepository planoRepository, ProcedimentoRepository procedimentoRepository, ClinicaRepository clinicaRepository, PacienteRepository pacienteRepository, AuditorRepository auditorRepository, ProcedimentoService procedimentoService, ClinicaService clinicaService, PlanoService planoService, PacienteService pacienteService, AuditorService auditorService) {
         this.planoRepository = planoRepository;
         this.procedimentoRepository = procedimentoRepository;
         this.clinicaRepository = clinicaRepository;
         this.pacienteRepository = pacienteRepository;
         this.auditorRepository = auditorRepository;
-        this.passwordEncoder = passwordEncoder;
         this.procedimentoService = procedimentoService;
         this.clinicaService = clinicaService;
         this.planoService = planoService;

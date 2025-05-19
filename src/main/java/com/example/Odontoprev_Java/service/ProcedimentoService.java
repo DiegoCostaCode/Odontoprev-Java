@@ -68,7 +68,7 @@ public class ProcedimentoService {
         procedimento.setValorCobertura(procedimentoRequestDTO.getValorCobertura());
         procedimento.setDescricao(procedimentoRequestDTO.getDescricao());
         procedimento.setDataAtualizacao(LocalDateTime.now());
-        procedimento.setStatus("T");
+        procedimento.setStatus("F");
 
         return procedimentoRepository.save(procedimento);
     }

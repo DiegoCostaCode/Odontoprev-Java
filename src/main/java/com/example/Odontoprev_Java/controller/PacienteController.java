@@ -102,6 +102,16 @@ public class PacienteController {
         return "update";
     }
 
+    @PostMapping(value = "/update/")
+    public String pacienteUpdate(@AuthenticationPrincipal UsuarioDetails usuarioDetails, @Valid PacienteRequestDTO pacienteRequestDTO, Model model){
+
+        Paciente paciente = pacienteService.findByCredenciais(usuarioDetails.getUsuario().getId());
+
+        pacienteService.updatePaciente(pacienteRequestDTO,paciente.getId());
+
+        return "redirect:/agendamentos/";
+    }
+
     @PostMapping("/register")
     public String savePaciente(@Valid @ModelAttribute PacienteRequestDTO pacienteRequestDTO, Model model)
     {
@@ -113,15 +123,7 @@ public class PacienteController {
         return "redirect:/paciente/all";
     }
 
-    @PostMapping(value = "/update/")
-    public String pacienteUpdate(@AuthenticationPrincipal UsuarioDetails usuarioDetails, @Valid PacienteRequestDTO pacienteRequestDTO, Model model){
 
-        Paciente paciente = pacienteService.findByCredenciais(usuarioDetails.getUsuario().getId());
-
-        pacienteService.updatePaciente(pacienteRequestDTO,paciente.getId());
-
-        return "redirect:/agendamentos/";
-    }
 
     @GetMapping(value = "/delete/{id}")
     public String pacienteDelete(@AuthenticationPrincipal UsuarioDetails usuarioDetails,@PathVariable long id, Model model){
