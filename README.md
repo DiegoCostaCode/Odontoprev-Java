@@ -380,6 +380,53 @@ E, você poderá inserir queries e visualizar as métricas de forma gráfica.
 ---
 ## 📖 Como Rodar a Aplicação
 
+### 🛠️ Configuração do Banco de Dados
+
+Antes de executar a aplicação, é necessário configurar o banco de dados desejado. O projeto está preparado para funcionar com os seguintes SGBDs:
+
+- H2 (em memória)
+- SQL Server
+- Oracle
+
+No `build.gradle`, descomente ou adicione a dependência do banco que deseja utilizar:
+
+```gradle
+// H2 Database (para testes locais e desenvolvimento simples)
+runtimeOnly 'com.h2database:h2'
+
+// SQL Server
+runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc:12.2.0.jre11'
+
+// Oracle
+runtimeOnly 'com.oracle.database.jdbc:ojdbc11:21.7.0.0'
+```
+
+Já no `aplication.properties`, defina as variáveis: `spring.datasource.driver-class-name`, `spring.datasource.url`, `spring.datasource.username` e `spring.datasource.password`, além do `spring.jpa.database-platform` correspondente ao banco.
+
+**OBS: Em caso de H2, é opcional a configuração no aplication properties.**
+
+Exemplos para MicrosoftSQL e Oracle:
+
+- Microsoft Azure
+
+	```aplication
+	spring.datasource.url=jdbc:sqlserver://sqlserver-java.database.windows.net:1433;database=javadb;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+	spring.datasource.username=${dbUser}
+	spring.datasource.password=${dbPass}
+	spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver
+	```
+ - Oracle
+
+	```aplication
+	 spring.datasource.url=jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl
+	 spring.datasource.username=${dbUser}
+	 spring.datasource.password=${dbPass}
+	 spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+	 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.Oracle12cDialect
+	```
+
+---
+
 ### Dependências do Projeto
 ```gradle
 plugins {
