@@ -53,8 +53,6 @@ public class UsuarioService {
 
         if (!passwordEncoder.matches(senha, usuario.getSenha())) {
             usuario.setSenha(passwordEncoder.encode(senha));
-        } else {
-            usuario.setSenha(senha);
         }
 
         usuario.setTipo(tipo);
