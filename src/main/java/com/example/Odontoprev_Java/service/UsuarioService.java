@@ -50,7 +50,13 @@ public class UsuarioService {
         }
 
         usuario.setEmail(email);
-        usuario.setSenha(senha);
+
+        if (!passwordEncoder.matches(senha, usuario.getSenha())) {
+            usuario.setSenha(passwordEncoder.encode(senha));
+        } else {
+            usuario.setSenha(senha);
+        }
+
         usuario.setTipo(tipo);
 
         return usuarioRepository.save(usuario);
